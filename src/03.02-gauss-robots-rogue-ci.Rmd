@@ -1,0 +1,271 @@
+# Gauss's robots go rogue
+
+```{r , include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, eval = TRUE, message = FALSE, warning = FALSE)
+library(rethinking)
+library(tidyverse)
+library(ggplot2)
+library(GGally)
+library(gganimate)
+library(ggforce) # geom_circle
+library(dplyr)
+library(hershey) # vector font: https://github.com/coolbutuseless/hershey
+library(gifski)
+library(plotly)
+library(ggthemes)
+library(stringr)
+theme_set(theme_economist())
+
+random_datetime <- function(N, st="2015/01/01", et="2015/12/31") {
+  st <- as.POSIXct(as.Date(st))
+  et <- as.POSIXct(as.Date(et))
+  dt <- as.numeric(difftime(et,st,unit="sec"))
+  ev <- sort(runif(N, 0, dt))
+  rt <- st + ev
+  return(rt)
+}
+n <- 203
+date_time <- random_datetime(n, st = "2021/01/01", et = "2021/01/08")
+tests <- rbinom(n, 1, runif(1))
+test_time <- tibble(
+  date_time = date_time,
+  tests = tests
+)
+write_csv(test_time, "week5-tests-1.csv")
+``` 
+
+
+<script>
+function showText(y) {
+    var x = document.getElementById(y);
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+</script>
+
+
+## Spreadsheets? Really?
+
+Yes, emphatically! George Gilder says we should waste transistors (that is chips).[^gilder] Gilder makes the fairly obvious point that we must use transistors (lots of them in an integrated circuit) or go out of business. They are ubiquitous. And arrived everywhere in a very short amount of time to boot. If you do not use them you lose control of your cost structure. Anything you build will be too expensive, too heavy, too big, too slow, too lacking in quality. 
+
+[^gilder]: See [Gilder's comments here](images/09/https://gilderpress.com/2020/03/12/investors-should-ignore-materialistic-superstitions/). He goes on to a further idea: build billions of 1-chip interconnected systems (our mobile phones that are really computers) and waste chips that way instead of manufacturing billion chip data centers. According to Moore's law we will eventually get to a near zero-cost chip.
+
+The same idea goes with Michael Schragge builds on Gilder's ironic hyperbole about transistors and analogizes that we should "waste simulations."[^schragge] If we do not so-called waste prototyping, rapid development, simulating potential problems, solutions, we will also go out of business. We must simulate until we drop! The alternative is that we will miss the one opportunity to improve or the one error that eliminates us. Of course the point he makes is that it iss not a waste, rather we should never shy away from working the problem, simulating the art of the possible.
+
+[^schragge]: Here is a [taste of Schrage's points of view](images/09/https://www.technologyreview.com/2004/07/01/40161/prepared-minds-favor-chance/). He compiled the ["wasting prototyping" paradigm into this book a couple of decades ago](images/09/https://www.amazon.com/exec/obidos/ASIN/0875848141/softwgardeinc).
+
+So what is the value added of a prototype, which is simply a working model? It is about information, and information is a surprise, a deviation from a trend. Schragge believes that testing a hypothesis just gets us to the point of saying we seem, in probability that is, to have a trend going on here. In the world of growth, opportunity, error and ignorance, having a trend is barely the beginning of our journey. It is the deviation from the trend that matters. 
+
+Are we still talking about spreadhseets? Schragge quotes Louis Pasteur: "Chance favors the prepared mind." Here the prepared mind is a product of simulations, the rapidly developed prototypes, Fleming used agar and discovered penicillin -- completely unexpected! Dan Bricklin developed the spreadsheet IBMDOS/Apple IIe program Visicalc.[^bricklin] As a complete surprise this product was able to be used by millions of people to rapidly simulate other products and services. Steve Jobs credited Visicalc with the success of the Apple IIe and the Macintosh in 1985. IBM credited it with the success of the PC. Now people had a reason to buy the PC. 
+
+[^bricklin]: [Here is a summary of his work.](images/09/https://en.wikipedia.org/wiki/Dan_Bricklin) His innovation with Visicalc was to transform 20 hours of work into 15 minutes, almost of play at the time. Visicalc first ran on the Apple IIe. Dan is working on a web-based WikiCalc these days.
+
+Using Visicalc we were able 40 years ago to build practical, plottable, usable option pricing models which transparently allowed us to visualize the calculations directly. Financial analysts built interactive pro forma balance sheet, income statements, and cash flow statements fed from managers' expectations, scenarios, and expert knowledge of markets. These models literally paid for themselves in days, not years. The main criterion for innovation success has always been the customer's payback, not the investors. How long did it take for the customer to recoup her investment? That's the innovation criterion. The spreadsheet is a sophisticated scratchpad some have used to be a production ready system.
+
+But what is the most important message? A working prototype should be a sandbox where everyone is willing to get in and play. It has at least to be durable enough to get to the first slate of useful comments and suggestions for further improvement. Development continues! Rick Lamers recently open sourced his [Grid Studio spreadsheet product with deep integration with Python.](images/09/https://github.com/ricklamers/gridstudio?ref=hackernoon.com)
+
+Yes, let's continue to play.
+
+
+## An auspicious result again?
+
+Instead of nearly 3,000 observations about wages and educational attainment, suppose we only believed that the minimum and maximum wage rate and years of education are credible. This is about the least amount of information we could possible cull from our knowledge of labor markets. If we simulate samples from these markets a lot of times (10,000 let's say) will be get our Gaussian auspicious results again?
+
+To play in this sandbox, let's think a bit about what having just maximum and minimum data means. Here is that dataset.
+
+![](images/09/wage-educ-data-minmax.jpg)
+
+It really does not get simpler than this! Our thought experiment, as we waste Gilder transistors over this, is to consider wages and years of educational attainment to be equally likely within the maximum and minimum intervals in our truly sparse data set. This is an example of the **uniform distribution**. Here is a sketch of the distribution.
+
+![](images/09/wage-educ-uniform.jpg)
+
+There are two parameters only: $a$ is the minimum and $b$ is the maximum of the outcomes $x=X$ on the horizontal axis. The probability that any outcome occurs between $a$ and $b$ is just this,
+
+$$
+Pr(x \mid a, \, b) = \frac{1}{b-a}
+$$
+
+## The most uninformative distribution
+
+Suppose we have no idea about the shape of the distribution of our stock portfolio. We do know that the value of the portfolio can range from \$10,000 to \$15,000 in a 52 week period. What is mean and standard deviation you can expect in this situation?
+
+```{r uniform, echo = FALSE}
+
+a <- 2.14 ; b <- 97.50 ; n <- 5
+mu <- (a + b) / 2
+sig <- (b - a) / 12^0.5
+s_xbar <- sig / sqrt(n)
+
+#mu
+#sig
+#s_xbar
+```
+
+We use the uniform distribution to model our diffuse beliefs. For this problem $a = `r a`$, $b = `r b`$. The population mean of the uniform distribution is
+
+$$
+\mu = \frac{(a+b)}{2} = \frac{`r a` + `r b`}{2} = `r mu`
+$$
+
+The population standard deviation is 
+
+$$
+\sigma = \frac{(b-a)}{\sqrt{12}} = \frac{(`r b` - `r a`)}{`r sqrt(12)`} = `r sig`
+$$
+
+Why? Press this button to flex your calculus-based analytical muscles!
+
+<button onclick="showText('uniform')">show / hide</button>
+<div id="uniform" style="display:none;">
+
+<br>
+We start with the probability distribution function of the uniform distribution.
+
+$$
+\begin{equation}
+f(x) =
+\begin{cases}
+\frac{1}{b-a}, & a \le x \le b \\
+0, & \text{otherwise}
+\end{cases}
+\end{equation}
+$$
+where $x$ is a number between $a$ and $b$, $a \le x \le b$. This equation states simply that in an experiment, say call some brokers, there is an $f(x)$ probability of getting a value $x$. The $f(x$ are all the same and constant. This is about as uninformative a distribution as we can imagine.
+
+What is the expected value? It is just the weighted average of $x$ from $x=a$ to $x=b$ where the weights are all given by $f(x)$. Since $x$ is on the real line, we use the integral to calculate the weighted average. We should expect the answer to be the simple average of $a$ and $b$.
+
+$$
+\begin{align}
+  \mu &= \int_a^b xf(x)dx \\
+      &= \int_a^b x \left(\frac{1}{b-a}\right) dx \\
+      &= \left(\frac{1}{b-a}\right) \int_a^b x\, dx \\
+      &= \left(\frac{1}{b-a}\right) \left. \frac{x^2}{2} \right|_{x=a}^{x=b} \\
+      &= \left(\frac{1}{b-a}\right)\left( \frac{b^2 - a^2}{2}\right) \\
+      &= \frac{a+b}{2}
+\end{align}
+$$
+
+We used the division of $b^2-a^2$ by $b-a$ to get $b+a$, for $(b-a)(b+a)=b^2-a^2$. The result aligns with our intuition. 
+
+How about the variance and standard deviation. We use the result that the variance is
+
+$$
+E(x-\mu)^2 = E(x^2) - \mu^2
+$$
+
+Here the $E(y)$ is the expectation of $y$, that is the weighted average computed in the same way as we did for $\mu$. Intuitively this measure should most likely include the range of the distribution, that is, $b-a$. In fact we can show that the standard deviation is
+
+$$
+\sigma = \frac{b-a}{\sqrt{12}}
+$$
+So it is the range scaled by $\sqrt{12}$. Where on earth did 12 come from?
+
+$$
+\begin{align}
+  E(x^2) &= \int_a^b x^2f(x)dx \\
+      &= \int_a^b x^2 \left(\frac{1}{b-a}\right) dx \\
+      &= \left(\frac{1}{b-a}\right) \int_a^b x^2\, dx \\
+      &= \left(\frac{1}{b-a}\right) \left. \frac{x^3}{3} \right|_{x=a}^{x=b} \\
+      &= \left(\frac{1}{b-a}\right)\left( \frac{b^3 - a^3}{3}\right) \\
+\end{align}
+$$
+
+We then combine this result with $\mu^2$ use our cleverness in combining and simplifying polynomials.
+
+$$
+\begin{align}
+  Var(x) =\sigma^2 &= E(x^2) - [E(x)]^2 \\
+      &= \left(\frac{1}{b-a}\right)\left( \frac{b^3 - a^3}{3}\right) - \frac{(b+a)^2}{4} \\
+      &= \left(\frac{1}{b-a}\right)\left[\frac{4b^3 - 4a^3}{12} - \frac{3(b-a)(b+a)^2}{12}\right] \\
+      &=\frac{(b-a)^2}{12}
+\end{align}
+$$
+
+</div>
+<br>
+
+## Simulate until morale improves!
+
+![](images/09/wage-educ-simulation-minmax.jpg)
+Do we notice a change from the previous model of last week. We compare column F for the two models. Indeed we made an error: we failed to model (and it's an easy model) the sample index from 1 to 12. We missed a sample. Last week there were only 11 samples taken 10,000 times. Well, this week we adjust the model and move on. An improvement here would be to calculate and simulate education means and standard deviations. This is a good exercise and all it takes is to put the cursor into cell L3 and insert two columns using the Home > Insert feature. Then do the same at cell Q3. We then fill in the relevant formulas and check the name manager to be sure the ranges are intact. Then we rerun the model
+
+## Is it true that Gauss is in the house again?
+
+![](images/09/wage-educ-mean-minmax.jpg)
+
+It definitely appears to be so. A near 3.00 mesokurtotic relative frequency distribution with near zero skewness match with a mean that is almost exactly the median all point to a Gaussian distribution.
+
+## And again?
+
+![](images/09/wage-educ-sd-minmax.jpg)
+
+This one's a little rugged do we think? Yes, and probably due to sampling error with square root calculationg. We recall that the standard deviation is the square root of the variance, that the variance is the average of the sum of squared deviations of wage from its arithmetic mean. But all in all it looks Gaussian for the same reasons as the mean.
+
+## The Association
+
+![](images/09/wage-educ-corr-minmax.jpg)
+
+> Correlation is not Causation
+
+True or False? In our simple model, $E \rightarrow W$ where $E$, education, is represented and measured by years of education starting with first grade, and $W$, is the median USD per hour wage rate. This is causation. There is an argument of **antecedent probability** that a highly plausible correlation supports the conjecture (here again, theory, hypothesis) that education causes wages. But by the application of the mind projection fallacy, theory is not all of reality. It can be refuted (we remember, maybe with some trepidation the logical consistency of **modus tollens**). In any case, we might conjecture on the conjecture that correlation is least certain of all findings.
+
+## A tale of coir
+
+Here is a round of work steps we can perform to repurpose our model with coir data to help solve a procurement question.
+
+### Business Situation
+
+We imagine we work for an organization which manufactures activated carbon for filtration systems. We reduce coconut fiber (coir) to carbon using a chemical process to make activated carbon. We are about to contact 12 vendors for price quotes.
+
+Here is a quickly rendered picture of the organization's supply chain from vendors $V$ to customers $C$.
+
+![](images/09/coir-chain.jpg)
+
+The flow of tasks ranges from vendor $V$ through procurement $P$, manufacturing $M$, distribution $D$, all driven by the customer $C$. Political and international relations, regulators, and the Board of Directors $BoD$ govern the management of the processes and relationships. Infrastucture supports the processes.
+
+### Business Questions
+
+1. What is a reasonable range of coir prices we might use to write a contract for coir delivery with a potential vendor?
+
+2. What prices would be considered too high (potential price gouging) ot too low (potential evidence of poor quality coir)?
+
+Both of these questions bear on our organization's tolerance for risk. This tolerance is buried in the Delegation of Authority (DoA) policy understanding between the organization's governing board and the managers the board hires. The DoA helps to align manager actions with organizational preferences and requirements.
+
+### Data
+
+[We visit the coconut community trade organization site](images/09/https://coconutcommunity.org/statistics/market_review/file/coirmarch18) to get a range of possible coir prices. There are two series:. The price difference (basis) is due to insurance and freight charges in the distance between  the two countries. Apparently the direction of trade is from west to east.
+
+Here is a graph taken from the site. It only shows recent history through 2018 unfortunately. A task will be to get more recent data. But for now this will work for us.
+
+![](images/09/coir-prices-graph-iccorg.jpg)
+
+Our manufacturing facility is in Southeast Asia, so we would be taking delivery of coir closer to Indonesia than to Sri Lanka, thus we choose the Indonesian FOB price series for analysis. We keep in mind the International Commercial Terms of trade and the [definition of FOB.](images/09/see https://en.wikipedia.org/wiki/Incoterms)
+
+Here is are our findings.
+
+![](images/09/coir-data-map.jpg)
+The map shows the direction of trade as west to east. Indonesian prices are higher than Sri Lankan prices by a range of USD 130 to 170 per MT. This is called physical price basis and is due to freight charges and the differential between the countries and their supply and demand for coir.
+
+### Analysis
+
+1. We will use the uniform distribution to model 12 vendor price quote responses. Why? Mainly because we are agnostic about the shape of the distribution of possible prices. The only thing we know is a maximum and minimum of prices.
+
+2. Our tolerance for error is set by corporate policy at 5\%. This means that we are looking for the plausibility of prices that center around the most probable price plus or minus $100 \times (1.00 - 0.05)/2 =`r (0.95/2)*100`$\%. We will call this the *high density probability interval**.
+
+3. We simulate 12 vendor price responses many times to generate a distribution of mean prices across the 12 vendors. This move recalls Schrage's **waste simulations** which we will interpret as: we will not sign a contract until we exhaust the possibilities of price movements, or ourselves, whichever comes first.
+
+### Results
+
+1. What is our level of credibility regarding the Indonesian range of coir prices?
+
+2. What low price range is consistent with this data? Why should we be wary?
+
+3. What low price range is consistent with this data? Again, do we have any reason to be wary?
+
+4. What if we were to model the difference (basis) between Indonesia and Sri Lanka? How different are the two prices? We will come back to this question in future rounds!
+
+## Endnotes
+

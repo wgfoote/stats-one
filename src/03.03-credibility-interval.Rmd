@@ -1,0 +1,559 @@
+# Credible interval training?
+
+<script>
+function showText(y) {
+    var x = document.getElementById(y);
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+</script>
+
+```{r include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+options(digits = 3, scipen = 9999)
+library(visNetwork)
+library(tidyverse)
+library(kableExtra)
+
+## Internal Rate of Return (IRR) function
+## Inputs: vector of cash flows (cashflows), scalar interations (maxiter)
+## Outputs: scalar net present value
+IRR <- function(cashflows, maxiter=1000) {
+  t <- seq_along(cashflows)-1
+  ## rate will eventually converge to IRR
+  f <- function(rate)(sum(cashflows/(1+rate)^t))
+  ## use uniroot function to solve for root (IRR = rate) of f = 0
+  ## c(-1,1) bounds solution for only positive or negative rates
+  ## select the root estimate
+  return(uniroot(f, c(-1,1), maxiter = maxiter)$root)
+}
+
+clt_sim <- function(n, source=NULL, param1=NULL, param2=NULL) {
+  r <- 10000  ## Number of replications/samples - DO NOT ADJUST
+  ## This produces a matrix of observations with  
+  ## n columns and r rows. Each row is one sample:
+  my.samples <- switch(source,
+                       "E" = matrix(rexp(n*r,param1),r),
+                       "N" = matrix(rnorm(n*r,param1,param2),r),
+                       "U" = matrix(runif(n*r,param1,param2),r),
+                       "P" = matrix(rpois(n*r,param1),r),
+                       "C" = matrix(rcauchy(n*r,param1,param2),r),
+                       "B" = matrix(rbinom(n*r,param1,param2),r),
+                       "G" = matrix(rgamma(n*r,param1,param2),r),
+                       "X" = matrix(rchisq(n*r,param1),r),
+                       "T" = matrix(rt(n*r,param1),r))
+  all.sample.sums <- apply(my.samples,1,sum)
+  all.sample.means <- apply(my.samples,1,mean)   
+  all.sample.vars <- apply(my.samples,1,var) 
+  par(mfrow=c(2,2))
+  hist(my.samples[1,],col="gray",main="Distribution of One Sample")
+  hist(all.sample.sums,col="gray",main="Sampling Distribution \n of
+       the Sum")
+  hist(all.sample.means,col="gray",main="Sampling Distribution \n of the Mean")
+  hist(all.sample.vars,col="gray",main="Sampling Distribution \n of
+       the Variance")
+}
+## clt_sim(100,source="E",param1=1)
+```
+
+## Imagine this...
+
+Your team job is to handle the 579 current client billings in your team's book of business. You only can contact 10 clients in the short time between now and when you must estimate the range of billings for a revenue forecast for your team's managing director. Specifically,
+
+  1. What is the expected level of billings?
+
+  2. What is the range of billings we might expect?
+
+**What is a team member to do?**
+
+This time around we will try mightily to do these things.
+
+- Understand the reason for estimating with confidence interval
+
+- Calculate credibility / probability intervals for population proportions and means
+
+- Interpret a probability interval
+
+- Know the meaning of margin of error and its use
+
+- Compute sample sizes for different experimental setting
+
+- Know when and how to use z- and t-scores and probability intervals to estimate the population mean
+
+- Compute sample sizes for estimating the population mean
+
+Yes, it seems a very tall order. Actually, all of these items are in our tool box already. Now we use them, interpret the results, mold them to the problem at hand.
+
+## Try this on for size
+
+What is a team member to do? Experiment! That's what. 
+
+- Suppose there are only 10 billings. 
+
+- What if we take samples of 4 billings? There are $_{10}C_4 = 210$ combinations of samples.
+
+- We might enumerate them all. Calculate means for each sample.
+
+- Calculate the mean of the sampled means.
+
+- Compare with the mean of the population of the five experimental billings.
+
+```{r echo = FALSE, mysize=TRUE, size='\\normalsize'}
+## r_moments function
+## INPUTS: r vector
+## OUTPUTS: list of scalars (mean, sd, median, skewness, kurtosis)
+data_moments <- function(data){
+  library(moments)
+  mean.r <- mean(data)
+  sd.r <- sd(data)
+  median.r <- median(data)
+  skewness.r <- skewness(data)
+  kurtosis.r <- kurtosis(data)
+  result <- data.frame(mean = mean.r, std_dev = sd.r, median = median.r, skewness = skewness.r, kurtosis = kurtosis.r)
+  ##result <- data.frame(result, table = t(result))
+  return(result)
+}
+```
+
+Below is the distribution the random variable, sample means.
+
+```{r, out.width = "75%", echo = FALSE}
+x <- c(177.67, 169.33, 149.67, 142.33, 126, 90, 86, 201, 111, 134 )
+N <- 10
+n <- 4
+n_samples <- choose(N,n)
+set.seed(1016)
+mean_sim <- replicate(n_samples, mean(sample(x, size = n, replace = TRUE)))
+n_bins <- 10
+mean_width <- (max(mean_sim) - min(mean_sim)) / n_bins
+sim_df <- data.frame(mean = mean_sim)
+title_samples <- paste("Sample Means: N = ",N,", n = ", n,", Samples = ", n_samples)
+
+ggplot(sim_df, aes(x= mean)) + 
+    geom_histogram(aes(y = ..density..), fill = "blue", color = "white", binwidth = mean_width) +   ggtitle(title_samples)
+```
+
+```{r, echo = FALSE}
+ans <- data_moments(x)
+ans <- round(ans, 4)
+title_raw <- "Billing data: 10 observations"
+knitr::kable(ans, caption = title_raw)
+ans <- data_moments(mean_sim)
+ans <- round(ans, 4)
+knitr::kable(ans, caption = title_samples)
+
+```
+
+Some observations are likely in order. The sampled mean distribution is
+
+  1. Approximately symmetric
+  2. Defined on + to - infinity
+  3. Almost mesokurtic
+  4. Mean of sample means is equal to the population mean
+  5. Standard deviation of sample means is about half of the population standard deviation
+
+That last observation is the square root of one-fourth. The others indicate a normal distribution is at work underneath all of this calculational machinery.
+Are there any recommendations out there?
+
+## What about the sampled standard deviation?
+
+We supposed we had a experimental population of 10 billings. We just pulled several samples of sample size 4 from this population. We just found out that the mean of the sample means is the same as the population mean. This the same as saying that the point estimate of the mean of the sample means is unbiased.
+
+The samples are all pulled from a population with population mean $\mu = 138$ and  has a population standard deviation of $\sigma = 35.33$.
+
+All of this indicates that each and every draw of each of the 4 sampled billings comes from a population distributed with a $\mu = 138$ and a population standard deviation of $\sigma = 35.33$.
+
+Let's get a little more precise using the logic of algebra. We know that each sample is a draw of 4 billings $X = \{X_1, X_2, X_3, X_4\}$, where 1, 2, 3 and 4 are simply any four indiscriminate draws from the experimental population of 10 billings. Now we take just three samples each with 4 draws.
+
+We calculate the mean of the sampled means of each sample here.
+
+$$
+\overline{X} = \frac{1}{3}(\overline{X}_1+\overline{X}_2+\overline{X}_3)
+$$
+
+We then calculate he variance (square of the standard deviation) of the sampled mean.
+
+$$
+\sigma_{\overline{X}}^2 = \left( \frac{1}{3} \right)^2 (\sigma_{\overline{X}_1}^2 + \sigma_{\overline{X}_2}^2 + \sigma_{\overline{X}_3}^2)
+$$
+
+We use a sleight of the algebraic hand to get this result. Here it is below in a separate section.
+
+
+The variance (square of the standard deviation) of the independently drawn (no intersection!) _sum_ of the samples themselves is
+
+$$
+\sigma_{(\overline{X}_1+\overline{X}_2+\overline{X}_3)}^2 = \sigma_{\overline{X}_1}^2 + \sigma_{\overline{X}_2}^2 + \sigma_{\overline{X}_3}^2
+$$
+
+But 
+
+$$
+\sigma_{\overline{X}_1}^2 + \sigma_{\overline{X}_2}^2 + \sigma_{\overline{X}_3}^2 = 3\sigma^2$
+$$
+
+
+Which is three times the square of the population standard deviation. So that,
+
+$$
+\sigma_{\overline{X}}^2 = \left( \frac{1}{4} \right)^2 4\sigma^2 = \frac{\sigma^2}{4}
+$$
+
+and for any sample size $n$, we have the standard deviation of the sampled means as
+
+$$
+\sigma_{\overline{X}} = \frac{\sigma}{\sqrt{n}}
+$$
+
+For our experiment all of this indicates that the distribution of the sample means is
+
+` 1. Approximately normally distributed with 
+  2. Mean = population mean $\mu = 138$, and
+  3. Standard deviation $\sigma_{\overline{X}} = \frac{35.33}{\sqrt{3}} = `r 35.33/3^0.5`$
+
+This is very convenient result indeed, a veritable short-cut.
+
+### Here's the promised derivation
+
+Let’s derive the above formula. We define **variance: the expectation of the squared deviation of a random variable from its mean.** We denote variance by \sigma^{2}, $s^{2}$  or $Var(X)$. From this definition of Variance, we can write the following equation.
+
+$$
+Var(X) = E[(X - E[X])^2] 
+$$
+
+Since we have to find the variance of the mean of samples, let’s replace the random variable X in the above equation with its mean, $\overline{X}$. 
+
+$$
+Var(\overline{X}) = E[(\overline{X} - E[\overline{X}])^2] 
+$$
+
+We know that we can calculate the arithmetic mean this way.
+
+$$\overline{X}= \frac{\sum_{i=1}^n{X_i}}{n}$$
+
+we can expand the variance definition into this next expression.
+
+$$
+Var(\overline{X}) = E\left[\left(\frac{\sum_{i=1}^n{X_i}}{n} - E\left[\frac{\sum_{i=1}^n{X_i}}{n}\right]\right)^2\right] 
+$$
+
+We then factor the $\frac{1}{n}$ from the above equation.
+
+$$
+\begin{align}
+Var(\overline{X}) &= E\left[\frac{1}{n^2}\left(\sum_{i=1}^n{X_i} - E[\sum_{i=1}^n{X_i}]\right)^2\right] \\ 
+ &= \frac{1}{n^2}E\left[\left(\sum_{i=1}^n{X_i} - E[\sum_{i=1}^n{X_i}]\right)^2\right] 
+\end{align}
+$$
+
+We expand $E[\sum_{i=1}^n{X_i}]$ into this expression.
+
+$$
+E[{X_1} + {X_2} + {X_3} + ...... + {X_n}] 
+$$
+
+Expectation is just an average so that the average of a sum is the sum of the averages.
+
+$$
+E[{X_1}] + E[{X_2}] + E[{X_3}] + ...... + E[{X_n}]
+$$
+Since all the samples in the distribution are random; also known as IID (Independent and Identically Distributed), the mean of each of them is the same. Therefore we can write the above equation as:
+
+$$
+E[\overline{X}_1] + E[\overline{X}_2] + ...... + E[\overline{X}_n] = \sum_{i=1}^nE[\overline{X}_i] 
+$$
+
+We use this summation to get this result.
+
+$$
+\begin{align}
+Var(\overline{X}) &= \frac{1}{n^2}E[(\sum_{i=1}^n{X_i} - \sum_{i=1}^nE[\overline{X}])^2] \\ 
+                  &= \frac{1}{n^2}\sum_{i=1}^nE[({X_i} - E[\overline{X}])^2] \\
+                  &= \frac{1}{n^2}[E({X_1} - E[\overline{X}])^2 + E({X_2} - E[\overline{X}])^2 + ...... + E({X_n} - E[\overline{X}])^2] 
+\end{align}
+$$
+
+We used the idea that the expectation (the average after all) of an expectation (of an average) is just the average. Math!
+
+The variance of the all the random variables} {X_1}, {X_2}...{X_n} give us this progression.
+
+$$
+\begin{align}
+Var(\overline{X}) &=  \frac{1}{n^2}[nE({X} - E[\overline{X}])^2] \\ 
+                  &= \frac{1}{n^2}(n\sigma^2) \\
+                  &= \frac{\sigma^2}{n}
+\end{align}
+$$
+
+And finally we have this nugget.
+
+$$
+\sigma_{\overline{X}} = \sqrt{Var(\overline{X})} = \frac{\sigma}{\sqrt{n}}
+$$
+
+Now we return to our regularly sponsored program.
+
+## Probability intervals 1: known population standard deviation
+
+Our first "forecasting" exercise is upon us. If we know the population standard deviation we use the Normal sample means distribution to help us think about "confidence. Out of all of the possible average billings, What is a range of expected billings such that the MD would still possibly believe that she has 95\% consistency with the data?
+
+If the population standard deviation is known, then we can estimate expected billings such that $\mu$ is somewhere between a lower bound $\operatorname{L}$ and an upper bound $\operatorname{U}$
+
+$$
+\operatorname{L} \leq \mu \leq \operatorname{U}
+$$
+
+Our beliefs will be a probabilistic calculation of the lower and upper bounds. Suppose our required level of plausiblity is 95\%. We have two tails which  add up to the maximum probability of error, which we will call the $\alpha$ significance level. In turn $alpha$ equals one minus the confidence level, which is $1- \alpha = 0.95$. For the two tail interval, calculate $1 - confidence = \alpha = 1- 0.95 = 0.05$, so that $(1-\alpha) / 2$ for the amount of alpha in each tail.
+
+Here's what we can do next.
+
+  1. For $1- \alpha = 95\%$ there is $\alpha / 2 = 0.05/2 = 0.025$ in each tail.
+  
+  2. The upper tail for the $\alpha$ consistency level begins at $1 - 0.025 = 0.975$ cumulative probability or $97.5\%$.
+  
+  3. The lower tail for the $\alpha$ consistency level ends at $0.025$ cumulative probability or $2.5\%$.
+
+```{r echo=FALSE, warning = FALSE, message = FALSE}
+library(ggthemes)
+n.sample <- 4
+k.est <- 1
+df.sample <- n.sample - k.est
+x.title <- "z scores"
+y.title <- "Probability"
+line.size <- 1.5
+main.title <- "Normal and Sampled Means Comparison"
+ggplot(data.frame(x = c(-4,4)),aes(x = x)) + 
+  stat_function(fun=dnorm, args = list(0, 1), colour = "blue", size = line.size) + 
+  stat_function(fun = dnorm, args = list(0,22.59/39.12), colour = "red", size = line.size) + 
+  scale_x_continuous(name = x.title)  + 
+  scale_y_continuous(name = y.title) + 
+  scale_colour_manual("Groups", values = c("##4271AE", "##1F3552")) +
+  theme_economist() + 
+  theme(legend.position = "bottom", legend.direction = "horizontal", legend.box = "horizontal", legend.key.size = unit(1, "cm"), axis.title = element_text(size = 12), legend.text = element_text(size = 9), legend.title=element_text(face = "bold", size = 9))  + 
+  ggtitle(main.title)
+```
+
+
+```{r echo=FALSE, warning = FALSE, message = FALSE}
+n.sample <- 4
+k.est <- 1
+df.sample <- n.sample - k.est
+x.title <- "z scores"
+y.title <- "Probability"
+line.size <- 1.5
+alpha <- 0.05
+a <- alpha
+main.title <- substitute(paste("Sampled Means: ", alpha == a), list(a = alpha))
+limitRange <- function(fun, min, max) {
+  function(x){
+    y <- fun(x)
+    y[x < min | x > max] <- NA
+    return(y)
+  }
+}
+ggplot(data.frame(x = c(-4,4)),aes(x = x)) + 
+  stat_function(fun=dnorm, args = list(0, 1), colour = "blue", size = line.size) + 
+  stat_function(fun = limitRange(dnorm, qnorm(alpha/2), -qnorm(alpha/2)), geom = "area", fill = "blue", alpha = 0.2) + scale_x_continuous(name = x.title)  + 
+  scale_y_continuous(name = y.title) + 
+  scale_colour_manual("Distributions", values = c("##4271AE", "##1F3552")) +
+  theme_economist() + 
+  theme(legend.position = "bottom", legend.direction = "horizontal", legend.box = "horizontal", legend.key.size = unit(1, "cm"), axis.title = element_text(size = 12), legend.text = element_text(size = 9), legend.title=element_text(face = "bold", size = 9)) + 
+  ggtitle(main.title)
+```
+
+## Our first procedure emerges
+
+We may have a procedure we can follow.
+
+1. We will base lower and upper bounds using the $z$ score. Start with the $z$ score and solve for the population mean $\mu$ and remembering that $z$ can take on plus and minus values:
+
+$$
+z = \frac{\overline{X} - \mu}{\sigma / \sqrt{n}}
+$$
+
+$$
+\mu = \bar X \pm z \sigma / \sqrt{n}
+$$
+
+2. If the population standard deviation $\sigma$ is known then our belief about the size of the population mean $\mu$ may be represented by the normal distribution of sample means. Suppose we desire a alpha 95\% consistency of our conjectures with the data about the size of the population mean. Remember that in our experiment the sample size $n = 3$.Then calculate
+
+- $\operatorname{L} = \overline{X} - z_{0.025}\sigma / \sqrt{n}$, where $z_{0.025} =$ `NORM.INV(0.025,0,1) = -1.96`, so that
+
+$$
+\overline{X} - z_{0.025}\sigma/\sqrt{n} = 138.13 + (-1.96)(35.33 / \sqrt{4}) = 138.13 - 34.6 = 104
+$$
+
+- $\operatorname{U} = \overline{X} + z_{0.975}\sigma/\sqrt{n}$, where $z_{0.975} =$ `NORM.INV(0.975,0,1) = 1.96`, so that
+
+$$
+\overline{X} + z_{0.975}\sigma/\sqrt{n} = 138.13 + (1.96)(35.33/ \sqrt{4}) = 138.13 + 34.6 = 173
+$$
+
+Thus we have 95\% consistency that the expected billings $\mu$ lie in the interval
+
+$$
+104 \leq \mu \leq 173
+$$
+
+For language and interpretation purposes, literally from day one of our investigations, we can also say that it is 95\% plausible, indeed credible, to believe that the population mean lies in this interval. And that is all we can say with this model.
+
+## Probability intervals 2: on to the unknown standard deviation
+
+Let's now suppose we _do not know_ the population standard deviation. Instead of sampling from a known distribution like a uniform distribution, we sample from a population whose standard deviation we can only guess. Now the sampled standard deviation is also a random variable, like the sampled mean before it. In practice this is nearly always the case as we usually sample behavior in the raw, without help from friendly distributions. What do we do now? We have a can-opener. It is the Student's t-distribution. We use the Student's t distribution to correct for consistencies that are, well, not so consistent due to the increased uncertainty introduced by a thoroughly unknown, but sampled, standard deviation.
+
+Here's a plot of the Student's t overlaid with the normal distribution.
+
+```{r echo=FALSE, warning = FALSE, message = FALSE}
+n.sample <- 3
+k.est <- 1
+df.sample <- n.sample - k.est
+x.title <- "z and t scores"
+y.title <- "Probability"
+line.size <- 1.5
+main.title <- "Normal and t Distribution Comparison"
+ggplot(data.frame(x = c(-4,4)),aes(x = x)) + 
+  stat_function(fun=dt, args = list(df = df.sample ), colour = "blue", size = line.size) + 
+  stat_function(fun = dnorm, args = list(0,1), colour = "red", size = line.size) +
+  scale_x_continuous(name = x.title)  + 
+  scale_y_continuous(name = y.title) + 
+  scale_colour_manual("Groups", values = c("##4271AE", "##1F3552")) + 
+  theme_economist() + 
+  theme(legend.position = "bottom", 
+        legend.direction = "horizontal", 
+        legend.box = "horizontal", 
+        legend.key.size = unit(1, "cm"), 
+        axis.title = element_text(size = 12), 
+        legend.text = element_text(size = 9), 
+        legend.title=element_text(face = "bold", size = 9))  + 
+  ggtitle(main.title)
+```
+
+What do we notice? The normal (red) distribution is more pinched in than the Student's t (kurtosis? right!). Student's t (blue) distribution has thicker tails than the normal distribution. Otherwise, both are symmetric.
+
+Let's check tail thickness: in Excel we can use `=T.INV(2.5%,3)` which returns `-4.30`, and where the degrees of freedom $df$ of our 4 sample billings are $df = n - k = 4 - 1 = 3$. We lose one degree of freedom when we calculate the sample mean. Thus for the t distribution it takes 4.30 standard deviations below the mean to hit the 2.5\% level of cumulative probability. It only took 1.96 standard deviations on the normal distribution. That it took fewer standard deviations for the normal than for the t distribution to hit the 2.5\% level of cumulative probability means that the t distribution is thicker tailed than the normal.
+
+```{r echo=FALSE, warning = FALSE, message = FALSE}
+n.sample <- 4
+k.est <- 1
+df.sample <- n.sample - k.est
+x.title <- "t scores"
+y.title <- "Probability"
+line.size <- 1.0
+alpha <- 0.05
+a <- alpha
+main.title <- substitute(paste("Sampled Means: ", alpha == a), list(a = alpha))
+limitRange <- function(fun, min, max) {
+  function(x){
+    y <- fun(x)
+    y[x < min | x > max] <- NA
+    return(y)
+  }
+}
+dt_limit <- function(x){
+  y <- dt(x,df.sample)
+  y[x < qt(alpha/2,df.sample) | x > -qt(alpha/2,df.sample)] <- NA
+  return(y)
+}
+ggplot(data.frame(x = c(-6,6)),aes(x = x)) + 
+  stat_function(fun=dt, args = list(df = df.sample), colour = "blue", size = line.size) + 
+  stat_function(fun = dt_limit, geom = "area", fill = "blue", alpha = 0.2) + scale_x_continuous(name = x.title)  + 
+  scale_y_continuous(name = y.title) + 
+  scale_colour_manual("Distributions", values = c("##4271AE", "##1F3552")) +
+  theme_economist() + 
+  theme(legend.position = "bottom", legend.direction = "horizontal", legend.box = "horizontal", legend.key.size = unit(1, "cm"), axis.title = element_text(size = 12), legend.text = element_text(size = 9), legend.title=element_text(face = "bold", size = 9)) + 
+  ggtitle(main.title)
+```
+
+### By the way, who is Student?
+
+There is a brewery in Dublin, Ireland, whose slogan is "Guiness is Good for You." W. S. Gosset (1876-1937) was a modest, well-liked Englishman who was a brewer and agricultural statistician for the famous Guinness brewing company in Dublin. 
+
+Guiness insisted that its employees keep their work secret, so he published  the distribution under the pseudonym "Student" in 1908. This was one of the first results in modern small-sample statistics.
+
+## Our second procedure
+
+Again a procedure that follows the known population $\sigma$, but instead of using the z score and the normal (Gaussian of course) distribution, we use the thicker tailed Student's t-distribution.
+
+We start by basing lower and upper bounds using the $t$ score and solve for the population mean $\mu$ and remembering that $t$ can take on plus and minus values:
+
+$$
+t = \frac{\overline{X} - \mu}{\hat s / \sqrt{n}}
+$$
+
+$$
+\mu = \overline{X} \pm t \hat s / \sqrt{n}
+$$
+
+
+If the population standard deviation $\sigma$ is _not_ known then our belief about the size of the population mean $\mu$ may be represented by the _Student's t_ distribution of sample means. Suppose we desire a 95\% level of plausibility, of consistency of the data with this observational model, the Student's t-distribution about the size of the population mean. 
+
+This means we have a $(1 - 0.95)/2 = 0.025$ $\alpha$ probability of error in consistency of the data with this model in mind. Remember that in our experiment the sample size $n = 4$. Instead of the population standard deviation $\sigma$, we use the sample standard error $\hat s$, where the hat over the variable emphasizes the sampled character of this whole computation. Suppose $s = 37.23$. Given an 95\% consistency level and 3 degrees of freedom we have these computations.
+
+$$
+\ell = \overline{X} - |t_{0.025}| \hat s / \sqrt{n}
+$$ 
+
+where $t_{0.025} =$ `T.INV(0.025,3) = -3.18`, and we take the absolute value of $t_{0.025}$ since the $\alpha$ significance rate 2.5\% is symmetrically positioned on the t distribution in each tail. We then have
+
+$$
+\operatorname{L} = 138.13 - (3.18)(35.33 / \sqrt{4}) = 82.11
+$$
+We have at the other end of the distribution
+
+$$
+\operatorname{U} = \overline{X} + t_{0.975}\hat s / sqrt{n}
+$$
+
+where $t_{0.975} =$ `T.INV(0.975,2) = 3.18`, so that
+
+$$
+\overline{X} + t_{0.975}\sigma / \sqrt{n} = \bar X + (3.18)(35.33/ \sqrt{4}) = 194.55
+$$
+
+Thus we believe our deductions that the data are 95\% consistent with expected billings $\mu$ that are somewhere in this interval:
+
+$$
+82.11 \leq \mu \leq 194.55
+$$
+
+We see a much wider an interval than if we knew the population standard deviation!
+
+## Exercises
+
+1. The Hiatus retail outlet takes a random sample of 25 customers from a segment population of 1,000 with a mean average transaction size of \$80 normally distributed with a known population standard deviation of \$20 per transaction. Find
+
+- The 90\% confidence interval for transaction size, and
+
+- The 95\% confidence interval for transaction size, and
+
+- The 99\% confidence interval for transaction size.
+
+- What do these results indicate for management?
+  
+<button onclick="showText('hiatus')">show / hide</button>
+<div id="hiatus" style="display:none;">
+
+$\mu$ is between 70 and 90 with 90\% confidence, between 68 and 92 with 95\% confidence, and between 65 and 95 with 99\% confidence.
+
+</div>
+
+2. A compensation analyst for an investment bank wants to estimate the mean hourly wages of several hundred employees in the first 5 pay bands plus or minus within plus or minus \$20. Management wants a 99% confidence level for the analysis. Assume that the population standard deviation is known to be \$40 and that hourly wages are normally distributed. Find the minimum sample size required for this analysis.
+
+<button onclick="showText('wages')">show / hide</button>
+<div id="wages" style="display:none;">
+
+27
+
+</div>
+
+<br>
+
+EXTRA:
+
+3. Find the confidence intervals for 1 if the population is not known and the sample standard deviation is \$23 per transaction.
+
+4. Find the minimum sample size required for 2 if the population is not known and a sample standard deviation is \$34.
+

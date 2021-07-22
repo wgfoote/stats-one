@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Probabilistic Reasoning: from an elementary point of view</title>
+  <meta name="description" content="Learning is inference." />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Probabilistic Reasoning: from an elementary point of view" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Learning is inference." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Probabilistic Reasoning: from an elementary point of view" />
+  
+  <meta name="twitter:description" content="Learning is inference." />
+  
+
+<meta name="author" content="William G. Foote" />
+
+
+<meta name="date" content="2021-05-20" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Probabilistic Reasoning</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path=""><a href="#prologomena-for-a-future-statistics"><i class="fa fa-check"></i>Prologomena for a Future Statistics</a><ul>
+<li class="chapter" data-level="" data-path=""><a href="#why-this-book"><i class="fa fa-check"></i>Why this book</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#premises"><i class="fa fa-check"></i>Premises</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#so-many-questions-and-too-little-time"><i class="fa fa-check"></i>So many questions and too little time</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#dont-we-know-everything-we-need-to-know"><i class="fa fa-check"></i>Don’t we know everything we need to know?</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#what-we-desire"><i class="fa fa-check"></i>What we desire</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#frequentist-or-probabilistic"><i class="fa fa-check"></i>Frequentist or probabilistic?</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#a-work-in-progress"><i class="fa fa-check"></i>A work in progress</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Probabilistic Reasoning: from an elementary point of view</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="header">
+<h1 class="title">Probabilistic Reasoning: from an elementary point of view</h1>
+<p class="author"><em>William G. Foote</em></p>
+<p class="date" style="margin-top: 1.5em;"><em>2021-05-20</em></p>
+</div>
+<div id="prologomena-for-a-future-statistics" class="section level1 unnumbered">
+<h1>Prologomena for a Future Statistics</h1>
+<p>This book is a compilation of many years of experience with replying to clients (CFO, CEO, business unit leader, project manager, etc., board member) and their exclamations and desire for <em><strong>the number</strong></em>. The <em>number</em> might be the next quarter’s earnings per share after a failed product launch, customer switching cost and churn with the entry of a new competitor, stock return volatility and attracting managerial talent, fuel switch timing in a fleet of power plants, fastest route to ship soy from Sao Paolo to Lianyungang, launch date for refractive surgery services, relocation for end state renal care facilities, and so on, and so much so forth.</p>
+<p>Here is highly redacted scene of a segment of a board meeting of a medical devices company in the not so distant past. All of the characters are of course fictions of a vivid imagination. The scene and the company are all too real.</p>
+<p>Sara, a board member, has the floor.</p>
+<blockquote>
+<p>Sara: Bill, just give us the number!</p>
+</blockquote>
+<p>Bill is the consultant that the CFO hired to provide some insight into a business issue: how many product units can be shipped in 45 days from a port on the Gulf of Mexico, USA to a port in Jiangsu Provice, PRC.</p>
+<blockquote>
+<p>Bill: Sara, the most plausible number is 42 units through the Canal in 30 days. However, …</p>
+</blockquote>
+<p>Sara interjects.</p>
+<blockquote>
+<p>Sara: Finally! We have a numbe …</p>
+</blockquote>
+<p>Harrumphing a bit, but quietly and thinking “Not so fast!”,</p>
+<blockquote>
+<p>Bill: Yes, 42 is plausible, but so are 36 and 45, in fact the odds are that these results, given the data and assumptions you provided our team, as well as your own beliefs about the possibilities in the first place, are even. You could bet on any of them and be consistent with the data.</p>
+</blockquote>
+<p>Jeri the CFO grins, and says to George the CEO in a loud enough whisper so that other board members perked up from their trances,</p>
+<blockquote>
+<p>Jeri, CFO: That’s why we hired Bill and his team. He is giving us the range of the plausible. Now it’s up to us to pull the trigger.</p>
+</blockquote>
+<p>Sara winces, yields the floor to Jeri, who gently explains to the board,</p>
+<blockquote>
+<p>Jeri: Thank you Bill and give our regards to your team. Excellent and extensive work in a very short time frame!.</p>
+</blockquote>
+<p>Bill leaves the board room, thinking “Phew!, made through that gauntlet, again.”</p>
+<blockquote>
+<p>Jeri: Now our work really begins. George, please lead us in our deliberations.</p>
+</blockquote>
+<p>Pan through the closed board room door outside to the waiting room and watch Bill, wiping the sweat from his brow, prepare the invoice on his laptop. A watchful administrative assistant nods his approval.</p>
+<div id="why-this-book" class="section level2 unnumbered">
+<h2>Why this book</h2>
+<p>This book is an analytical palimpsest which attempts to recast and reimagine the Bayesian Stan-based analytics presented by Richard <span class="citation">(<span class="citeproc-not-found" data-reference-id="McElreath_2020"><strong>???</strong></span>)</span> for the data analytics that help business managers and executives make decisions. Richard McElreath’s vision and examples, though reworked, are nearly immediately evident throughout. But again this work is a palimpset with its own quirks, examples, but surely built on McElreath’s analytical architecture.</p>
+<p>We wrangle the data and build the models through spreadsheets. Let’s state this again: we will recast introductory portions of <a href="https://xcelab.net/rm/statistical-rethinking/">Richard McElreath’s text</a> with the aid of purely Microsoft Excel workbooks, aided in small part by calls to some Visual Basic for Applications (VBA) to automate simulations. On rare occasion we will use the Solver add-in, packaged with the Excel installation. The concepts, even the zeitgeist of a <a href="https://djnavarro.net/">Danielle Navarro</a> might be evident along with examples from her work on learning and reasoning in the behavioral sciences. And if there was ever a pool of behavior to dip into it is in the business domain.</p>
+</div>
+<div id="premises" class="section level2 unnumbered">
+<h2>Premises</h2>
+<p>The one premise of this book is that</p>
+<blockquote>
+<p>Learning is inference</p>
+</blockquote>
+<p>By inference we mean reaching a conclusion. Conclusions can be either true or false. They are reached by a process of reflection on what is understood and by what is experienced.</p>
+<p>Let’s clarify these terms in this journey courtesy of <span class="citation">Potter (<a href="#ref-Potter_1994" role="doc-biblioref">1994</a>)</span>:</p>
+<ul>
+<li><p><em><strong>Ignorance</strong></em> is simply lack of knowledge.</p></li>
+<li><p><em><strong>Opinion</strong></em> is a very tentative, if not also hesitant, subject to change, assent to a conclusion.</p></li>
+<li><p><em><strong>Belief</strong></em> is a firm conviction.</p></li>
+<li><p><em><strong>Knowledge</strong></em> is belief with <em>sufficient</em> evidence to justify assent.</p></li>
+<li><p><em><strong>Doubt</strong></em> suspends assent when evidence is lacking or just too week.</p></li>
+<li><p><em><strong>Learning</strong></em> can only occur with <em>doubt</em> or <em>ignorance</em> or even <em>opinion</em>; learning generates new knowledge.</p></li>
+</ul>
+<p>While the book is vividly, and outspokenly in this regard, Bayesian, I prefer the nomer <em>probabalistic</em> as evinced by <span class="citation">Edwin T. Jaynes (<a href="#ref-Jaynes_2004" role="doc-biblioref">2004</a>)</span>, and <span class="citation">(<span class="citeproc-not-found" data-reference-id="Keynes_1923"><strong>???</strong></span>)</span>, <span class="citation">(<span class="citeproc-not-found" data-reference-id="Jeffreys1937"><strong>???</strong></span>)</span>, and <span class="citation">(<span class="citeproc-not-found" data-reference-id="Fox1946"><strong>???</strong></span>)</span>, before him, reaching back into the <em>inverse probability</em> tradition at least back to <span class="citation">(<span class="citeproc-not-found" data-reference-id="DeMoivre1756"><strong>???</strong></span>)</span>. We will not get into a debate about <em>subjective</em> versus <em>objective</em> yet: let’s hold that (those) thought(s). There is a very strong and cogent reason for this tradition and it is the underlying heuristic structure of human knowing itself. Yes, philosophical principles provide guideposts for the operations, authenticity, products and methodology of probabilistic reasoning and the <em>techne</em> in this book and the works which ground this book.</p>
+<p><span class="citation">(<span class="citeproc-not-found" data-reference-id="Lonergan_1957"><strong>???</strong></span>)</span> explicates the heuristic structure of human knowing through three successive movements from experience, through understanding, onto to reflection about what is and is not (plausibly of course!), The terms of each movement wind their way into the methodology of any excursus that implements human knowing about anything, including the knower, whom we often tag the <em>analyst</em> or <em>decision maker</em>. The knower observes and experiences, yes, with a bias.</p>
+<p>The course will boil down to the statistics (minimum, maximum, mean, quantiles, deviations, skewness, kurtosis) and the probability that the evidence we have to support any proposition(s) we claim. The evidence is the strength (for example in decibels, base 10) of our hypothesis or claim. The measure of evidence is the measure of surprise and its complement informativeness of the data, current and underlying, inherent in the claim. In the interests of putting the <em>bottom line up front</em> , here is the formula for our measure of evidence <span class="math inline">\(e\)</span> of a hypothesis <span class="math inline">\(H\)</span> comes from <span class="citation">Edwin T. Jaynes (<a href="#ref-Jaynes_2004" role="doc-biblioref">2004</a>)</span>.</p>
+<p><span class="math display">\[
+e(H|DX) = e(H|X) + 10\,\,log_{10}\left[\frac{P(D|HX)}{P({D|\overline{H}X})} \right]
+\]</span>
+Let’s dissect this. First <span class="math inline">\(H\)</span> is the claim, say, the typical null hypothesis <span class="math inline">\(H_0\)</span> that the status quo is true. If <span class="math inline">\(H=H_0\)</span> then <span class="math inline">\(\overline{H}\)</span> must be the alternative hypothesis logically so that <span class="math inline">\(\overline{H}=H_1\)</span>. <span class="math inline">\(D\)</span> is the data at hand we observe. <span class="math inline">\(X\)</span> is the data, including data about beliefs, we already have at our disposable.</p>
+<p>Now we look at the combinations.</p>
+<ul>
+<li><p><span class="math inline">\(DX\)</span> is the logical conjunction of the two data sets. This conjunction represents the proposition that <em>both the new data and the old data exist</em>.</p></li>
+<li><p><span class="math inline">\(HX\)</span> is the phrase <em>both the claim is true and the available data <span class="math inline">\(X\)</span> are true</em>. <span class="math inline">\(\overline{H}X\)</span> is the phrase <em>both the claim is false and the available data <span class="math inline">\(X\)</span> are true</em>.</p></li>
+</ul>
+<p>Here are the conditions of the contract.</p>
+<ul>
+<li><p>We look for evidence <span class="math inline">\(e(H|DX)\)</span> that <span class="math inline">\(H\)</span> is true given the existence both of new data <span class="math inline">\(D\)</span> and available data <span class="math inline">\(X\)</span>, that is <span class="math inline">\(H|DX\)</span> where the | is the conditional binary operator.</p></li>
+<li><p>This compound (<span class="math inline">\(DX\)</span>) evidence depends on the evidence <span class="math inline">\(e(H|X)\)</span> that <span class="math inline">\(H\)</span> is true given knowledge of available data <span class="math inline">\(X\)</span>.</p></li>
+</ul>
+<p>_ The evidence impounded in the odds of finding data <span class="math inline">\(D\)</span> when the hypothesis is true <span class="math inline">\(H\)</span> relative to when the hypothesis is not true <span class="math inline">\(\overline{H}\)</span>.</p>
+<p>Everything is in <span class="math inline">\(log_{10}\)</span> measures to allow us the luxury of simply adding up evidence scores. What is <span class="math inline">\(H\)</span>? These are the hypotheses, ideas, explanations, parameters (like intercept and slope, means, standard deviations, you name it) we think when we work through answers to questions.</p>
+</div>
+<div id="so-many-questions-and-too-little-time" class="section level2 unnumbered">
+<h2>So many questions and too little time</h2>
+<p>Where in the business domain do questions arise? The usual suspects are the components of any organization’s, stakeholders’, value chain. This chain extends from questions about the who, when, where, how, how long, how much, how often, how many, for whom, for what, and why of each component. There are decisions in each link. In planning an organization’s strategy the decisions might be to examine new markets or not, invest in assets or retire them, fund innovation with shareholder equity or stand fast. In each of these decisions are questions about the size and composition of markets and competitors, the generation of cash flow from operations, the capture of value for stakeholders. It is this font from which questions will arise and analysis will attempt to guide.</p>
+</div>
+<div id="dont-we-know-everything-we-need-to-know" class="section level2 unnumbered">
+<h2>Don’t we know everything we need to know?</h2>
+<p>We don’t seem to know everything all of the time, although we certainly have many doubts and opinions. These hurdles are often managed through the collection of data against hypotheses, explanations, theories, and ideas. This syllogism and its sibling will guide us through a lot of the dark places we might travel in this book.</p>
+<pre><code>## Warning: package &#39;kableExtra&#39; was built under R version 4.0.3</code></pre>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-2">Table 1: </span>modus ponens plausibility
+</caption>
+<tbody>
+<tr>
+<td style="text-align:left;">
+major
+</td>
+<td style="text-align:center;">
+if A is true, then B is true
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+minor
+</td>
+<td style="text-align:center;">
+B is true
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+conclusion
+</td>
+<td style="text-align:center;">
+therefore, A becomes more plausible
+</td>
+</tr>
+</tbody>
+</table>
+<p>There is no guarantee here, just plausible, but justified, belief. We will call plausibility a measure of belief, also known as probability.</p>
+<p>Here is the sibling.</p>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-3">Table 2: </span>modus tollens plausibility
+</caption>
+<tbody>
+<tr>
+<td style="text-align:left;">
+major
+</td>
+<td style="text-align:center;">
+if A is true, then B is true
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+minor
+</td>
+<td style="text-align:center;">
+A is false
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+conclusion
+</td>
+<td style="text-align:center;">
+therefore, B becomes less plausible
+</td>
+</tr>
+</tbody>
+</table>
+<p>The first chapter will detail the inner workings and cognitional operations at work in these inferences. But let us remember that <em><strong>learning is inference</strong></em>.</p>
+</div>
+<div id="what-we-desire" class="section level2 unnumbered">
+<h2>What we desire</h2>
+<p>These two ways of inferring plausible, justified, true belief will be the bedrock of this book. They imply three <em><strong>desiderata</strong></em> of our methods:</p>
+<ol style="list-style-type: decimal">
+<li><p>Include both the data of sensible observation and the data of assumptions and beliefs.</p></li>
+<li><p>Condition ideas, hypotheses, theories, explanations with the data of experience and belief.</p></li>
+<li><p>Measure the impact of data on hypotheses using a measure of plausibility.</p></li>
+</ol>
+<p>Herein we presents plausibility as the compound of a menagerie of conditional probabilities. A conditional probability is just a number between 0 and 1, that makes some sort of sense, given the truth of some ensemble of propositions. For example, we might observe lots of people in running gear running across a parking lot. We know, from experience that people running together in running gear often run in a race. The probability that the people we see in the parking lot, <em>given</em> they are running together in running gear, are running in a race is fairly plausible. It makes some sort of common sense. We might compute a probability of 0.25 as well. We just made a statement of <em>conditional probability</em>. Insofar as this is sensible, we might also say it is rational.</p>
+<p>What we will call rational will be the consistency, the compatibility, of data with hypotheses measured by plausibility, often labeled posterior probability. The data are runners in running gear. The hypothesis is they are running in a race.</p>
+<p>The data of beliefs, of maximum leakage of information, will be contained in what many call prior probability. We might find reasonable the hypothesis that people are running a race. We might also, for objectivity’s sake, and to play the dialectical advocate, they are not. The two hypotheses are mutually exclusive logically. We might find them to be equally plausible, at least for the moment. The data of beliefs include our assumptions about the distribution of hypotheses.</p>
+<p>The conditioning of hypotheses with data is another conditional probability, what many will call likelihood. Ultimately what we call uncertainty will be the range and plausibility of the impact of data on hypotheses. What we will solve for is the most plausible explanation given data and belief.</p>
+</div>
+<div id="frequentist-or-probabilistic" class="section level2 unnumbered">
+<h2>Frequentist or probabilistic?</h2>
+<p>Both.</p>
+<p>The moving parts of our reasoning demand at least a probabilistic approach if we are to summarily, if not completely ever, deal with uncertainty in our descriptions and explanations of reality. For the business decision maker this mindset becomes critical as the way in which any decision must be made if it is to be compatible with the data of experience, understanding and reflection. Practically speaking the probabilistic approach directly aligns with the heuristic structure of human knowing: experience, understanding, reflection. All are fulfilled virtually (we don’t know everything through bias, omission, ignorance, malice) as we enter the decision-making arena. Because our understanding of the future is imperfect we insert the word and idea of plausibility into every statement. Or perhaps its many synonyms, qualifiers and modalities.</p>
+<p><em><strong>Frequentism</strong></em> is a quasi-objective approach to analysis. It is objective in that it focuses on only the data. It is <em>quasi</em>-objective in that the data must be collected by human knowers and doers as a sample of what might occur more generally. An assumption of the analysis is always that the data are equally likely to occur. These beings do not always have access to or even want to collect all or the right data for further deliberation. That is an interesting historical, and <em>a priori</em>, fact of human existence. The collection itself rails against the time, space, and resources needed for collection and thus the epithet of garbage-in and garbage-out plagues all analysis. However, frequentist approaches contradict their supposed objectivism in that both the data selected, collected, and deliberated up are subject (yes the prior substrate of experience begins to enter) to, and conditional upon the collector and the deliberator.
+Both frequentist and probabilistic reasoning intersect when prior knowledge is all but unknown (the uninformative or <em>diffuse</em> prior) or might as well assign equally plausible weights (probabilities) to any hypothesis the analyst might propose about the value of a moment of a distribution. They all but diverge when uneven, lumpy, step function priors on the values of the supposed estimators as hypotheses collide with the likelihood that the data is compatible with any of these hypotheses. Such divergence is not the destruction of objectivity, rather the inclusion into a complete objective description and explanation of a phenomenon when we allow the analyst’s assumptions, pre-existing conditions, the world as it has been known, into the deliberation of a posterior results.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
+</div>
+<div id="a-work-in-progress" class="section level2 unnumbered">
+<h2>A work in progress</h2>
+<p>This book will expand and contract over the days ahead. <a href="wfoote01@manhattan.edu">Email me</a> will comments, errors, omissions, etc. The book’s content is rendered using <a href="https://bookdown.org">Yihui’s</a> <code>bookdown</code> package (thank you!), <a href="https://wgfoote.github.io/book-probabilistic-reasoning">served on GitHub pages</a> with <a href="https://github.com/wgfoote/book-probabilistic-reasoning">source code</a>. When I figure out how to build an issues facility in Github that will be the font of all wisdom from readers and syndics.</p>
+<div id="refs" class="references">
+<div>
+<p>Edwin T. Jaynes, ed. G. Larry Bretthorst. 2004. <em>Probability Theory: Logic of Science</em>. Cambridge, U.K.: Cambridge University Press.</p>
+</div>
+<div>
+<p>Potter, Vincent G. 1994. <em>On Understanding Understanding – 2nd Ed.</em> Fordham University Press. <a href="https://www.fordhampress.com/9780823214860/on-understanding-understanding/">https://www.fordhampress.com/9780823214860/on-understanding-understanding/</a>.</p>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-Jaynes_2004">
+<p>Edwin T. Jaynes, ed. G. Larry Bretthorst. 2004. <em>Probability Theory: Logic of Science</em>. Cambridge, U.K.: Cambridge University Press.</p>
+</div>
+<div id="ref-Potter_1994">
+<p>Potter, Vincent G. 1994. <em>On Understanding Understanding – 2nd Ed.</em> Fordham University Press. <a href="https://www.fordhampress.com/9780823214860/on-understanding-understanding/">https://www.fordhampress.com/9780823214860/on-understanding-understanding/</a>.</p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="1">
+<li id="fn1"><p>Charles Sanders Pierce (<span class="citation">(<span class="citeproc-not-found" data-reference-id="Peirce1884"><strong>???</strong></span>)</span>) is perhaps the first objective-frequentist to insert so-called subjective priors into a rigorous psychological experience on the difference in pressure sensations. In fact, he and his co-author Jastrow seem to have simply, and analytically correctly, embedded their assumptions about their experiements into the understanding of their results.<a href="#fnref1" class="footnote-back">↩</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+},
+"search": false
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,6 @@
+book_filename: "book-probability.Rmd"
+delete_merged_file: true
+output_dir: "book-output"
+language:
+  ui:
+    chapter_name: "Chapter "

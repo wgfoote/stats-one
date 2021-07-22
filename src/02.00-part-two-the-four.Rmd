@@ -1,0 +1,11 @@
+# Part Two -- The Fantastic Four {-}
+
+- Counting on Steroids
+
+- Binomial stuff
+
+- Poisson raptors
+
+- Gaussian robots
+
+

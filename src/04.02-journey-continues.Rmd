@@ -1,0 +1,344 @@
+# The journey continues
+
+<script>
+function showText(y) {
+    var x = document.getElementById(y);
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+</script>
+
+```{r include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+options(digits = 3, scipen = 9999)
+library(visNetwork)
+library(tidyverse)
+library(kableExtra)
+
+## Internal Rate of Return (IRR) function
+## Inputs: vector of cash flows (cashflows), scalar interations (maxiter)
+## Outputs: scalar net present value
+IRR <- function(cashflows, maxiter=1000) {
+  t <- seq_along(cashflows)-1
+  ## rate will eventually converge to IRR
+  f <- function(rate)(sum(cashflows/(1+rate)^t))
+  ## use uniroot function to solve for root (IRR = rate) of f = 0
+  ## c(-1,1) bounds solution for only positive or negative rates
+  ## select the root estimate
+  return(uniroot(f, c(-1,1), maxiter = maxiter)$root)
+}
+
+clt_sim <- function(n, source=NULL, param1=NULL, param2=NULL) {
+  r <- 10000  ## Number of replications/samples - DO NOT ADJUST
+  ## This produces a matrix of observations with  
+  ## n columns and r rows. Each row is one sample:
+  my.samples <- switch(source,
+                       "E" = matrix(rexp(n*r,param1),r),
+                       "N" = matrix(rnorm(n*r,param1,param2),r),
+                       "U" = matrix(runif(n*r,param1,param2),r),
+                       "P" = matrix(rpois(n*r,param1),r),
+                       "C" = matrix(rcauchy(n*r,param1,param2),r),
+                       "B" = matrix(rbinom(n*r,param1,param2),r),
+                       "G" = matrix(rgamma(n*r,param1,param2),r),
+                       "X" = matrix(rchisq(n*r,param1),r),
+                       "T" = matrix(rt(n*r,param1),r))
+  all.sample.sums <- apply(my.samples,1,sum)
+  all.sample.means <- apply(my.samples,1,mean)   
+  all.sample.vars <- apply(my.samples,1,var) 
+  par(mfrow=c(2,2))
+  hist(my.samples[1,],col="gray",main="Distribution of One Sample")
+  hist(all.sample.sums,col="gray",main="Sampling Distribution \n of
+       the Sum")
+  hist(all.sample.means,col="gray",main="Sampling Distribution \n of the Mean")
+  hist(all.sample.vars,col="gray",main="Sampling Distribution \n of
+       the Variance")
+}
+## clt_sim(100,source="E",param1=1)
+```
+
+## Backing up
+
+We continue to learn. At this point we are at the end of a portion of our journey, and at the beginning of a new segment. We review all of the most important aspects of our previous work. It is but a stepping stone to future efforts. Here is both a summary and a compendium of ways in which we approach probabilistic reasoning. The last segment will answer a question we asked before: does it matter?
+
+In what follows we should try to answer the questions given our hard earned knowledge about probabilistic reasoning, and, perhaps, a peak at previous work. If we get too stymied, start beating bodily parts against immovable objects, then, we might press the button where all will be revealed.
+
+## Fences and neighbors
+
+We built two fence analyses, each with lower and upper bounds. Both use some aspect of all of the probability we have strived so hard to learn.
+
+1. **Tukey' Outliers.** Here we used raw percentiles, calculated a scale, a range, from 25\% to 75\% and called it an _Interquartile Range_  (IQR). Using this as our measure of how wide the data seems to be we construct upper and lower bounds. Any data beyond those bounds we label outliers.
+
+2. **Credibility Intervals.** These are really _probability intervals_, even more correctly, intervals within which we are probably sure that the data is compatible with our model of the data. The model of the data we bury in hypothetical data called conjectures. We parameterize those conjectures with means and standard deviations (Gaussian -- so-called normal), arrival rates (Poisson), proportions (binomial). We still get upper and lower bounds.
+
+Let's use this set of visual and tabular results about coir prices, FOB Indonesia, from week 10.
+
+![](images/15/ci-tukey-coir.jpg)
+
+Even though we ran 10,000 draws from the coir price urn, we sampled only 12 prices at a time.
+
+### Tukey's fences.
+
+Construct Tukey's fences. What outliers can we detect in this data (if any).
+
+</br>
+<button onclick="showText('tukey')">show solution</button>
+<div id="tukey" style="display:none;">
+<br>
+
+One heuristic, a rule of thumb (see week 6 for a refresher), for finding outliers uses quartiles of the data: 
+
+- The first quartile $Q1$ is a data point which is $\geq 1/4$ of the data starting from the first data point.
+
+- The second quartile $Q2$ or the median data point which is $\geq 1/2$ of the data. 
+
+- The third quartile $Q3$ is a data point which is $\geq 3/4$ of the data starting from the first data point. 
+
+From the first and third quartile we compute a measure of the scale, or width, of the data called the interquartile range (IQR), $Q3 − Q1$. Tukey’s rule states that outliers are values more than 1.5 times the interquartile range from the quartiles
+
+- either below: $Q1 − 1.5IQR = 311 - 1.5\,(18.17) = 283.75$, 
+
+- or above: $Q3 + 1.5\,IQR = 329.17 + 1.5\,(18.17) =  356.43$.
+
+Thus we have *no outliers** in this range of coir prices $C$.
+
+$$
+283.75 \leq C \leq 356.43
+$$
+
+We review the data summary and find that the maximum coir price of \$368.17/metric ton is well beyond the upper fence. However, the minimum coir price of \$269.92/metric is well within the range of  the lower fence.  There is at least one Tukey outlier beyond the upper fence. There are no lower fence outliers.
+
+</div>
+</br>
+
+### Credibility intervals.
+
+Construct 89\% credibility intervals using the information in this figure. What are the 89\% lower and upper bounds for coir prices?
+
+</br>
+<button onclick="showText('credibility')">show solution</button>
+<div id="credibility" style="display:none;">
+<br>
+
+If the population standard deviation is known, then we can estimate expected billings such that $\mu$ is somewhere between a lower bound $\operatorname{L}$ and an upper bound $\operatorname{U}$. We use material from weeks 10 and 11 to solve for the interval.
+
+$$
+\operatorname{L} \leq \mu \leq \operatorname{U}
+$$
+
+Our beliefs will be a probabilistic calculation of the lower and upper bounds. Suppose our required level of plausibility is 89\%. We have two tails which  add up to the maximum probability of error, which we will call the $\alpha$ significance level. In turn $alpha$ equals one minus the confidence level, which is $1- \alpha = 0.89$. For the two tail interval, calculate $1 - confidence = \alpha = 1- 0.89 = 0.11$, so that $(1-\alpha) / 2 = 0.11 / 2 = 0.055$ for the amount of alpha in each of the two tails.
+
+We may have a procedure we can follow.
+
+1. We will base lower and upper bounds using the $z$ score. Start with the $z$ score and solve for the population mean $\mu$ and remembering that $z$ can take on plus and minus values:
+
+$$
+z = \frac{\overline{X} - \mu}{\sigma / \sqrt{n}}
+$$
+
+$$
+\mu = \bar X \pm z \sigma / \sqrt{n}
+$$
+
+2. If the population standard deviation $\sigma$ is known then our belief about the size of the population mean $\mu$ may be represented by the normal distribution of sample means. Suppose we desire a alpha 95\% consistency of our conjectures with the data about the size of the population mean. Remember that in our experiment the sample size $n = 3$.Then calculate
+
+- The tail has $0.055$ area of probability up to the lower bound, so that we then can say, $\operatorname{L} = \overline{X} - z_{0.055}\sigma / \sqrt{n}$, where $z_{0.055} =$ `NORM.INV(0.055,0,1) = -1.60 (rounded!)`, so that
+
+$$
+\overline{X} - z_{0.055}\sigma/\sqrt{n} = 319.96 + (-1.60)(13.93 / \sqrt{12}) = 319.96 - 6.43 = 313.53
+$$
+
+- We start with $0.055$ probability in the lower tail and add $0.89$ of the body of the distribution to get the area of probability of $0.945$ by the time we reach the upper bound. We have then $\operatorname{U} = \overline{X} + z_{0.945}\sigma/\sqrt{n}$, where $z_{0.945} =$ `NORM.INV(0.945,0,1) = 1.60`, so that
+
+$$
+\overline{X} + z_{0.945}\sigma/\sqrt{n} = = 319.96 + (1.60)(13.93 / \sqrt{12}) = 319.96 + 6.43 = 326.39
+$$
+
+Thus we have 94\% consistency that the expected coir price $\mu$ lies in the interval
+
+$$
+314 \leq \mu \leq 326
+$$
+
+For language and interpretation purposes, literally from day one of our investigations, we can also say that it is 89\% plausible, indeed credible, to believe that the population mean lies in this interval. And that is all we can say with this model and its results.
+
+</div>
+</br>
+
+## Binomial raptors.
+
+Raptors are particularly good indicators of environmental health because they inhabit most ecosystem types, occupy large home ranges, feed at the top of the food web, and are highly sensitive to chemical contamination and other human disturbance. They are also easy to tally when they congregate during migration. That's why we are standing in the wind, on cloudy and clear days, nearly every day of the year here on the Heldeberg Escarpment (42°39′21″N 74°01′09″W) southwest of Albany, NY in the John Boyd Thacher State Park. We have a clear view of the confluence of the Mohawk and Hudson Rivers and their watersheds.
+
+### Cloudy or clear.
+
+Here is data on weather for several recent days of raptor sightings (mostly broad-winged hawks, but there are some turkey vultures out there -- so we hear) during an annual migration.
+
+![](images/15/raptor-cloudy-windy.jpg)
+
+How much more likely is it to be cloudy if it is windy?
+
+</br>
+<button onclick="showText('cloudy')">show solution</button>
+<div id="cloudy" style="display:none;">
+<br>
+
+How much more likely? These are the odds. The odds are the ratio ($OR$) of two conditional probabilities.
+
+$$
+OR = \frac{\operatorname{Pr}(cloudy \mid windy)}{\operatorname{Pr}(not \,cloudy \mid windy)}
+$$
+
+First, let's do some counting.
+
+![](images/15/raptors-count-table.jpg)
+
+With this small data set, we could have just as easily done this by hand. But we do have the COUNTIFS() tool at our disposal. By the way, what is the very first we do in a spreadsheet with data?
+
+The two conditional probabilities are calculated along the one cut of data, $windy = yes$ a logical statement. This data fans across just two conjectures, $cloudy = yes$ and $cloudy = no$. Their ratio is just the odds ratio $OR$ of 3:2. 
+
+The answer is _**when it is windy is is one and a half times as likely to be cloudy than not.**_
+
+</div>
+<br>
+
+### Binomial sightings.
+
+Some one of us is standing at the edge of the escarpment. The observer looks up. What is the probability of seeing a raptor and how plausible is this claim? What is the proportion of times the observer will sight a raptor once, and what is the probability that this claim is true? Same question, put differently. Suppose the observer looks up six (6) times and sights raptors twice (2). We will use a grid of five (5) equally spaced proportions. We will assume that each conjecture is equally probably.
+
+</br>
+<button onclick="showText('binomial')">show solution</button>
+<div id="binomial" style="display:none;">
+<br>
+
+This question tests our ability to identify the right model. The event is _look up and sight_, a binary outcome, yes a rapter is sighted, no it is not. Binary events require the use of a binomial model. 
+
+We set up 5 hypotheses about the proportion $p$ of sightings $up$ in this model. For each conjectured proportion $p$ we deduce the probability both of the hypothesis and the binomial event of sighting 2 raptors in 5 tries. The number of tries is independent of the number of hypotheses. We build the following model.
+
+![](images/15/raptors-binomial-sightings.jpg)
+
+According to this approximation, the probability of a single sighting, $p$, is most likely, most compatible with the binomial data of $n=6$, $x=up=2$, of $p=0.25$. 
+
+The probability of seeing this proportion conditional on the binomial data is $\operatorname{Pr}(p=0.25 \mid n=6,\,x=2)= 0.53$.
+
+</div>
+<br>
+
+### Poisson raptors.
+
+Cloudy, windy, craning the neck with binoculars into the wide horizon of the sky -- but what is the average number of sightings on a given day? We observe sightings of 20,	18,	14, and	10 on four days. To answer this question we will assume a  5 node grid with minimum of 9 and maximum of 21 for hypothesized average sightings. Each conjecture is equally likely.
+
+</br>
+<button onclick="showText('poisson')">show solution</button>
+<div id="poisson" style="display:none;">
+<br>
+
+Since the number of sightings is integer date, we gravitate to the Poisson observational distribution. We do this remembering that we derived the Poisson from the count, or frequency if we want, of the number of binomial events, thus integers for observations. The probability that we observe a number of sightings $x$ at an average rate $\lambda$, here per day, is with example $x=21$ and $\lambda=18.60$,
+
+$$
+\begin{align}
+Pr(X = x \mid \lambda) &= e^{-\lambda}\left(\frac{\lambda^x}{x!}\right) \\
+&= e^{-18.60}\left(\frac{18.60^{21}}{21!}\right) \\
+&= 0.0747
+\end{align}
+$$
+
+We drop this formula directly into the spreadsheet grid approximation.
+
+![](images/15/raptors-poisson-sightings.jpg)
+
+Given our assumptions and approximating grid, we match the highest level of plausibility of a conjectured $\lambda$ with its mate on the $\lambda$ grid. The answer is in hypothesis number 3 where $\lambda=15$ with probability of $0.59$.
+
+</div>
+<br>
+
+### Poisson expectations.
+
+Given our analysis in the previous question, how many sightings might we expect in excess of the average most likely sighting?
+
+</br>
+<button onclick="showText('poisson_expect')">show solution</button>
+<div id="poisson_expect" style="display:none;">
+<br>
+
+We interpret the phrase _in excess of the average most likely sighting_ as all $\lambda$'s such that $\lambda > 15$. We thus have two inclusion outcomes only 18, with probability 0.28, and 21, with probability 0.03. The expected value of these two outcomes must employ normalized probabilities.
+
+![](images/15/raptors-poisson-expect.jpg)
+
+The key to this answer is in column Q where we normalize the contributions of 0.29 and 0.03. Our expectations are nearly the same as the overall average of 18. So, anyone expecting more sightings, and maybe expecting more resources to manage extra sightings, might be disappointed!
+
+</div>
+<br>
+
+## Managing relationships
+
+Our sights roam to just the African continent countries bordering the Bay of Guinea. We focus on this area because they share a more common geography, oceanography, and geological evolution. They also have in common the transmigration of enslaved people across the Atlantic to the Western Hemisphere over several centuries. Here is the data.
+
+![](images/15/rugged-data.jpg)
+
+We built two models of relationships.
+
+1. **Waiting time.** But that was also coffee and bees! It could have been pre- and post-launch of IGAUNOGOHOME. It could be snowing or not snowing. It could be cloudy and windy. It is the basic model of an intervention. Does the intervention matter?
+
+2. **Education matters.** This model is the expectational version of the regression model. We try to understand how the expectation of a variable, wages, can be explained, predicted or simply how it is dependent on education.
+
+Here we use some new data about African continent country gross domestic product per capita and a measure of terrain ruggedness. We ask does terrain matter to the development of the wealth of a nation? If it does, to what extent?
+
+### Drawing the line
+
+What is the average impact of the ruggedness index on gross domestic product per capita?
+
+</br>
+<button onclick="showText('rugged_beta')">show solution</button>
+<div id="rugged_beta" style="display:none;">
+<br>
+
+Here is the model with $Y$, the dependent variable gross domestic product per capita, and $X$, the independent variable terrain ruggedness index.
+
+$$
+\begin{align}
+\operatorname{E}(Y \mid X) &= \alpha + \beta\,X \\
+\operatorname{E}(Y \mid X) &= \left(\mu_Y - \mu_X\frac{\rho\,\sigma_X \, \sigma_Y}{\sigma_X^2}\right) + \frac{\rho\,\sigma_X \, \sigma_Y}{\sigma_X^2}\,X \\
+\sigma_{Y \mid X} &= \sqrt{1-\rho^2}\, \sigma_Y
+\end{align}
+$$
+
+If the joint distribution of $X$ and $Y$ is Gaussian (yes, normal), then we can generate $Y \mid X \sim \operatorname{N}( \alpha + \beta X, (1 - \rho_{XY}^2)\sigma_Y^2)$. Now we can infer $Y$ behavior.
+
+
+![](images/15/rugged-calculatioin.jpg)
+
+There is a strong enough correlation between the average ruggedness and GDP per capita to be be interested in this potential predictor. This scatterplot depicts the work in the expectational computations above.
+
+![](images/15/rugged-plot.jpg)
+
+We also see that the square of correlation, $R^2$, is 0.23. We interpret correlation through $R^2$ as the percentage of variation in $G$ explained, predicted, by a country feature, here, $R$. Accodingly ruggedness probably explains about 23\% of the variation in gross domestic product per capita.
+
+</div>
+<br>
+
+### Does it matter?
+
+Some might insist that ruggedness has nothing to do with prosperity. Maybe so. What is the uncertainty we face if we believe that ruggedness accounts, in some part, for the propsperity of a particular country? Let that country be Cameroon. What is the probability that we decide that ruggedness does influence Cameroon's gross domestic product per capita, but in reality, not our mind, it really does not?
+
+</br>
+<button onclick="showText('rugged_error')">show solution</button>
+<div id="rugged_error" style="display:none;">
+<br>
+
+We need to pick out the ruggedeness, gdp per capita coordinates from the data for Cameroon. They are displayed below. A list box helps us choose any country in this data set.
+
+![](images/15/rugged-inference.jpg)
+
+The odds are in favor of a dependence of gdp per capital on the terrain index for Cameroon. Also the uncertainty is smaller, 0.4028, if we choose  $H_2:\, \beta \neq 0$, than if we choose to ignore ruggedness as an influential feature $H_1:\, \beta = 0$, with higher uncertainty, 0.5971.
+
+</div>
+<br>
+
+
+
+
+
+
+

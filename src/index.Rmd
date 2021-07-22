@@ -1,0 +1,180 @@
+--- 
+title: "Probabilistic Reasoning: from an elementary point of view"
+author: "William G. Foote"
+date: "`r Sys.Date()`"
+documentclass: book
+bibliography: [bibliography_all.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+description: "Learning is inference."
+---
+
+# Prologomena for a Future Statistics {-}
+
+```{r include=FALSE}
+# automatically create a bib database for R packages
+knitr::write_bib(c(
+  .packages(), 'bookdown', 'knitr', 'rmarkdown'
+), 'packages.bib')
+```
+
+This book is a compilation of many years of experience with replying to clients (CFO, CEO, business unit leader, project manager, etc., board member) and their exclamations and desire for _**the number**_. The _number_ might be the next quarter's earnings per share after a failed product launch, customer switching cost and churn with the entry of a new competitor, stock return volatility and attracting managerial talent, fuel switch timing in a fleet of power plants, fastest route to ship soy from Sao Paolo to Lianyungang, launch date for refractive surgery services, relocation for end state renal care facilities, and so on, and so much so forth.
+
+Here is highly redacted scene of a segment of a board meeting of a medical devices company in the not so distant past. All of the characters are of course fictions of a vivid imagination. The scene and the company are all too real.
+
+Sara, a board member, has the floor.
+
+> Sara: Bill, just give us the number!
+
+Bill is the consultant that the CFO hired to provide some insight into a business issue: how many product units can be shipped in 45 days from a port on the Gulf of Mexico, USA to a port in Jiangsu Provice, PRC.
+
+> Bill: Sara, the most plausible number is 42 units through the Canal in 30 days. However, ... 
+
+Sara interjects.
+
+> Sara: Finally! We have a numbe ...
+
+Harrumphing a bit, but quietly and thinking "Not so fast!",
+
+> Bill: Yes, 42 is plausible, but so are 36 and 45, in fact the odds are that these results, given the data and assumptions you provided our team, as well as your own beliefs about the possibilities in the first place, are even. You could bet on any of them and be consistent with the data.
+
+Jeri the CFO grins, and says to George the CEO in a loud enough whisper so that other board members perked up from their trances,
+
+> Jeri, CFO: That's why we hired Bill and his team. He is giving us the range of the plausible. Now it's up to us to pull the trigger.
+
+Sara winces, yields the floor to Jeri, who gently explains to the board,
+
+> Jeri: Thank you Bill and give our regards to your team. Excellent and extensive work in a very short time frame!.
+
+Bill leaves the board room, thinking "Phew!, made through that gauntlet, again."
+
+> Jeri: Now our work really begins. George, please lead us in our deliberations.
+
+Pan through the closed board room door outside to the waiting room and watch Bill, wiping the sweat from his brow, prepare the invoice on his laptop. A watchful administrative assistant nods his approval.
+
+## Why this book {-}
+
+This book is an analytical palimpsest which attempts to recast and reimagine the Bayesian Stan-based analytics presented by Richard @McElreath_2020 for the data analytics that help business managers and executives make decisions. Richard McElreath's vision and examples, though reworked, are nearly immediately evident throughout. But again this work is a palimpset with its own quirks, examples, but surely built on McElreath's analytical architecture.
+
+We wrangle the data and build the models through spreadsheets. Let's state this again: we will recast introductory portions of [Richard McElreath's text](https://xcelab.net/rm/statistical-rethinking/) with the aid of purely Microsoft Excel workbooks, aided in small part by calls to some Visual Basic for Applications (VBA) to automate simulations. On rare occasion we will use the Solver add-in, packaged with the Excel installation. The concepts, even the zeitgeist of a [Danielle Navarro](https://djnavarro.net/) might be evident along with examples from her work on learning and reasoning in the behavioral sciences. And if there was ever a pool of behavior to dip into it is in the business domain.
+
+## Premises {-}
+
+The one premise of this book is that
+
+> Learning is inference
+
+By inference we mean reaching a conclusion. Conclusions can be either true or false. They are reached by a process of reflection on what is understood and by what is experienced.
+
+Let's clarify these terms in this journey courtesy of @Potter_1994:
+
+- _**Ignorance**_ is simply lack of knowledge.
+
+- _**Opinion**_ is a very tentative, if not also hesitant, subject to change, assent to a conclusion.
+
+- _**Belief**_ is a firm conviction.
+
+- _**Knowledge**_ is belief with _sufficient_ evidence to justify assent.
+
+- _**Doubt**_ suspends assent when evidence is lacking or just too week.
+
+- _**Learning**_ can only occur with _doubt_ or _ignorance_ or even _opinion_; learning generates new knowledge.
+
+While the book is vividly, and outspokenly in this regard, Bayesian, I prefer the nomer _probabalistic_ as evinced by @Jaynes_2004, and @Keynes_1923, @Jeffreys1937, and @Fox1946, before him, reaching back into the _inverse probability_ tradition at least back to @DeMoivre1756. We will not get into a debate about _subjective_ versus _objective_ yet: let's hold that (those) thought(s). There is a very strong and cogent reason for this tradition and it is the underlying heuristic structure of human knowing itself. Yes, philosophical principles provide guideposts for the operations, authenticity, products and methodology of probabilistic reasoning and the _techne_ in this book and the works which ground this book. 
+
+@Lonergan_1957 explicates the heuristic structure of human knowing through three successive movements from experience, through understanding, onto to reflection about what is and is not (plausibly of course!), The terms of each movement wind their way into the methodology of any excursus that implements human knowing about anything, including the knower, whom we often tag the _analyst_ or _decision maker_. The knower observes and experiences, yes, with a bias.
+
+The course will boil down to the statistics (minimum, maximum, mean, quantiles, deviations, skewness, kurtosis) and the probability that the evidence we have to support any proposition(s) we claim. The evidence is the strength (for example in decibels, base 10) of our hypothesis or claim. The measure of evidence is the measure of surprise and its complement informativeness of the data, current and underlying, inherent in the claim. In the interests of putting the _bottom line up front_ , here is the formula for our measure of evidence $e$ of a hypothesis $H$ comes from @Jaynes_2004.
+
+$$
+e(H|DX) = e(H|X) + 10\,\,log_{10}\left[\frac{P(D|HX)}{P({D|\overline{H}X})} \right]
+$$
+Let's dissect this. First $H$ is the claim, say, the typical null hypothesis $H_0$ that the status quo is true. If $H=H_0$ then $\overline{H}$ must be the alternative hypothesis logically so that $\overline{H}=H_1$. $D$ is the data at hand we observe. $X$ is the data, including data about beliefs, we already have at our disposable. 
+
+Now we look at the combinations. 
+
+- $DX$ is the logical conjunction of the two data sets. This conjunction represents the proposition that _both the new data and the old data exist_. 
+
+- $HX$ is the phrase _both the claim is true and the available data $X$ are true_. $\overline{H}X$ is the phrase _both the claim is false and the available data $X$ are true_.
+
+Here are the conditions of the contract. 
+
+- We look for evidence $e(H|DX)$ that $H$ is true given the existence both of new data $D$ and available data $X$, that is $H|DX$ where the | is the conditional binary operator.
+
+- This compound ($DX$) evidence depends on the evidence $e(H|X)$ that $H$ is true given knowledge of available data $X$.
+
+_ The evidence impounded in the odds of finding data $D$ when the hypothesis is true $H$ relative to when the hypothesis is not true $\overline{H}$.
+
+Everything is in $log_{10}$ measures to allow us the luxury of simply adding up evidence scores. What is $H$? These are the hypotheses, ideas, explanations, parameters (like intercept and slope, means, standard deviations, you name it) we think when we work through answers to questions. 
+
+## So many questions and too little time {-}
+
+Where in the business domain do questions arise? The usual suspects are the components of any organization's, stakeholders', value chain. This chain extends from questions about the who, when, where, how, how long, how much, how often, how many, for whom, for what, and why of each component. There are decisions in each link. In planning an organization's strategy the decisions might be to examine new markets or not, invest in assets or retire them, fund innovation with shareholder equity or stand fast. In each of these decisions are questions about the size and composition of markets and competitors, the generation of cash flow from operations, the capture of value for stakeholders. It is this font from which questions will arise and analysis will attempt to guide.
+
+## Don't we know everything we need to know? {-}
+
+We don't seem to know everything all of the time, although we certainly have many doubts and opinions. These hurdles are often managed through the collection of data against hypotheses, explanations, theories, and ideas. This syllogism and its sibling will guide us through a lot of the dark places we might travel in this book.
+
+```{r echo = FALSE}
+library(kableExtra)
+caption <- "modus ponens plausibility"
+major <- "if A is true, then B is true"
+minor <- "B is true"
+conclusion <- "therefore, A becomes more plausible"
+argument <- rbind(major, minor, conclusion)
+knitr::kable(argument, align = "c", caption = caption) %>% 
+  kable_styling(full_width = F) %>%
+  row_spec(2, hline_after = T)
+```
+
+There is no guarantee here, just plausible, but justified, belief. We will call plausibility a measure of belief, also known as probability.
+
+Here is the sibling.
+
+```{r , echo = FALSE}
+library(kableExtra)
+caption <- "modus tollens plausibility"
+major <- "if A is true, then B is true"
+minor <- "A is false"
+conclusion <- "therefore, B becomes less plausible"
+argument <- rbind(major, minor, conclusion)
+knitr::kable(argument, align = "c", caption = caption) %>% 
+  kable_styling(full_width = F) %>% 
+  row_spec(2, extra_latex_after = "\\cline(2)")
+#%>% row_spec(1, hline_after = T)
+```
+
+The first chapter will detail the inner workings and cognitional operations at work in these inferences. But let us remember that _**learning is inference**_.
+
+## What we desire {-}
+
+These two ways of inferring plausible, justified, true belief will be the bedrock of this book. They imply three _**desiderata**_ of our methods:
+
+1. Include both the data of sensible observation and the data of assumptions and beliefs.
+
+2. Condition ideas, hypotheses, theories, explanations with the data of experience and belief.
+
+3. Measure the impact of data on hypotheses using a measure of plausibility.
+
+Herein we presents plausibility as the compound of a menagerie of conditional probabilities. A conditional probability is just a number between 0 and 1, that makes some sort of sense, given the truth of some ensemble of propositions. For example, we might observe lots of people in running gear running across a parking lot. We know, from experience that people running together in running gear often run in a race. The probability that the people we see in the parking lot, _given_ they are running together in running gear, are running in a race is fairly plausible. It makes some sort of common sense. We might compute a probability of 0.25 as well. We just made a statement of _conditional probability_. Insofar as this is sensible, we might also say it is rational.  
+
+What we will call rational will be the consistency, the compatibility, of data with hypotheses measured by plausibility, often labeled posterior probability. The data are runners in running gear. The hypothesis is they are running in a race. 
+
+The data of beliefs, of maximum leakage of information, will be contained in what many call prior probability. We might find reasonable the hypothesis that people are running a race. We might also, for objectivity's sake, and to play the dialectical advocate, they are not. The two hypotheses are mutually exclusive logically. We might find them to be equally plausible, at least for the moment. The data of beliefs include our assumptions about the distribution of hypotheses. 
+
+The conditioning of hypotheses with data is another conditional probability, what many will call likelihood. Ultimately what we call uncertainty will be the range and plausibility of the impact of data on hypotheses. What we will solve for is the most plausible explanation given data and belief.
+
+## Frequentist or probabilistic? {-}
+
+Both. 
+
+The moving parts of our reasoning demand at least a probabilistic approach if we are to summarily, if not completely ever, deal with uncertainty in our descriptions and explanations of reality. For the business decision maker this mindset becomes critical as the way in which any decision must be made if it is to be compatible with the data of experience, understanding and reflection. Practically speaking the probabilistic approach directly aligns with the heuristic structure of human knowing: experience, understanding, reflection. All are fulfilled virtually (we don't know everything through bias, omission, ignorance, malice) as we enter the decision-making arena. Because our understanding of the future is imperfect we insert the word and idea of plausibility into every statement. Or perhaps its many synonyms, qualifiers and modalities.
+
+_**Frequentism**_ is a quasi-objective approach to analysis. It is objective in that it focuses on only the data. It is _quasi_-objective in that the data must be collected by human knowers and doers as a sample of what might occur more generally. An assumption of the analysis is always that the data are equally likely to occur. These beings do not always have access to or even want to collect all or the right data for further deliberation. That is an interesting historical, and _a priori_, fact of human existence. The collection itself rails against the time, space, and resources needed for collection and thus the epithet of garbage-in and garbage-out plagues all analysis. However, frequentist approaches contradict their supposed objectivism in that both the data selected, collected, and deliberated up are subject (yes the prior substrate of experience begins to enter) to, and conditional upon the collector and the deliberator. 
+Both frequentist and probabilistic reasoning intersect when prior knowledge is all but unknown (the uninformative or _diffuse_ prior) or might as well assign equally plausible weights (probabilities) to any hypothesis the analyst might propose about the value of a moment of a distribution.  They all but diverge when uneven, lumpy, step function priors on the values of the supposed estimators as hypotheses collide with the likelihood that the data is compatible with any of these hypotheses. Such divergence is not the destruction of objectivity, rather the inclusion into a complete objective description and explanation of a phenomenon when we allow the analyst's assumptions, pre-existing conditions, the world as it has been known, into the deliberation of a posterior results.[^peirce]
+
+[^peirce]: Charles Sanders Pierce (@Peirce1884) is perhaps the first objective-frequentist to insert so-called subjective priors into a rigorous psychological experience on the difference in pressure sensations. In fact, he and his co-author Jastrow seem to have simply, and analytically correctly, embedded their assumptions about their experiements into the understanding of their results.
+
+## A work in progress {-}
+
+This book will expand and contract over the days ahead. [Email me](wfoote01@manhattan.edu) will comments, errors, omissions, etc. The book's content is rendered using [Yihui's](https://bookdown.org) `bookdown` package (thank you!), [served on GitHub pages](https://wgfoote.github.io/book-probabilistic-reasoning) with [source code](https://github.com/wgfoote/book-probabilistic-reasoning). When I figure out how to build an issues facility in Github that will be the font of all wisdom from readers and syndics.

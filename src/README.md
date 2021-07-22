@@ -1,0 +1,1 @@
+This is an elementary view of probabilistic reasoning, also known as Bayesian Data Analysis, and in spreadsheets.
