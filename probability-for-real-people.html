@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 2 Probability for Real People | Probabilistic Reasoning: from an elementary point of view</title>
+  <meta name="description" content="Learning is inference." />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 2 Probability for Real People | Probabilistic Reasoning: from an elementary point of view" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Learning is inference." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 Probability for Real People | Probabilistic Reasoning: from an elementary point of view" />
+  
+  <meta name="twitter:description" content="Learning is inference." />
+  
+
+<meta name="author" content="William G. Foote" />
+
+
+<meta name="date" content="2021-07-16" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="counting-the-ways.html"/>
+<link rel="next" href="part-two-the-fantastic-four.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.9.2.2/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.52.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.52.2/plotly-latest.min.js"></script>
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Probabilistic Reasoning</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Prologomena for a Future Statistics</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#why-this-book"><i class="fa fa-check"></i>Why this book</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#premises"><i class="fa fa-check"></i>Premises</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#so-many-questions-and-too-little-time"><i class="fa fa-check"></i>So many questions and too little time</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#dont-we-know-everything-we-need-to-know"><i class="fa fa-check"></i>Don’t we know everything we need to know?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-we-desire"><i class="fa fa-check"></i>What we desire</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#frequentist-or-probabilistic"><i class="fa fa-check"></i>Frequentist or probabilistic?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#a-work-in-progress"><i class="fa fa-check"></i>A work in progress</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="part-one-the-basics.html"><a href="part-one-the-basics.html"><i class="fa fa-check"></i>Part One – The Basics</a></li>
+<li class="chapter" data-level="1" data-path="counting-the-ways.html"><a href="counting-the-ways.html"><i class="fa fa-check"></i><b>1</b> Counting the Ways</a><ul>
+<li class="chapter" data-level="1.1" data-path="counting-the-ways.html"><a href="counting-the-ways.html#plausibility-probability-and-information"><i class="fa fa-check"></i><b>1.1</b> Plausibility, probability and information</a></li>
+<li class="chapter" data-level="1.2" data-path="counting-the-ways.html"><a href="counting-the-ways.html#some-surprise"><i class="fa fa-check"></i><b>1.2</b> Some Surprise</a></li>
+<li class="chapter" data-level="1.3" data-path="counting-the-ways.html"><a href="counting-the-ways.html#how-many-ways"><i class="fa fa-check"></i><b>1.3</b> How many ways?</a></li>
+<li class="chapter" data-level="1.4" data-path="counting-the-ways.html"><a href="counting-the-ways.html#back-to-data"><i class="fa fa-check"></i><b>1.4</b> Back to data</a></li>
+<li class="chapter" data-level="1.5" data-path="counting-the-ways.html"><a href="counting-the-ways.html#checking-our-grip-on-reality"><i class="fa fa-check"></i><b>1.5</b> Checking our grip on reality</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="probability-for-real-people.html"><a href="probability-for-real-people.html"><i class="fa fa-check"></i><b>2</b> Probability for Real People</a><ul>
+<li class="chapter" data-level="2.1" data-path="probability-for-real-people.html"><a href="probability-for-real-people.html#can-we-rationally-reason"><i class="fa fa-check"></i><b>2.1</b> Can we rationally reason?</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="probability-for-real-people.html"><a href="probability-for-real-people.html#priors-what-we-think-might-happen"><i class="fa fa-check"></i><b>2.1.1</b> Priors: what we think might happen</a></li>
+<li class="chapter" data-level="2.1.2" data-path="probability-for-real-people.html"><a href="probability-for-real-people.html#likelihoods-thinking-about-the-data"><i class="fa fa-check"></i><b>2.1.2</b> Likelihoods: thinking about the data</a></li>
+<li class="chapter" data-level="2.1.3" data-path="probability-for-real-people.html"><a href="probability-for-real-people.html#altogether-now"><i class="fa fa-check"></i><b>2.1.3</b> Altogether now</a></li>
+<li class="chapter" data-level="2.1.4" data-path="probability-for-real-people.html"><a href="probability-for-real-people.html#updating-beliefs"><i class="fa fa-check"></i><b>2.1.4</b> Updating beliefs</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="probability-for-real-people.html"><a href="probability-for-real-people.html#whats-next"><i class="fa fa-check"></i><b>2.2</b> What’s next?</a></li>
+<li class="chapter" data-level="2.3" data-path="probability-for-real-people.html"><a href="probability-for-real-people.html#try-this-out-if-this-is-reasonable"><i class="fa fa-check"></i><b>2.3</b> Try this out, if this is reasonable</a></li>
+<li class="chapter" data-level="2.4" data-path="probability-for-real-people.html"><a href="probability-for-real-people.html#endnotes"><i class="fa fa-check"></i><b>2.4</b> Endnotes</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="part-two-the-fantastic-four.html"><a href="part-two-the-fantastic-four.html"><i class="fa fa-check"></i>Part Two – The Fantastic Four</a></li>
+<li class="chapter" data-level="3" data-path="algorithmics-1-counting-made-easy.html"><a href="algorithmics-1-counting-made-easy.html"><i class="fa fa-check"></i><b>3</b> Algorithmics 1: counting made easy</a><ul>
+<li class="chapter" data-level="3.1" data-path="algorithmics-1-counting-made-easy.html"><a href="algorithmics-1-counting-made-easy.html#whats-an-algorithm"><i class="fa fa-check"></i><b>3.1</b> What’s an algorithm?</a></li>
+<li class="chapter" data-level="3.2" data-path="algorithmics-1-counting-made-easy.html"><a href="algorithmics-1-counting-made-easy.html#our-first-job-unobserved-hypotheses"><i class="fa fa-check"></i><b>3.2</b> Our first job: unobserved hypotheses</a></li>
+<li class="chapter" data-level="3.3" data-path="algorithmics-1-counting-made-easy.html"><a href="algorithmics-1-counting-made-easy.html#possibilities-abound"><i class="fa fa-check"></i><b>3.3</b> Possibilities abound</a></li>
+<li class="chapter" data-level="3.4" data-path="algorithmics-1-counting-made-easy.html"><a href="algorithmics-1-counting-made-easy.html#observed-data"><i class="fa fa-check"></i><b>3.4</b> Observed data</a></li>
+<li class="chapter" data-level="3.5" data-path="algorithmics-1-counting-made-easy.html"><a href="algorithmics-1-counting-made-easy.html#is-anything-really-plausible"><i class="fa fa-check"></i><b>3.5</b> Is anything really plausible?</a></li>
+<li class="chapter" data-level="3.6" data-path="algorithmics-1-counting-made-easy.html"><a href="algorithmics-1-counting-made-easy.html#interpretation"><i class="fa fa-check"></i><b>3.6</b> Interpretation</a></li>
+<li class="chapter" data-level="3.7" data-path="algorithmics-1-counting-made-easy.html"><a href="algorithmics-1-counting-made-easy.html#locales"><i class="fa fa-check"></i><b>3.7</b> 10 locales?</a></li>
+<li class="chapter" data-level="3.8" data-path="algorithmics-1-counting-made-easy.html"><a href="algorithmics-1-counting-made-easy.html#next"><i class="fa fa-check"></i><b>3.8</b> Next</a></li>
+<li class="chapter" data-level="3.9" data-path="algorithmics-1-counting-made-easy.html"><a href="algorithmics-1-counting-made-easy.html#references-and-endnotes"><i class="fa fa-check"></i><b>3.9</b> References and endnotes</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="algorithmics-2-binomial-ups-and-downs.html"><a href="algorithmics-2-binomial-ups-and-downs.html"><i class="fa fa-check"></i><b>4</b> Algorithmics 2: binomial ups and downs</a><ul>
+<li class="chapter" data-level="4.1" data-path="algorithmics-2-binomial-ups-and-downs.html"><a href="algorithmics-2-binomial-ups-and-downs.html#anatomy-of-an-algorithm"><i class="fa fa-check"></i><b>4.1</b> Anatomy of an algorithm</a></li>
+<li class="chapter" data-level="4.2" data-path="algorithmics-2-binomial-ups-and-downs.html"><a href="algorithmics-2-binomial-ups-and-downs.html#ups-and-downs"><i class="fa fa-check"></i><b>4.2</b> Ups and downs</a></li>
+<li class="chapter" data-level="4.3" data-path="algorithmics-2-binomial-ups-and-downs.html"><a href="algorithmics-2-binomial-ups-and-downs.html#dispensing-with-the-bag-of-beans"><i class="fa fa-check"></i><b>4.3</b> Dispensing with the bag of beans</a></li>
+<li class="chapter" data-level="4.4" data-path="algorithmics-2-binomial-ups-and-downs.html"><a href="algorithmics-2-binomial-ups-and-downs.html#great-expectations"><i class="fa fa-check"></i><b>4.4</b> Great expectations</a></li>
+<li class="chapter" data-level="4.5" data-path="algorithmics-2-binomial-ups-and-downs.html"><a href="algorithmics-2-binomial-ups-and-downs.html#then-there-were-eleven"><i class="fa fa-check"></i><b>4.5</b> Then there were eleven</a></li>
+<li class="chapter" data-level="4.6" data-path="algorithmics-2-binomial-ups-and-downs.html"><a href="algorithmics-2-binomial-ups-and-downs.html#references-and-endnotes-1"><i class="fa fa-check"></i><b>4.6</b> References and endnotes</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="algorithmics-3-playing-musical-raptors.html"><a href="algorithmics-3-playing-musical-raptors.html"><i class="fa fa-check"></i><b>5</b> Algorithmics 3: playing musical raptors</a><ul>
+<li class="chapter" data-level="5.1" data-path="algorithmics-3-playing-musical-raptors.html"><a href="algorithmics-3-playing-musical-raptors.html#is-there-more-to-life-than-binary"><i class="fa fa-check"></i><b>5.1</b> Is there more to life than binary?</a></li>
+<li class="chapter" data-level="5.2" data-path="algorithmics-3-playing-musical-raptors.html"><a href="algorithmics-3-playing-musical-raptors.html#exploring-what-we-do-know"><i class="fa fa-check"></i><b>5.2</b> Exploring what we do know</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="algorithmics-3-playing-musical-raptors.html"><a href="algorithmics-3-playing-musical-raptors.html#summarize-the-data"><i class="fa fa-check"></i><b>5.2.1</b> Summarize the data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="algorithmics-3-playing-musical-raptors.html"><a href="algorithmics-3-playing-musical-raptors.html#whence-the-binomial-generates-the-poisson"><i class="fa fa-check"></i><b>5.3</b> Whence the binomial generates the Poisson</a></li>
+<li class="chapter" data-level="5.4" data-path="algorithmics-3-playing-musical-raptors.html"><a href="algorithmics-3-playing-musical-raptors.html#approximating-poisson"><i class="fa fa-check"></i><b>5.4</b> Approximating Poisson</a></li>
+<li class="chapter" data-level="5.5" data-path="algorithmics-3-playing-musical-raptors.html"><a href="algorithmics-3-playing-musical-raptors.html#zooming-in-for-a-closer-look"><i class="fa fa-check"></i><b>5.5</b> Zooming in for a closer look</a></li>
+<li class="chapter" data-level="5.6" data-path="algorithmics-3-playing-musical-raptors.html"><a href="algorithmics-3-playing-musical-raptors.html#probability-intervals"><i class="fa fa-check"></i><b>5.6</b> Probability intervals</a></li>
+<li class="chapter" data-level="5.7" data-path="algorithmics-3-playing-musical-raptors.html"><a href="algorithmics-3-playing-musical-raptors.html#references-and-endnotes-2"><i class="fa fa-check"></i><b>5.7</b> References and endnotes</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html"><i class="fa fa-check"></i><b>6</b> Algorithmics 4: Gaussian blues</a><ul>
+<li class="chapter" data-level="6.1" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#while-we-wait-for-the-other-shoe-to-drop"><i class="fa fa-check"></i><b>6.1</b> While we wait for the other shoe to drop</a></li>
+<li class="chapter" data-level="6.2" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#is-there-more-to-life-than-just-counting"><i class="fa fa-check"></i><b>6.2</b> Is there more to life than just counting?</a></li>
+<li class="chapter" data-level="6.3" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#gauss-gauss-where-is-gauss"><i class="fa fa-check"></i><b>6.3</b> Gauss, Gauss, where is Gauss?</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#full-time-equivalent"><i class="fa fa-check"></i><b>6.3.1</b> Full time equivalent</a></li>
+<li class="chapter" data-level="6.3.2" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#compound-growth"><i class="fa fa-check"></i><b>6.3.2</b> Compound growth</a></li>
+<li class="chapter" data-level="6.3.3" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#log-products"><i class="fa fa-check"></i><b>6.3.3</b> Log products</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#assume-and-simplify"><i class="fa fa-check"></i><b>6.4</b> Assume and simplify</a></li>
+<li class="chapter" data-level="6.5" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#how-do-we-get-there"><i class="fa fa-check"></i><b>6.5</b> How do we get there?</a></li>
+<li class="chapter" data-level="6.6" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#grid-lock"><i class="fa fa-check"></i><b>6.6</b> Grid lock</a></li>
+<li class="chapter" data-level="6.7" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#onward-we-march"><i class="fa fa-check"></i><b>6.7</b> Onward we march</a></li>
+<li class="chapter" data-level="6.8" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#what-does-it-all-mean"><i class="fa fa-check"></i><b>6.8</b> What does it all mean?</a></li>
+<li class="chapter" data-level="6.9" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#a-provisional-finding"><i class="fa fa-check"></i><b>6.9</b> A provisional finding</a></li>
+<li class="chapter" data-level="6.10" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#just-one-more-thing"><i class="fa fa-check"></i><b>6.10</b> Just one more thing</a><ul>
+<li class="chapter" data-level="6.10.1" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#one-way"><i class="fa fa-check"></i><b>6.10.1</b> One way</a></li>
+<li class="chapter" data-level="6.10.2" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#or-the-other"><i class="fa fa-check"></i><b>6.10.2</b> Or the other</a></li>
+</ul></li>
+<li class="chapter" data-level="6.11" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#references-and-endnotes-3"><i class="fa fa-check"></i><b>6.11</b> References and endnotes</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="part-three-rubber-meets-the-road.html"><a href="part-three-rubber-meets-the-road.html"><i class="fa fa-check"></i>Part Three – Rubber meets the road</a></li>
+<li class="chapter" data-level="7" data-path="gausss-robots-again.html"><a href="gausss-robots-again.html"><i class="fa fa-check"></i><b>7</b> Gauss’s robots again</a><ul>
+<li class="chapter" data-level="7.1" data-path="gausss-robots-again.html"><a href="gausss-robots-again.html#an-auspicious-result"><i class="fa fa-check"></i><b>7.1</b> An auspicious result</a></li>
+<li class="chapter" data-level="7.2" data-path="gausss-robots-again.html"><a href="gausss-robots-again.html#tale-of-two-populations"><i class="fa fa-check"></i><b>7.2</b> Tale of two populations</a></li>
+<li class="chapter" data-level="7.3" data-path="gausss-robots-again.html"><a href="gausss-robots-again.html#education-is-the-key"><i class="fa fa-check"></i><b>7.3</b> Education is the key</a></li>
+<li class="chapter" data-level="7.4" data-path="gausss-robots-again.html"><a href="gausss-robots-again.html#sample-until-we-drop"><i class="fa fa-check"></i><b>7.4</b> Sample until we drop</a></li>
+<li class="chapter" data-level="7.5" data-path="gausss-robots-again.html"><a href="gausss-robots-again.html#results-results-we-want-results"><i class="fa fa-check"></i><b>7.5</b> Results, results, we want results!</a></li>
+<li class="chapter" data-level="7.6" data-path="gausss-robots-again.html"><a href="gausss-robots-again.html#yet-another-rocky-road-we-have-traveled"><i class="fa fa-check"></i><b>7.6</b> Yet another rocky road we have traveled</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html"><i class="fa fa-check"></i><b>8</b> Gauss’s robots go rogue</a><ul>
+<li class="chapter" data-level="8.1" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#spreadsheets-really"><i class="fa fa-check"></i><b>8.1</b> Spreadsheets? Really?</a></li>
+<li class="chapter" data-level="8.2" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#an-auspicious-result-again"><i class="fa fa-check"></i><b>8.2</b> An auspicious result again?</a></li>
+<li class="chapter" data-level="8.3" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#the-most-uninformative-distribution"><i class="fa fa-check"></i><b>8.3</b> The most uninformative distribution</a></li>
+<li class="chapter" data-level="8.4" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#simulate-until-morale-improves"><i class="fa fa-check"></i><b>8.4</b> Simulate until morale improves!</a></li>
+<li class="chapter" data-level="8.5" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#is-it-true-that-gauss-is-in-the-house-again"><i class="fa fa-check"></i><b>8.5</b> Is it true that Gauss is in the house again?</a></li>
+<li class="chapter" data-level="8.6" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#and-again"><i class="fa fa-check"></i><b>8.6</b> And again?</a></li>
+<li class="chapter" data-level="8.7" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#the-association"><i class="fa fa-check"></i><b>8.7</b> The Association</a></li>
+<li class="chapter" data-level="8.8" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#a-tale-of-coir"><i class="fa fa-check"></i><b>8.8</b> A tale of coir</a><ul>
+<li class="chapter" data-level="8.8.1" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#business-situation"><i class="fa fa-check"></i><b>8.8.1</b> Business Situation</a></li>
+<li class="chapter" data-level="8.8.2" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#business-questions"><i class="fa fa-check"></i><b>8.8.2</b> Business Questions</a></li>
+<li class="chapter" data-level="8.8.3" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#data"><i class="fa fa-check"></i><b>8.8.3</b> Data</a></li>
+<li class="chapter" data-level="8.8.4" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#analysis"><i class="fa fa-check"></i><b>8.8.4</b> Analysis</a></li>
+<li class="chapter" data-level="8.8.5" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#results"><i class="fa fa-check"></i><b>8.8.5</b> Results</a></li>
+</ul></li>
+<li class="chapter" data-level="8.9" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#endnotes-1"><i class="fa fa-check"></i><b>8.9</b> Endnotes</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="credible-interval-training.html"><a href="credible-interval-training.html"><i class="fa fa-check"></i><b>9</b> Credible interval training?</a><ul>
+<li class="chapter" data-level="9.1" data-path="credible-interval-training.html"><a href="credible-interval-training.html#imagine-this"><i class="fa fa-check"></i><b>9.1</b> Imagine this…</a></li>
+<li class="chapter" data-level="9.2" data-path="credible-interval-training.html"><a href="credible-interval-training.html#try-this-on-for-size"><i class="fa fa-check"></i><b>9.2</b> Try this on for size</a></li>
+<li class="chapter" data-level="9.3" data-path="credible-interval-training.html"><a href="credible-interval-training.html#what-about-the-sampled-standard-deviation"><i class="fa fa-check"></i><b>9.3</b> What about the sampled standard deviation?</a><ul>
+<li class="chapter" data-level="9.3.1" data-path="credible-interval-training.html"><a href="credible-interval-training.html#heres-the-promised-derivation"><i class="fa fa-check"></i><b>9.3.1</b> Here’s the promised derivation</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="credible-interval-training.html"><a href="credible-interval-training.html#probability-intervals-1-known-population-standard-deviation"><i class="fa fa-check"></i><b>9.4</b> Probability intervals 1: known population standard deviation</a></li>
+<li class="chapter" data-level="9.5" data-path="credible-interval-training.html"><a href="credible-interval-training.html#our-first-procedure-emerges"><i class="fa fa-check"></i><b>9.5</b> Our first procedure emerges</a></li>
+<li class="chapter" data-level="9.6" data-path="credible-interval-training.html"><a href="credible-interval-training.html#probability-intervals-2-on-to-the-unknown-standard-deviation"><i class="fa fa-check"></i><b>9.6</b> Probability intervals 2: on to the unknown standard deviation</a><ul>
+<li class="chapter" data-level="9.6.1" data-path="credible-interval-training.html"><a href="credible-interval-training.html#by-the-way-who-is-student"><i class="fa fa-check"></i><b>9.6.1</b> By the way, who is Student?</a></li>
+</ul></li>
+<li class="chapter" data-level="9.7" data-path="credible-interval-training.html"><a href="credible-interval-training.html#our-second-procedure"><i class="fa fa-check"></i><b>9.7</b> Our second procedure</a></li>
+<li class="chapter" data-level="9.8" data-path="credible-interval-training.html"><a href="credible-interval-training.html#exercises"><i class="fa fa-check"></i><b>9.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="hypothetically-speaking.html"><a href="hypothetically-speaking.html"><i class="fa fa-check"></i><b>10</b> Hypothetically Speaking</a><ul>
+<li class="chapter" data-level="10.1" data-path="hypothetically-speaking.html"><a href="hypothetically-speaking.html#imagine-this-1"><i class="fa fa-check"></i><b>10.1</b> Imagine this…</a><ul>
+<li class="chapter" data-level="10.1.1" data-path="hypothetically-speaking.html"><a href="hypothetically-speaking.html#for-those-who-really-want-to-or-even-need-to"><i class="fa fa-check"></i><b>10.1.1</b> For those who really want to, or even need to</a></li>
+<li class="chapter" data-level="10.1.2" data-path="hypothetically-speaking.html"><a href="hypothetically-speaking.html#finally-an-excel-screenshot"><i class="fa fa-check"></i><b>10.1.2</b> Finally an excel screenshot</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="hypothetically-speaking.html"><a href="hypothetically-speaking.html#can-we-be-wrong"><i class="fa fa-check"></i><b>10.2</b> Can we be wrong?</a></li>
+<li class="chapter" data-level="10.3" data-path="hypothetically-speaking.html"><a href="hypothetically-speaking.html#yet-another-way"><i class="fa fa-check"></i><b>10.3</b> Yet another way</a><ul>
+<li class="chapter" data-level="10.3.1" data-path="hypothetically-speaking.html"><a href="hypothetically-speaking.html#population-standard-deviation-known"><i class="fa fa-check"></i><b>10.3.1</b> Population standard deviation known</a></li>
+<li class="chapter" data-level="10.3.2" data-path="hypothetically-speaking.html"><a href="hypothetically-speaking.html#control-is-probability"><i class="fa fa-check"></i><b>10.3.2</b> Control is probability</a></li>
+<li class="chapter" data-level="10.3.3" data-path="hypothetically-speaking.html"><a href="hypothetically-speaking.html#on-to-the-unknown"><i class="fa fa-check"></i><b>10.3.3</b> On to the unknown</a></li>
+<li class="chapter" data-level="10.3.4" data-path="hypothetically-speaking.html"><a href="hypothetically-speaking.html#on-with-our-story"><i class="fa fa-check"></i><b>10.3.4</b> On with our story…</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="hypothetically-speaking.html"><a href="hypothetically-speaking.html#exercises-1"><i class="fa fa-check"></i><b>10.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="part-four-the-test-of-a-relationship.html"><a href="part-four-the-test-of-a-relationship.html"><i class="fa fa-check"></i>Part Four – The Test of a Relationship</a></li>
+<li class="chapter" data-level="11" data-path="relationships-put-to-the-test.html"><a href="relationships-put-to-the-test.html"><i class="fa fa-check"></i><b>11</b> Relationships Put to the Test</a><ul>
+<li class="chapter" data-level="11.1" data-path="relationships-put-to-the-test.html"><a href="relationships-put-to-the-test.html#its-not-so-hard-to-imagine-this"><i class="fa fa-check"></i><b>11.1</b> It’s not so hard to imagine this…</a></li>
+<li class="chapter" data-level="11.2" data-path="relationships-put-to-the-test.html"><a href="relationships-put-to-the-test.html#the-maths-the-maths"><i class="fa fa-check"></i><b>11.2</b> The maths! The maths!</a><ul>
+<li class="chapter" data-level="11.2.1" data-path="relationships-put-to-the-test.html"><a href="relationships-put-to-the-test.html#what-did-we-all-expect"><i class="fa fa-check"></i><b>11.2.1</b> What did we all expect?</a></li>
+<li class="chapter" data-level="11.2.2" data-path="relationships-put-to-the-test.html"><a href="relationships-put-to-the-test.html#walking-the-straight-line"><i class="fa fa-check"></i><b>11.2.2</b> Walking the straight line</a></li>
+<li class="chapter" data-level="11.2.3" data-path="relationships-put-to-the-test.html"><a href="relationships-put-to-the-test.html#a-short-variance-diatribe"><i class="fa fa-check"></i><b>11.2.3</b> A short variance diatribe</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="relationships-put-to-the-test.html"><a href="relationships-put-to-the-test.html#does-education-matter"><i class="fa fa-check"></i><b>11.3</b> Does education matter?</a></li>
+<li class="chapter" data-level="11.4" data-path="relationships-put-to-the-test.html"><a href="relationships-put-to-the-test.html#back-to-the-business-at-hand"><i class="fa fa-check"></i><b>11.4</b> Back to the business at hand</a></li>
+<li class="chapter" data-level="11.5" data-path="relationships-put-to-the-test.html"><a href="relationships-put-to-the-test.html#does-it-really-matter"><i class="fa fa-check"></i><b>11.5</b> Does it really matter?</a></li>
+<li class="chapter" data-level="11.6" data-path="relationships-put-to-the-test.html"><a href="relationships-put-to-the-test.html#references-and-endnotes-4"><i class="fa fa-check"></i><b>11.6</b> References and endnotes</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="the-journey-continues.html"><a href="the-journey-continues.html"><i class="fa fa-check"></i><b>12</b> The journey continues</a><ul>
+<li class="chapter" data-level="12.1" data-path="the-journey-continues.html"><a href="the-journey-continues.html#backing-up"><i class="fa fa-check"></i><b>12.1</b> Backing up</a></li>
+<li class="chapter" data-level="12.2" data-path="the-journey-continues.html"><a href="the-journey-continues.html#fences-and-neighbors"><i class="fa fa-check"></i><b>12.2</b> Fences and neighbors</a><ul>
+<li class="chapter" data-level="12.2.1" data-path="the-journey-continues.html"><a href="the-journey-continues.html#tukeys-fences."><i class="fa fa-check"></i><b>12.2.1</b> Tukey’s fences.</a></li>
+<li class="chapter" data-level="12.2.2" data-path="the-journey-continues.html"><a href="the-journey-continues.html#credibility-intervals."><i class="fa fa-check"></i><b>12.2.2</b> Credibility intervals.</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="the-journey-continues.html"><a href="the-journey-continues.html#binomial-raptors."><i class="fa fa-check"></i><b>12.3</b> Binomial raptors.</a><ul>
+<li class="chapter" data-level="12.3.1" data-path="the-journey-continues.html"><a href="the-journey-continues.html#cloudy-or-clear."><i class="fa fa-check"></i><b>12.3.1</b> Cloudy or clear.</a></li>
+<li class="chapter" data-level="12.3.2" data-path="the-journey-continues.html"><a href="the-journey-continues.html#binomial-sightings."><i class="fa fa-check"></i><b>12.3.2</b> Binomial sightings.</a></li>
+<li class="chapter" data-level="12.3.3" data-path="the-journey-continues.html"><a href="the-journey-continues.html#poisson-raptors."><i class="fa fa-check"></i><b>12.3.3</b> Poisson raptors.</a></li>
+<li class="chapter" data-level="12.3.4" data-path="the-journey-continues.html"><a href="the-journey-continues.html#poisson-expectations."><i class="fa fa-check"></i><b>12.3.4</b> Poisson expectations.</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="the-journey-continues.html"><a href="the-journey-continues.html#managing-relationships"><i class="fa fa-check"></i><b>12.4</b> Managing relationships</a><ul>
+<li class="chapter" data-level="12.4.1" data-path="the-journey-continues.html"><a href="the-journey-continues.html#drawing-the-line"><i class="fa fa-check"></i><b>12.4.1</b> Drawing the line</a></li>
+<li class="chapter" data-level="12.4.2" data-path="the-journey-continues.html"><a href="the-journey-continues.html#does-it-matter"><i class="fa fa-check"></i><b>12.4.2</b> Does it matter?</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Probabilistic Reasoning: from an elementary point of view</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="probability-for-real-people" class="section level1">
+<h1><span class="header-section-number">Chapter 2</span> Probability for Real People</h1>
+<div id="can-we-rationally-reason" class="section level2">
+<h2><span class="header-section-number">2.1</span> Can we rationally reason?</h2>
+<p>Some might wonder if this section header even makes sense!<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> We reason a lot. But sometimes our reasons are not founded in any data that can be observed either by ourselves or by others. Our reasoning can be founded on falsified data, delusions, unfounded opinions, beliefs with no authoritative grounds.</p>
+<p>Rationality here at least means that we, as decision makers, would tend to act based on the consistency of observed reality with imagined and through ideas about the world in which data are collected. We attempt to infer claims about the world based on our beliefs about the world. When confronting ideas, imbued with beliefs, with ovbserved reality we might find ourselves in the position to <em>update our beliefs</em>, even those, and sometimes especially those, we so dearly hold.</p>
+<p>In our thinking about anything we would venture candidate hypotheses <span class="math inline">\(h\)</span> about the world, say the world of voters in voting districts, consumers of smart phones in zip codes, even virus testing results. Of course the whole point is that we do not know which hypothesis is more plausible, or not. We then collect some data <span class="math inline">\(d\)</span>. When we perform this task, we move from the mental realm of the possibiity of hyptheses, theories, surmises, and model to the realm of observed reality. We may well have to revise our original beliefs about the data.</p>
+<p>To implement our maintained hypothesis of rationality, we begin our search for <strong>potential consistencies of the collected data with our hypotheses</strong> that are fed by the data. In our quest we might find that some one of the hypotheses has more ways of being consistent with the data than others. When the data is consistent with a hypothesis, that is, when the hypothesis is reasonable logically, then our belief in that hypothesis strengthens,<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> and becomes more plausible. If the data is less consistent with the hypothesis, our belief in that hypothesis weakens. So far we have performed this set of tasks with conjectures about virus testing and voter alliance in zip codes. Let’s switch up our program and consider the following very simplified question about the weather.</p>
+<blockquote>
+<p><em>We see people carrying snow shovels. Will it snow?</em></p>
+</blockquote>
+<p>What is the data <span class="math inline">\(d\)</span>? We have recorded a simple observation about the state of the weather so that single piece of data (<span class="math inline">\(d =\)</span> We see people carrying snow shovels). Her is where our beliefs enter. We have two <strong><em>hypotheses</em></strong>, <span class="math inline">\(h\)</span>: either it snows today or it does not.</p>
+<p>Let’s figure out how to solve this problem? We have three <em>desiderata</em>:</p>
+<ol style="list-style-type: decimal">
+<li><p>We should include our experiences with snow in our analysis.</p></li>
+<li><p>We should collect data about carrying snow shovels in January as well.</p></li>
+<li><p>We prefer more consistency of data with hypotheses to less consistency.</p></li>
+</ol>
+<p>Here we go, let’s strap ourselves in.</p>
+<div id="priors-what-we-think-might-happen" class="section level3">
+<h3><span class="header-section-number">2.1.1</span> Priors: what we think might happen</h3>
+<p>Our observation is about the weather: clouds, wind, cold. But we want to know about the snow! That is our objective and we have definite ideas about whether (don’t pardon the pun!) it will snow or not. We will identify our beliefs, ever before we make our observations, about snow. The analytical profession and custom is to label these beliefs as <em>a priori</em>,<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> and thus the ellipsis <em>prior</em>, contentions we hold when we walk into the data story we create with the question of <em>will it snow?</em></p>
+<p>Our prior contentions are just the plausibilities of each hypothesis whatever data we eventually collect. After all we have to admit to everyone what we believe to be true as the antecedent to the consequent of observations and the plausibility of snow. This move allows us to learn, to revise, to update our dearly held beliefs. We thus can grow and develop. This is in a phrase a <em>sine qua non</em>, a <em>categorial imperative</em>, a <em>virtually unconditioned</em> requirement for change.</p>
+<p>What might we believe about whether it will snow (today)? If you come from Malone, New York, north of the Adirondack mountains, you will have a different belief than if you come from Daytona, Florida, on the matter of how many ways snow might happen in a given month. So let’s take as our benchmark Albany, the capital of the state of New York.</p>
+<p>We will refer to some data to form hypotheses and their plausibility.using this <a href="https://www.currentresults.com/Weather/New-York/snowfall-january.php">weather statistics site</a>. The site reports the average number of days of snowfall in January, when there is at least a 0.25 cm accumulation in a day. It is 10.3 days. These are the number of ways (days) in January, in Albany, NY, that it is true, on average and thus some notion of expected, or believed to be, that it snows. The total number of ways snow could possibly fall in any January (defined by calendar standards) is 31. While the formation of the hypotheses <em>snowy</em> and <em>nice</em> days is informed by data, we are asking a question about snow because we have yet to observe if will snow. We cannot observe something that has not yet happened. We can thus characterize hypotheses and conjectures as <strong>unobserved data</strong>.</p>
+<p>Thus we might conclude that we believe that is it plausible (probable) that snow <em>can</em> fall <span class="math inline">\(10.3 / 31 = 30\%\)</span> of the different ways snow can fall. Note very well we will talk about <em>priors</em> as <em>potentials</em> and <em>conjectures</em> and <em>hypotheticals</em>, and thus used the modal verbs <em>can</em> or <em>might</em>. Thus we believe it might not snow, because it is possible, with plausibility <span class="math inline">\(1-0.30 = 0.70\)</span>, or, multiplying by 100, 70%, according to the law of total probability of all supposed (hypothesized) events. We only have two such events: <em>snow</em> and <em>not snow</em>. Probabilities must, by definition, add up to 1 and must, again by definition be a number between 0 and 1.</p>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:prior">Table 2.1: </span>Priors by hypotheses
+</caption>
+<thead>
+<tr>
+<th style="text-align:center;">
+hypotheses
+</th>
+<th style="text-align:center;">
+priors
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+snowy day
+</td>
+<td style="text-align:center;">
+0.3
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+nice day
+</td>
+<td style="text-align:center;">
+0.7
+</td>
+</tr>
+</tbody>
+</table>
+<p>Nice ideas, nice beliefs, are our as yet to be observed, but projected notions of a snowy day. But how real, how plausible, how rational, that is, how consistent are they with any <em>observed data</em>? Is there any <em>observed data</em> we can use to help us project which of our unobserved data, our hypotheses, is more or less reasonable?</p>
+</div>
+<div id="likelihoods-thinking-about-the-data" class="section level3">
+<h3><span class="header-section-number">2.1.2</span> Likelihoods: thinking about the data</h3>
+<p>Life in the Northeast United States in January much revolves around the number of snow days, also known as days off from school. A prediction of snow meets with overtime for snow plow drivers, school shut downs, kids at home when they normally are in school. On some snowy days we see people carrying snow shovels, on others we don’t. On some nice days we see people with snow shovels, on others we don’t. Confusing? Confounding? A bit.</p>
+<p>Now we link our observations of shovels with our unobserved, but through about and hypothesized, prediction of snow. We then suppose we observe that people carry snow shovels about 7 of the 10 snowy days in January or about 70%. On nice days we observe that people carry shovels at most 2 days in the 21 nice days or about 10%.</p>
+<p>This table records our thinking using data we observe in Januaries about weather conditions.</p>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-6">Table 2.2: </span>data meets hypotheses
+</caption>
+<thead>
+<tr>
+<th style="text-align:center;">
+hypotheses
+</th>
+<th style="text-align:center;">
+shovels
+</th>
+<th style="text-align:center;">
+hands
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+snow day
+</td>
+<td style="text-align:center;">
+0.7
+</td>
+<td style="text-align:center;">
+0.3
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+nice day
+</td>
+<td style="text-align:center;">
+0.1
+</td>
+<td style="text-align:center;">
+0.9
+</td>
+</tr>
+</tbody>
+</table>
+<p>First of all these probabilities register yet another set of beliefs, this time about whether we see shovels or not, <em>given</em>, <em>conditioned by</em>, the truth of each hypothesis <span class="math inline">\(h\)</span>. We write the <em><em>conditional probability</em></em> <span class="math inline">\(\operatorname{Pr}(d|h)\)</span>, which you can read as “the probability of <span class="math inline">\(d\)</span> given <span class="math inline">\(h\)</span>”. Also here we will follow the convention that this set of results of our assessment of the relationship of shovels to snowy days as a <em><em>likelihood</em></em> .<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a></p>
+</div>
+<div id="altogether-now" class="section level3">
+<h3><span class="header-section-number">2.1.3</span> Altogether now</h3>
+<p>Do we have everything to fulfill our <em>desiderata</em>? Let’s check where we are now.</p>
+<ol style="list-style-type: decimal">
+<li>We should include our experiences with snow in our analysis.</li>
+</ol>
+<blockquote>
+<p>Yes! We put our best beliefs forward. We even (sometimes this is a courageous analytical step) quantified teh ways in which snow and not snow would occur, we believe, in Albany NY in an average January.<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a></p>
+</blockquote>
+<ol start="2" style="list-style-type: decimal">
+<li>We should collect data about carrying snow shovels in January as well.</li>
+</ol>
+<blockquote>
+<p>Yes we did! Again we elicited yet another opinion, belief, whatever we want to colloguially call it. That belief if what we register and docuement based on observation of shovels and just hands in the presence of snowy and nice days in a January.</p>
+</blockquote>
+<ol start="3" style="list-style-type: decimal">
+<li>We prefer more consistency of data with hypotheses to less consistency.</li>
+</ol>
+<blockquote>
+<p>Not yet! We will impose our definition of rationality here.</p>
+</blockquote>
+<p>Let’s start out with one of the rules of probability theory. The rule in question is the one that talks about the probability that <em>two</em> things are true. In our example, we will calculate the probability that today is snowy (i.e., hypothesis <span class="math inline">\(h\)</span> is true) <em>and</em> people carry shovels (i.e., data <span class="math inline">\(d\)</span> is observed). The <strong><em>joint probability</em></strong> of the hypothesis and the data is written <span class="math inline">\(\operatorname{Pr}(d,h)-\operatorname{Pr}(d \wedge h\)</span>, and you can calculate it by multiplying the prior <span class="math inline">\(\operatorname{Pr}(h)\)</span> by the likelihood <span class="math inline">\(\operatorname{Pr}(d|h)\)</span>. The conjunction is a <em>both-and</em> statement. We express conjunctions using the wedge <span class="math inline">\(\wedge\)</span> symbol. Logically, when the statement that both <span class="math inline">\(d\)</span> <em><em>and</em></em> <span class="math inline">\(h\)</span> is true, then the plausibility, now grown into probability is:</p>
+<p><span class="math display">\[
+\operatorname{Pr}(d \wedge h) = \operatorname{Pr}(d|h) \operatorname{Pr}(h)
+\]</span></p>
+<p>When we divide both sides by <span class="math inline">\(\operatorname{Pr}(h)\)</span> we get the definition, some say derivation, of <em><em>condition</em></em> probability. If we count <span class="math inline">\(#()\)</span> the ways <span class="math inline">\(d \wedge h\)</span> are true and the ways that <span class="math inline">\(h\)</span> are true then</p>
+<p><span class="math display">\[
+\#(d|h) = \frac{\#(d \wedge h)}{\#(h)}
+\]</span>
+Then the number of ways the data <span class="math inline">\(d\)</span> are true, <em><em>given</em></em> <span class="math inline">\(h\)</span> is true, equals the total number of ways that <span class="math inline">\(d\)</span> <em><em>and</em></em> <span class="math inline">\(h\)</span> per each way that <span class="math inline">\(h\)</span> is true. We have thus normed our approach to understanding a conditional statement like <em><em>if <span class="math inline">\(h\)</span>, then <span class="math inline">\(d\)</span></em></em>. Even more so, when we combine the law of conditional probability with the law of total probability we get <em><em>Bayes Theorem</em></em>. This allows us to recognize the dialectical principle that, yes, we recognize <span class="math inline">\(h = snowy\)</span>, but we also know that every cloud has its silver lining and that there is a non-snowy day and thus a</p>
+<p><span class="math display">\[
+not\,\,h = \lnot h = nice
+\]</span>
+lurking in our analysis.</p>
+<p>Here it in in all its glory.
+<span class="math display">\[
+\begin{align}
+\operatorname{Pr}(h\mid d) &amp;= \frac{\operatorname{Pr}(d\mid h)\,\operatorname{Pr}(h)}{\operatorname{Pr}(d\mid h)\,\operatorname{Pr}(h)+\operatorname{Pr}(d\mid \lnot h)\,\operatorname{Pr}(\lnot h)} \\
+&amp;= = \frac{\operatorname{Pr}(d \wedge h)}{\operatorname{Pr}(d\mid h)\,\operatorname{Pr}(h)+\operatorname{Pr}(d\mid \lnot h)\,\operatorname{Pr}(\lnot h)}
+\end{align}
+\]</span></p>
+<p>The numerator is the same as the conjunction <em><em>both <span class="math inline">\(d\)</span> and $h</em></em>. The denominator is the probability that either <em><em>both <span class="math inline">\(d\)</span> and <span class="math inline">\(h\)</span></em></em> or <em><em>both <span class="math inline">\(d\)</span> and <span class="math inline">\(h\)</span></em></em> are true. While the build up to this point is both instructive, and thus may at first be <em>confusing</em>, it is useful as it will highlight the roles these probabilities perform in the drama that is our analysis.</p>
+<p>We had better get back to the data or get lost in the weeds of the maths. So, what is the probability it is true that today is a snowy day <em>and</em> we observed people to bring a shovel?</p>
+<p>Let’s see what we already have. Our prior tells us that the probability of a snowy day in any January is about 30%. Thus <span class="math inline">\(\operatorname{Pr}(h) = 0.30\)</span>. The probability that we observe people carrying shovels is true given it is a snowy day is 70%. So the probability that both of these things are true is calculated by multiplying the two to get 0.21. We can make this</p>
+<p><span class="math display">\[
+\begin{array}{l}
+\operatorname{Pr}(snowy,\,shovels) &amp; = &amp; \operatorname{Pr}(shovels \, | \, snowy) \times \operatorname{Pr}( snowy ) \\
+&amp; = &amp; 0.70 \times 0.30 \\
+&amp; = &amp; 0.21
+\end{array}
+\]</span></p>
+<p>This is an interesting result, something odds makers intuitively know when punters put skin in the game. There will be a 21% chance of a snowy day when we see shovels in people’s hands. However, there are of course <em>four</em> possible pairings of hypotheses and data that could happen. We then repeatthis calculation for all four possibilities. We then have the following table.</p>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-7">Table 2.3: </span>both data and hypotheses
+</caption>
+<thead>
+<tr>
+<th style="text-align:center;">
+hypotheses
+</th>
+<th style="text-align:center;">
+shovels
+</th>
+<th style="text-align:center;">
+hands
+</th>
+<th style="text-align:center;">
+sum
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+snow day
+</td>
+<td style="text-align:center;">
+0.21
+</td>
+<td style="text-align:center;">
+0.09
+</td>
+<td style="text-align:center;">
+0.3
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+nice day
+</td>
+<td style="text-align:center;">
+0.07
+</td>
+<td style="text-align:center;">
+0.63
+</td>
+<td style="text-align:center;">
+0.7
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+sum
+</td>
+<td style="text-align:center;">
+0.28
+</td>
+<td style="text-align:center;">
+0.72
+</td>
+<td style="text-align:center;">
+1.0
+</td>
+</tr>
+</tbody>
+</table>
+<p>Just to put this into perspective, we have for the 31 days in a January this table.</p>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-8">Table 2.4: </span>both data and hypotheses in days in January
+</caption>
+<thead>
+<tr>
+<th style="text-align:center;">
+hypotheses
+</th>
+<th style="text-align:center;">
+shovels
+</th>
+<th style="text-align:center;">
+hands
+</th>
+<th style="text-align:center;">
+sum
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+snowy day
+</td>
+<td style="text-align:center;">
+6.5
+</td>
+<td style="text-align:center;">
+2.8
+</td>
+<td style="text-align:center;">
+9.3
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+nice day
+</td>
+<td style="text-align:center;">
+2.2
+</td>
+<td style="text-align:center;">
+19.5
+</td>
+<td style="text-align:center;">
+21.7
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+sum
+</td>
+<td style="text-align:center;">
+8.7
+</td>
+<td style="text-align:center;">
+22.3
+</td>
+<td style="text-align:center;">
+31.0
+</td>
+</tr>
+</tbody>
+</table>
+<p>We have four <em><em>logical</em></em> possibilities for the interaction of observed data and unobserved hypotheses. We arrange these possibilities in two stacked rows. We recall that visualizatiton is everything, even in tables! Here is the first row.</p>
+<ol style="list-style-type: decimal">
+<li>Snowy and shovels</li>
+</ol>
+<p><span class="math display">\[
+\begin{array}{l}
+\operatorname{Pr}(snowy,\,shovels) &amp; = &amp; \operatorname{Pr}(shovels \, | \, snowy) \times \operatorname{Pr}( snowy ) \\
+&amp; = &amp; 0.70 \times 0.30 \\
+&amp; = &amp; 0.21
+\end{array}
+\]</span></p>
+<ol start="2" style="list-style-type: decimal">
+<li>Snowy and just hands</li>
+</ol>
+<p><span class="math display">\[
+\begin{array}{l}
+\operatorname{Pr}(snowy,\,hands) &amp; = &amp; \operatorname{Pr}(hands \, | \, snowy) \times \operatorname{Pr}( snowy ) \\
+&amp; = &amp; 0.30 \times 0.30 \\
+&amp; = &amp; 0.09
+\end{array}
+\]</span>
+In this row the prior probability about snow is 0.30.</p>
+<p>Here is the second row.</p>
+<ol style="list-style-type: decimal">
+<li>Nice and shovels</li>
+</ol>
+<p><span class="math display">\[
+\begin{array}{l}
+\operatorname{Pr}(nice,\,shovels) &amp; = &amp; \operatorname{Pr}(shovels \, | \, nice) \times \operatorname{Pr}( nice ) \\
+&amp; = &amp; 0.10 \times 0.70 \\
+&amp; = &amp; 0.07
+\end{array}
+\]</span></p>
+<ol start="2" style="list-style-type: decimal">
+<li>Nice and just hands</li>
+</ol>
+<p><span class="math display">\[
+\begin{array}{l}
+\operatorname{Pr}(nice,\,hands) &amp; = &amp; \operatorname{Pr}(hands \, | \, nice) \times \operatorname{Pr}( nice ) \\
+&amp; = &amp; 0.90 \times 0.70 \\
+&amp; = &amp; 0.63
+\end{array}
+\]</span>
+In this row the prior probability about nice days is 0.70.</p>
+<p>A great exercise is to carry these calculations from the number of ways snow with and without shovels occurs given we think we know something about snow. The same with the number of ways a nice day might occur with and without shovels, given what we think about nice days.</p>
+<p>Let’s put one calculatin together with a not so surprising requirement. When we conjoin snow with shovels, how many possible ways can these logical statements occur? It is just the 31 days.</p>
+<p>We now have all of the derived information to carry our investigation further. We also total the rows and, of course, the columns. We will see why very soon.</p>
+<p>The row sums just tell us as a check that we got all of the ways in which snow occurs in 31 days. What is brand new are the column sums. They add up the ways that data occurs across the two ways we hypothesize that data can occur: snow, no snow (nice day). They tell us the probability of carrying a shovel or not, across the two hypotheses. Another way of thinking about the $p(d)4 column sums is that they are the expectation of finding snow or hands in the data. The consistency of all of these calculations is that column sums equal row sums, 100%. All regular, all present and correct, probability-wise.</p>
+</div>
+<div id="updating-beliefs" class="section level3">
+<h3><span class="header-section-number">2.1.4</span> Updating beliefs</h3>
+<p>The table lays out each of the four logically possible combinations of data and hypotheses. So what happens to our beliefs when they confront data? In the problem, we are told that we really see shovels, just like the picture from Albany, NY at the turn of the 20th century. Is surprising? Not necessarily in Albany and in January, so you might expect this behavior out of habit during a rough Winter. The point is that whatever our beliefs have been about shovel behavior, we should still subject them to the possibility of accomodating the fact of seeing shovels in hands in Albany in January, a winter month in the Northern Hemisphere.</p>
+<p>We should recall this formula about the probability of seeing both an hypothesis and data:</p>
+<p><span class="math display">\[
+\operatorname{Pr}(h \mid d) = \frac{\operatorname{Pr}(d \wedge h)}{\operatorname{Pr}(d)}=\frac{\operatorname{Pr}(d \mid h) \operatorname{Pr}(h)}{\operatorname{Pr}(d)}
+\]</span></p>
+<p>Now we can trawl through about our intuitions and some arithmetic. We worked out that the joint probability of <em>both <strong>snowy day</strong> and <strong>shovel</strong></em> is 21%, a rate reasonable given the circumstances. In our formula, this is the product of the likelihood <span class="math inline">\(\operatorname{Pr}(d=shovels \mid h=snow)=0.70\)</span> and the prior probability we registered that snow might occur <span class="math inline">\(\operatorname{Pr}(h=snow)=0.30\)</span>.</p>
+<p>Relative to the product of the likelihood of shovels given a nice day and the chance that snow might occur is the the joint probability of <em>both <strong>nice day</strong> and <strong>shovel</strong></em> at 10%, or <span class="math inline">\(\operatorname{Pr}(d=shovels \mid h = nice)\operatorname{Pr}(h=nice)=0.10\times 0.70=0.07\)</span>, again a reasonable idea, since we plausibly wouldn’t see much shovel handling on that nice day in January..</p>
+<p>Both of these estimates are consistent with actually seeing shovels in people’s hands. But what are the chances of just seeing shovels at all? This is an <em><strong>either or</strong></em> question. We see shovels 21% of the time on snowy days or we see shovels 7% of the total days in January on nice days. We then add them up to get 28% of the time we see shovels in all of January, whether it snows or not.</p>
+<p>So back to the question: if we do see shovels in the hands of those folk, will it snow? The hypothesis is <span class="math inline">\(h=snow\)</span> and the data is <span class="math inline">\(d=shovels\)</span>. The joint probability of both snow and shovels is <span class="math inline">\(\operatorname{Pr}(d, h)=0.21\)</span>. But just focusing on the data we just observed, namely that we see shovels, we now know that the chances of seeing shovels on any day in January in Albany, NY is <span class="math inline">\(\operatorname{Pr}(d)=0.27\)</span>. Out of all of the ways that shovels can be seen in January then we would anticipate that the probability of snow, upon seeing shovels, must be <span class="math inline">\(\operatorname{Pr}(h \mid d)=\operatorname{Pr}(d,h)/\operatorname{Pr}(d)=0.21/0.28=0.75\)</span>.</p>
+<p>What is the chance of a nice day given we see shovels? It would be again likelihood times prior or <span class="math inline">\(0.10\times0.7=0.07\)</span> divided by the probability of seeing shovels any day in January 28%. We then calculate <span class="math inline">\(0.07/0.28=0.25\)</span>. We now have the posterior distribution of the two hypotheses, snow or nice, in the face of data, shovels. So what are the odds in favor of snow when we see shovels?</p>
+<p><span class="math display">\[
+\begin{align}
+OR(h \mid d) &amp;=\frac{\operatorname{Pr}(h=snow \mid d=shovels)}{\operatorname{Pr}(h=nice \mid d=shovels)} \\
+&amp;=\frac{0.75}{0.25} \\
+&amp;=3
+\end{align}
+\]</span></p>
+<p>We can read this as: when we see people with shovels in January in Albany, NY, then it is 3 times more plausible to have a snowy day than a nice day. The ratio of two posteriors gives us some notion of the plausible divergence in likely outcomes of snowy versus nice days. Again we must append the circumstances of time and place: in a January and in Albany, NY.</p>
+<p>Here is table that summarizes all of our work to date.</p>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-9">Table 2.5: </span>unobserved belief tempered by observed data = posteriors
+</caption>
+<thead>
+<tr>
+<th style="text-align:center;">
+hypotheses
+</th>
+<th style="text-align:center;">
+shovels
+</th>
+<th style="text-align:center;">
+hands
+</th>
+<th style="text-align:center;">
+priors
+</th>
+<th style="text-align:center;">
+posterior shovels
+</th>
+<th style="text-align:center;">
+posterior hands
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+snow day
+</td>
+<td style="text-align:center;">
+0.7
+</td>
+<td style="text-align:center;">
+0.3
+</td>
+<td style="text-align:center;">
+0.3
+</td>
+<td style="text-align:center;">
+0.75
+</td>
+<td style="text-align:center;">
+0.13
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+nice day
+</td>
+<td style="text-align:center;">
+0.1
+</td>
+<td style="text-align:center;">
+0.9
+</td>
+<td style="text-align:center;">
+0.7
+</td>
+<td style="text-align:center;">
+0.25
+</td>
+<td style="text-align:center;">
+0.88
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+sum
+</td>
+<td style="text-align:center;">
+0.8
+</td>
+<td style="text-align:center;">
+0.2
+</td>
+<td style="text-align:center;">
+1.0
+</td>
+<td style="text-align:center;">
+1.00
+</td>
+<td style="text-align:center;">
+1.00
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="whats-next" class="section level2">
+<h2><span class="header-section-number">2.2</span> What’s next?</h2>
+<p>We have travelled through the complete model of probabilistic reasoning.</p>
+<ol style="list-style-type: decimal">
+<li><p>We started with a question. The question at least bifurcates into the dialectical <em><strong>is it?</strong></em> or <em><strong>is it not?</strong></em>.</p></li>
+<li><p>We then began to think about beliefs inherent in the question for each of the hypotheses buried in the question.</p></li>
+<li><p>We then collected data that is relevant to attempting an answer to the question relative to each hypothesis.</p></li>
+<li><p>Then we conditioned the data with the hypotheses inside the question. It is always about the question!</p></li>
+<li><p>Finally we derived plausible answers to the question.</p></li>
+</ol>
+<p>What is next? We continue to use this recurring scheme of heuristic thinking, sometimes using algorithms to count more efficiently, applied to questions of ever greater comnplexity. In the end our goal will be to learn, and learning is inference.</p>
+</div>
+<div id="try-this-out-if-this-is-reasonable" class="section level2">
+<h2><span class="header-section-number">2.3</span> Try this out, if this is reasonable</h2>
+<ol style="list-style-type: decimal">
+<li><p>Start with a question for analysis using a indicative-interrogative statement format, for example “We observe X. Will Y occur?” Based on this statement identify the unobserved data of the hypothesis and the observed data. Use binary hypotheses and observations as we did in the section above.</p></li>
+<li><p>Rework the Albany NY example using your hometown or city. Develop initial distribution of hypotheses, distributions of data given a hypothesis, joint distributions of hypotheses and data. Find the probability that a particular hypothesis might occur given a specific piece of data.</p></li>
+</ol>
+</div>
+<div id="endnotes" class="section level2">
+<h2><span class="header-section-number">2.4</span> Endnotes</h2>
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-Laplace_1902">
+<p>Laplace, P. S. de, F. W. Truscott, and F. L. Emory. 1902. <em>A Philosophical Essay on Probabilities</em>. A Philosophical Essay on Probabilities. Wiley. <a href="https://books.google.com/books?id=WxoPAAAAIAAJ">https://books.google.com/books?id=WxoPAAAAIAAJ</a>.</p>
+</div>
+<div id="ref-Lonergan_1970">
+<p>Lonergan, Bernard J. F. 1970. <em>Insight: A Study of Human Understanding</em>. Philosophical Library.</p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="2">
+<li id="fn2"><p>Then you already have your answer! It is Yes, certainly. By raising a question about whether you can rationally reason, you are rationally reasoning. This is a great example of a performatory certitude.<a href="probability-for-real-people.html#fnref2" class="footnote-back">↩</a></p></li>
+<li id="fn3"><p>The core idea of <em>strengthen</em> is to take us from a more vulnerable to a less vulnerable place or state. Synonyms for strength include <em>confirm</em> and <em>validate</em>.<a href="probability-for-real-people.html#fnref3" class="footnote-back">↩</a></p></li>
+<li id="fn4"><p>The <em>a priori</em> elements of any argument include just about everything you and I know, including the kitchen sink! We can’t help but to have these antecedent thoughts, experiences, shared and not-so-shared histories. They tend to persist in most humans, including us. At least that is what we will maintain. Thus it is a <em>necessity</em> to include these beliefs in our discussion. Without their consideration we most plausibly will introduce unsaid and denied bias, let blindspots have the same focus as clearly understood experiences, and produce time and resource consuming blind alleys. But we should hang on here: even blind alleys and blind spots are extremely important bits of knowledge that help us understand what does not work, an <em>inverse insight</em> as exposed by Bernard <span class="citation">Lonergan (<a href="#ref-Lonergan_1970" role="doc-biblioref">1970</a>)</span>.<a href="probability-for-real-people.html#fnref4" class="footnote-back">↩</a></p></li>
+<li id="fn5"><p>For Pierre Simon <span class="citation">Laplace, Truscott, and Emory (<a href="#ref-Laplace_1902" role="doc-biblioref">1902</a>)</span>, likelihood also has the idea of <span class="math inline">\(\operatorname{Pr}(h | d)\)</span>. Let’s stick to our knitting, and tolerance for ambiguity, with using the rows of this table as our entries for likelihood.<a href="probability-for-real-people.html#fnref5" class="footnote-back">↩</a></p></li>
+<li id="fn6"><p>we really need to think further about our notions of an average or centrally located anything. This means more consideration later, including deviations from these locations measured by scale.<a href="probability-for-real-people.html#fnref6" class="footnote-back">↩</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="counting-the-ways.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="part-two-the-fantastic-four.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["book-probability.pdf", "book-probability.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

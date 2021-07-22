@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 7 Gauss’s robots again | Probabilistic Reasoning: from an elementary point of view</title>
+  <meta name="description" content="Learning is inference." />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 7 Gauss’s robots again | Probabilistic Reasoning: from an elementary point of view" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Learning is inference." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 7 Gauss’s robots again | Probabilistic Reasoning: from an elementary point of view" />
+  
+  <meta name="twitter:description" content="Learning is inference." />
+  
+
+<meta name="author" content="William G. Foote" />
+
+
+<meta name="date" content="2021-07-16" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="part-three-rubber-meets-the-road.html"/>
+<link rel="next" href="gausss-robots-go-rogue.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.9.2.2/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.52.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.52.2/plotly-latest.min.js"></script>
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Probabilistic Reasoning</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Prologomena for a Future Statistics</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#why-this-book"><i class="fa fa-check"></i>Why this book</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#premises"><i class="fa fa-check"></i>Premises</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#so-many-questions-and-too-little-time"><i class="fa fa-check"></i>So many questions and too little time</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#dont-we-know-everything-we-need-to-know"><i class="fa fa-check"></i>Don’t we know everything we need to know?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-we-desire"><i class="fa fa-check"></i>What we desire</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#frequentist-or-probabilistic"><i class="fa fa-check"></i>Frequentist or probabilistic?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#a-work-in-progress"><i class="fa fa-check"></i>A work in progress</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="part-one-the-basics.html"><a href="part-one-the-basics.html"><i class="fa fa-check"></i>Part One – The Basics</a></li>
+<li class="chapter" data-level="1" data-path="counting-the-ways.html"><a href="counting-the-ways.html"><i class="fa fa-check"></i><b>1</b> Counting the Ways</a><ul>
+<li class="chapter" data-level="1.1" data-path="counting-the-ways.html"><a href="counting-the-ways.html#plausibility-probability-and-information"><i class="fa fa-check"></i><b>1.1</b> Plausibility, probability and information</a></li>
+<li class="chapter" data-level="1.2" data-path="counting-the-ways.html"><a href="counting-the-ways.html#some-surprise"><i class="fa fa-check"></i><b>1.2</b> Some Surprise</a></li>
+<li class="chapter" data-level="1.3" data-path="counting-the-ways.html"><a href="counting-the-ways.html#how-many-ways"><i class="fa fa-check"></i><b>1.3</b> How many ways?</a></li>
+<li class="chapter" data-level="1.4" data-path="counting-the-ways.html"><a href="counting-the-ways.html#back-to-data"><i class="fa fa-check"></i><b>1.4</b> Back to data</a></li>
+<li class="chapter" data-level="1.5" data-path="counting-the-ways.html"><a href="counting-the-ways.html#checking-our-grip-on-reality"><i class="fa fa-check"></i><b>1.5</b> Checking our grip on reality</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="probability-for-real-people.html"><a href="probability-for-real-people.html"><i class="fa fa-check"></i><b>2</b> Probability for Real People</a><ul>
+<li class="chapter" data-level="2.1" data-path="probability-for-real-people.html"><a href="probability-for-real-people.html#can-we-rationally-reason"><i class="fa fa-check"></i><b>2.1</b> Can we rationally reason?</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="probability-for-real-people.html"><a href="probability-for-real-people.html#priors-what-we-think-might-happen"><i class="fa fa-check"></i><b>2.1.1</b> Priors: what we think might happen</a></li>
+<li class="chapter" data-level="2.1.2" data-path="probability-for-real-people.html"><a href="probability-for-real-people.html#likelihoods-thinking-about-the-data"><i class="fa fa-check"></i><b>2.1.2</b> Likelihoods: thinking about the data</a></li>
+<li class="chapter" data-level="2.1.3" data-path="probability-for-real-people.html"><a href="probability-for-real-people.html#altogether-now"><i class="fa fa-check"></i><b>2.1.3</b> Altogether now</a></li>
+<li class="chapter" data-level="2.1.4" data-path="probability-for-real-people.html"><a href="probability-for-real-people.html#updating-beliefs"><i class="fa fa-check"></i><b>2.1.4</b> Updating beliefs</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="probability-for-real-people.html"><a href="probability-for-real-people.html#whats-next"><i class="fa fa-check"></i><b>2.2</b> What’s next?</a></li>
+<li class="chapter" data-level="2.3" data-path="probability-for-real-people.html"><a href="probability-for-real-people.html#try-this-out-if-this-is-reasonable"><i class="fa fa-check"></i><b>2.3</b> Try this out, if this is reasonable</a></li>
+<li class="chapter" data-level="2.4" data-path="probability-for-real-people.html"><a href="probability-for-real-people.html#endnotes"><i class="fa fa-check"></i><b>2.4</b> Endnotes</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="part-two-the-fantastic-four.html"><a href="part-two-the-fantastic-four.html"><i class="fa fa-check"></i>Part Two – The Fantastic Four</a></li>
+<li class="chapter" data-level="3" data-path="algorithmics-1-counting-made-easy.html"><a href="algorithmics-1-counting-made-easy.html"><i class="fa fa-check"></i><b>3</b> Algorithmics 1: counting made easy</a><ul>
+<li class="chapter" data-level="3.1" data-path="algorithmics-1-counting-made-easy.html"><a href="algorithmics-1-counting-made-easy.html#whats-an-algorithm"><i class="fa fa-check"></i><b>3.1</b> What’s an algorithm?</a></li>
+<li class="chapter" data-level="3.2" data-path="algorithmics-1-counting-made-easy.html"><a href="algorithmics-1-counting-made-easy.html#our-first-job-unobserved-hypotheses"><i class="fa fa-check"></i><b>3.2</b> Our first job: unobserved hypotheses</a></li>
+<li class="chapter" data-level="3.3" data-path="algorithmics-1-counting-made-easy.html"><a href="algorithmics-1-counting-made-easy.html#possibilities-abound"><i class="fa fa-check"></i><b>3.3</b> Possibilities abound</a></li>
+<li class="chapter" data-level="3.4" data-path="algorithmics-1-counting-made-easy.html"><a href="algorithmics-1-counting-made-easy.html#observed-data"><i class="fa fa-check"></i><b>3.4</b> Observed data</a></li>
+<li class="chapter" data-level="3.5" data-path="algorithmics-1-counting-made-easy.html"><a href="algorithmics-1-counting-made-easy.html#is-anything-really-plausible"><i class="fa fa-check"></i><b>3.5</b> Is anything really plausible?</a></li>
+<li class="chapter" data-level="3.6" data-path="algorithmics-1-counting-made-easy.html"><a href="algorithmics-1-counting-made-easy.html#interpretation"><i class="fa fa-check"></i><b>3.6</b> Interpretation</a></li>
+<li class="chapter" data-level="3.7" data-path="algorithmics-1-counting-made-easy.html"><a href="algorithmics-1-counting-made-easy.html#locales"><i class="fa fa-check"></i><b>3.7</b> 10 locales?</a></li>
+<li class="chapter" data-level="3.8" data-path="algorithmics-1-counting-made-easy.html"><a href="algorithmics-1-counting-made-easy.html#next"><i class="fa fa-check"></i><b>3.8</b> Next</a></li>
+<li class="chapter" data-level="3.9" data-path="algorithmics-1-counting-made-easy.html"><a href="algorithmics-1-counting-made-easy.html#references-and-endnotes"><i class="fa fa-check"></i><b>3.9</b> References and endnotes</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="algorithmics-2-binomial-ups-and-downs.html"><a href="algorithmics-2-binomial-ups-and-downs.html"><i class="fa fa-check"></i><b>4</b> Algorithmics 2: binomial ups and downs</a><ul>
+<li class="chapter" data-level="4.1" data-path="algorithmics-2-binomial-ups-and-downs.html"><a href="algorithmics-2-binomial-ups-and-downs.html#anatomy-of-an-algorithm"><i class="fa fa-check"></i><b>4.1</b> Anatomy of an algorithm</a></li>
+<li class="chapter" data-level="4.2" data-path="algorithmics-2-binomial-ups-and-downs.html"><a href="algorithmics-2-binomial-ups-and-downs.html#ups-and-downs"><i class="fa fa-check"></i><b>4.2</b> Ups and downs</a></li>
+<li class="chapter" data-level="4.3" data-path="algorithmics-2-binomial-ups-and-downs.html"><a href="algorithmics-2-binomial-ups-and-downs.html#dispensing-with-the-bag-of-beans"><i class="fa fa-check"></i><b>4.3</b> Dispensing with the bag of beans</a></li>
+<li class="chapter" data-level="4.4" data-path="algorithmics-2-binomial-ups-and-downs.html"><a href="algorithmics-2-binomial-ups-and-downs.html#great-expectations"><i class="fa fa-check"></i><b>4.4</b> Great expectations</a></li>
+<li class="chapter" data-level="4.5" data-path="algorithmics-2-binomial-ups-and-downs.html"><a href="algorithmics-2-binomial-ups-and-downs.html#then-there-were-eleven"><i class="fa fa-check"></i><b>4.5</b> Then there were eleven</a></li>
+<li class="chapter" data-level="4.6" data-path="algorithmics-2-binomial-ups-and-downs.html"><a href="algorithmics-2-binomial-ups-and-downs.html#references-and-endnotes-1"><i class="fa fa-check"></i><b>4.6</b> References and endnotes</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="algorithmics-3-playing-musical-raptors.html"><a href="algorithmics-3-playing-musical-raptors.html"><i class="fa fa-check"></i><b>5</b> Algorithmics 3: playing musical raptors</a><ul>
+<li class="chapter" data-level="5.1" data-path="algorithmics-3-playing-musical-raptors.html"><a href="algorithmics-3-playing-musical-raptors.html#is-there-more-to-life-than-binary"><i class="fa fa-check"></i><b>5.1</b> Is there more to life than binary?</a></li>
+<li class="chapter" data-level="5.2" data-path="algorithmics-3-playing-musical-raptors.html"><a href="algorithmics-3-playing-musical-raptors.html#exploring-what-we-do-know"><i class="fa fa-check"></i><b>5.2</b> Exploring what we do know</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="algorithmics-3-playing-musical-raptors.html"><a href="algorithmics-3-playing-musical-raptors.html#summarize-the-data"><i class="fa fa-check"></i><b>5.2.1</b> Summarize the data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="algorithmics-3-playing-musical-raptors.html"><a href="algorithmics-3-playing-musical-raptors.html#whence-the-binomial-generates-the-poisson"><i class="fa fa-check"></i><b>5.3</b> Whence the binomial generates the Poisson</a></li>
+<li class="chapter" data-level="5.4" data-path="algorithmics-3-playing-musical-raptors.html"><a href="algorithmics-3-playing-musical-raptors.html#approximating-poisson"><i class="fa fa-check"></i><b>5.4</b> Approximating Poisson</a></li>
+<li class="chapter" data-level="5.5" data-path="algorithmics-3-playing-musical-raptors.html"><a href="algorithmics-3-playing-musical-raptors.html#zooming-in-for-a-closer-look"><i class="fa fa-check"></i><b>5.5</b> Zooming in for a closer look</a></li>
+<li class="chapter" data-level="5.6" data-path="algorithmics-3-playing-musical-raptors.html"><a href="algorithmics-3-playing-musical-raptors.html#probability-intervals"><i class="fa fa-check"></i><b>5.6</b> Probability intervals</a></li>
+<li class="chapter" data-level="5.7" data-path="algorithmics-3-playing-musical-raptors.html"><a href="algorithmics-3-playing-musical-raptors.html#references-and-endnotes-2"><i class="fa fa-check"></i><b>5.7</b> References and endnotes</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html"><i class="fa fa-check"></i><b>6</b> Algorithmics 4: Gaussian blues</a><ul>
+<li class="chapter" data-level="6.1" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#while-we-wait-for-the-other-shoe-to-drop"><i class="fa fa-check"></i><b>6.1</b> While we wait for the other shoe to drop</a></li>
+<li class="chapter" data-level="6.2" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#is-there-more-to-life-than-just-counting"><i class="fa fa-check"></i><b>6.2</b> Is there more to life than just counting?</a></li>
+<li class="chapter" data-level="6.3" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#gauss-gauss-where-is-gauss"><i class="fa fa-check"></i><b>6.3</b> Gauss, Gauss, where is Gauss?</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#full-time-equivalent"><i class="fa fa-check"></i><b>6.3.1</b> Full time equivalent</a></li>
+<li class="chapter" data-level="6.3.2" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#compound-growth"><i class="fa fa-check"></i><b>6.3.2</b> Compound growth</a></li>
+<li class="chapter" data-level="6.3.3" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#log-products"><i class="fa fa-check"></i><b>6.3.3</b> Log products</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#assume-and-simplify"><i class="fa fa-check"></i><b>6.4</b> Assume and simplify</a></li>
+<li class="chapter" data-level="6.5" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#how-do-we-get-there"><i class="fa fa-check"></i><b>6.5</b> How do we get there?</a></li>
+<li class="chapter" data-level="6.6" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#grid-lock"><i class="fa fa-check"></i><b>6.6</b> Grid lock</a></li>
+<li class="chapter" data-level="6.7" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#onward-we-march"><i class="fa fa-check"></i><b>6.7</b> Onward we march</a></li>
+<li class="chapter" data-level="6.8" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#what-does-it-all-mean"><i class="fa fa-check"></i><b>6.8</b> What does it all mean?</a></li>
+<li class="chapter" data-level="6.9" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#a-provisional-finding"><i class="fa fa-check"></i><b>6.9</b> A provisional finding</a></li>
+<li class="chapter" data-level="6.10" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#just-one-more-thing"><i class="fa fa-check"></i><b>6.10</b> Just one more thing</a><ul>
+<li class="chapter" data-level="6.10.1" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#one-way"><i class="fa fa-check"></i><b>6.10.1</b> One way</a></li>
+<li class="chapter" data-level="6.10.2" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#or-the-other"><i class="fa fa-check"></i><b>6.10.2</b> Or the other</a></li>
+</ul></li>
+<li class="chapter" data-level="6.11" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#references-and-endnotes-3"><i class="fa fa-check"></i><b>6.11</b> References and endnotes</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="part-three-rubber-meets-the-road.html"><a href="part-three-rubber-meets-the-road.html"><i class="fa fa-check"></i>Part Three – Rubber meets the road</a></li>
+<li class="chapter" data-level="7" data-path="gausss-robots-again.html"><a href="gausss-robots-again.html"><i class="fa fa-check"></i><b>7</b> Gauss’s robots again</a><ul>
+<li class="chapter" data-level="7.1" data-path="gausss-robots-again.html"><a href="gausss-robots-again.html#an-auspicious-result"><i class="fa fa-check"></i><b>7.1</b> An auspicious result</a></li>
+<li class="chapter" data-level="7.2" data-path="gausss-robots-again.html"><a href="gausss-robots-again.html#tale-of-two-populations"><i class="fa fa-check"></i><b>7.2</b> Tale of two populations</a></li>
+<li class="chapter" data-level="7.3" data-path="gausss-robots-again.html"><a href="gausss-robots-again.html#education-is-the-key"><i class="fa fa-check"></i><b>7.3</b> Education is the key</a></li>
+<li class="chapter" data-level="7.4" data-path="gausss-robots-again.html"><a href="gausss-robots-again.html#sample-until-we-drop"><i class="fa fa-check"></i><b>7.4</b> Sample until we drop</a></li>
+<li class="chapter" data-level="7.5" data-path="gausss-robots-again.html"><a href="gausss-robots-again.html#results-results-we-want-results"><i class="fa fa-check"></i><b>7.5</b> Results, results, we want results!</a></li>
+<li class="chapter" data-level="7.6" data-path="gausss-robots-again.html"><a href="gausss-robots-again.html#yet-another-rocky-road-we-have-traveled"><i class="fa fa-check"></i><b>7.6</b> Yet another rocky road we have traveled</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html"><i class="fa fa-check"></i><b>8</b> Gauss’s robots go rogue</a><ul>
+<li class="chapter" data-level="8.1" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#spreadsheets-really"><i class="fa fa-check"></i><b>8.1</b> Spreadsheets? Really?</a></li>
+<li class="chapter" data-level="8.2" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#an-auspicious-result-again"><i class="fa fa-check"></i><b>8.2</b> An auspicious result again?</a></li>
+<li class="chapter" data-level="8.3" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#the-most-uninformative-distribution"><i class="fa fa-check"></i><b>8.3</b> The most uninformative distribution</a></li>
+<li class="chapter" data-level="8.4" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#simulate-until-morale-improves"><i class="fa fa-check"></i><b>8.4</b> Simulate until morale improves!</a></li>
+<li class="chapter" data-level="8.5" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#is-it-true-that-gauss-is-in-the-house-again"><i class="fa fa-check"></i><b>8.5</b> Is it true that Gauss is in the house again?</a></li>
+<li class="chapter" data-level="8.6" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#and-again"><i class="fa fa-check"></i><b>8.6</b> And again?</a></li>
+<li class="chapter" data-level="8.7" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#the-association"><i class="fa fa-check"></i><b>8.7</b> The Association</a></li>
+<li class="chapter" data-level="8.8" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#a-tale-of-coir"><i class="fa fa-check"></i><b>8.8</b> A tale of coir</a><ul>
+<li class="chapter" data-level="8.8.1" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#business-situation"><i class="fa fa-check"></i><b>8.8.1</b> Business Situation</a></li>
+<li class="chapter" data-level="8.8.2" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#business-questions"><i class="fa fa-check"></i><b>8.8.2</b> Business Questions</a></li>
+<li class="chapter" data-level="8.8.3" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#data"><i class="fa fa-check"></i><b>8.8.3</b> Data</a></li>
+<li class="chapter" data-level="8.8.4" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#analysis"><i class="fa fa-check"></i><b>8.8.4</b> Analysis</a></li>
+<li class="chapter" data-level="8.8.5" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#results"><i class="fa fa-check"></i><b>8.8.5</b> Results</a></li>
+</ul></li>
+<li class="chapter" data-level="8.9" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#endnotes-1"><i class="fa fa-check"></i><b>8.9</b> Endnotes</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="credible-interval-training.html"><a href="credible-interval-training.html"><i class="fa fa-check"></i><b>9</b> Credible interval training?</a><ul>
+<li class="chapter" data-level="9.1" data-path="credible-interval-training.html"><a href="credible-interval-training.html#imagine-this"><i class="fa fa-check"></i><b>9.1</b> Imagine this…</a></li>
+<li class="chapter" data-level="9.2" data-path="credible-interval-training.html"><a href="credible-interval-training.html#try-this-on-for-size"><i class="fa fa-check"></i><b>9.2</b> Try this on for size</a></li>
+<li class="chapter" data-level="9.3" data-path="credible-interval-training.html"><a href="credible-interval-training.html#what-about-the-sampled-standard-deviation"><i class="fa fa-check"></i><b>9.3</b> What about the sampled standard deviation?</a><ul>
+<li class="chapter" data-level="9.3.1" data-path="credible-interval-training.html"><a href="credible-interval-training.html#heres-the-promised-derivation"><i class="fa fa-check"></i><b>9.3.1</b> Here’s the promised derivation</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="credible-interval-training.html"><a href="credible-interval-training.html#probability-intervals-1-known-population-standard-deviation"><i class="fa fa-check"></i><b>9.4</b> Probability intervals 1: known population standard deviation</a></li>
+<li class="chapter" data-level="9.5" data-path="credible-interval-training.html"><a href="credible-interval-training.html#our-first-procedure-emerges"><i class="fa fa-check"></i><b>9.5</b> Our first procedure emerges</a></li>
+<li class="chapter" data-level="9.6" data-path="credible-interval-training.html"><a href="credible-interval-training.html#probability-intervals-2-on-to-the-unknown-standard-deviation"><i class="fa fa-check"></i><b>9.6</b> Probability intervals 2: on to the unknown standard deviation</a><ul>
+<li class="chapter" data-level="9.6.1" data-path="credible-interval-training.html"><a href="credible-interval-training.html#by-the-way-who-is-student"><i class="fa fa-check"></i><b>9.6.1</b> By the way, who is Student?</a></li>
+</ul></li>
+<li class="chapter" data-level="9.7" data-path="credible-interval-training.html"><a href="credible-interval-training.html#our-second-procedure"><i class="fa fa-check"></i><b>9.7</b> Our second procedure</a></li>
+<li class="chapter" data-level="9.8" data-path="credible-interval-training.html"><a href="credible-interval-training.html#exercises"><i class="fa fa-check"></i><b>9.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="hypothetically-speaking.html"><a href="hypothetically-speaking.html"><i class="fa fa-check"></i><b>10</b> Hypothetically Speaking</a><ul>
+<li class="chapter" data-level="10.1" data-path="hypothetically-speaking.html"><a href="hypothetically-speaking.html#imagine-this-1"><i class="fa fa-check"></i><b>10.1</b> Imagine this…</a><ul>
+<li class="chapter" data-level="10.1.1" data-path="hypothetically-speaking.html"><a href="hypothetically-speaking.html#for-those-who-really-want-to-or-even-need-to"><i class="fa fa-check"></i><b>10.1.1</b> For those who really want to, or even need to</a></li>
+<li class="chapter" data-level="10.1.2" data-path="hypothetically-speaking.html"><a href="hypothetically-speaking.html#finally-an-excel-screenshot"><i class="fa fa-check"></i><b>10.1.2</b> Finally an excel screenshot</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="hypothetically-speaking.html"><a href="hypothetically-speaking.html#can-we-be-wrong"><i class="fa fa-check"></i><b>10.2</b> Can we be wrong?</a></li>
+<li class="chapter" data-level="10.3" data-path="hypothetically-speaking.html"><a href="hypothetically-speaking.html#yet-another-way"><i class="fa fa-check"></i><b>10.3</b> Yet another way</a><ul>
+<li class="chapter" data-level="10.3.1" data-path="hypothetically-speaking.html"><a href="hypothetically-speaking.html#population-standard-deviation-known"><i class="fa fa-check"></i><b>10.3.1</b> Population standard deviation known</a></li>
+<li class="chapter" data-level="10.3.2" data-path="hypothetically-speaking.html"><a href="hypothetically-speaking.html#control-is-probability"><i class="fa fa-check"></i><b>10.3.2</b> Control is probability</a></li>
+<li class="chapter" data-level="10.3.3" data-path="hypothetically-speaking.html"><a href="hypothetically-speaking.html#on-to-the-unknown"><i class="fa fa-check"></i><b>10.3.3</b> On to the unknown</a></li>
+<li class="chapter" data-level="10.3.4" data-path="hypothetically-speaking.html"><a href="hypothetically-speaking.html#on-with-our-story"><i class="fa fa-check"></i><b>10.3.4</b> On with our story…</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="hypothetically-speaking.html"><a href="hypothetically-speaking.html#exercises-1"><i class="fa fa-check"></i><b>10.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="part-four-the-test-of-a-relationship.html"><a href="part-four-the-test-of-a-relationship.html"><i class="fa fa-check"></i>Part Four – The Test of a Relationship</a></li>
+<li class="chapter" data-level="11" data-path="relationships-put-to-the-test.html"><a href="relationships-put-to-the-test.html"><i class="fa fa-check"></i><b>11</b> Relationships Put to the Test</a><ul>
+<li class="chapter" data-level="11.1" data-path="relationships-put-to-the-test.html"><a href="relationships-put-to-the-test.html#its-not-so-hard-to-imagine-this"><i class="fa fa-check"></i><b>11.1</b> It’s not so hard to imagine this…</a></li>
+<li class="chapter" data-level="11.2" data-path="relationships-put-to-the-test.html"><a href="relationships-put-to-the-test.html#the-maths-the-maths"><i class="fa fa-check"></i><b>11.2</b> The maths! The maths!</a><ul>
+<li class="chapter" data-level="11.2.1" data-path="relationships-put-to-the-test.html"><a href="relationships-put-to-the-test.html#what-did-we-all-expect"><i class="fa fa-check"></i><b>11.2.1</b> What did we all expect?</a></li>
+<li class="chapter" data-level="11.2.2" data-path="relationships-put-to-the-test.html"><a href="relationships-put-to-the-test.html#walking-the-straight-line"><i class="fa fa-check"></i><b>11.2.2</b> Walking the straight line</a></li>
+<li class="chapter" data-level="11.2.3" data-path="relationships-put-to-the-test.html"><a href="relationships-put-to-the-test.html#a-short-variance-diatribe"><i class="fa fa-check"></i><b>11.2.3</b> A short variance diatribe</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="relationships-put-to-the-test.html"><a href="relationships-put-to-the-test.html#does-education-matter"><i class="fa fa-check"></i><b>11.3</b> Does education matter?</a></li>
+<li class="chapter" data-level="11.4" data-path="relationships-put-to-the-test.html"><a href="relationships-put-to-the-test.html#back-to-the-business-at-hand"><i class="fa fa-check"></i><b>11.4</b> Back to the business at hand</a></li>
+<li class="chapter" data-level="11.5" data-path="relationships-put-to-the-test.html"><a href="relationships-put-to-the-test.html#does-it-really-matter"><i class="fa fa-check"></i><b>11.5</b> Does it really matter?</a></li>
+<li class="chapter" data-level="11.6" data-path="relationships-put-to-the-test.html"><a href="relationships-put-to-the-test.html#references-and-endnotes-4"><i class="fa fa-check"></i><b>11.6</b> References and endnotes</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="the-journey-continues.html"><a href="the-journey-continues.html"><i class="fa fa-check"></i><b>12</b> The journey continues</a><ul>
+<li class="chapter" data-level="12.1" data-path="the-journey-continues.html"><a href="the-journey-continues.html#backing-up"><i class="fa fa-check"></i><b>12.1</b> Backing up</a></li>
+<li class="chapter" data-level="12.2" data-path="the-journey-continues.html"><a href="the-journey-continues.html#fences-and-neighbors"><i class="fa fa-check"></i><b>12.2</b> Fences and neighbors</a><ul>
+<li class="chapter" data-level="12.2.1" data-path="the-journey-continues.html"><a href="the-journey-continues.html#tukeys-fences."><i class="fa fa-check"></i><b>12.2.1</b> Tukey’s fences.</a></li>
+<li class="chapter" data-level="12.2.2" data-path="the-journey-continues.html"><a href="the-journey-continues.html#credibility-intervals."><i class="fa fa-check"></i><b>12.2.2</b> Credibility intervals.</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="the-journey-continues.html"><a href="the-journey-continues.html#binomial-raptors."><i class="fa fa-check"></i><b>12.3</b> Binomial raptors.</a><ul>
+<li class="chapter" data-level="12.3.1" data-path="the-journey-continues.html"><a href="the-journey-continues.html#cloudy-or-clear."><i class="fa fa-check"></i><b>12.3.1</b> Cloudy or clear.</a></li>
+<li class="chapter" data-level="12.3.2" data-path="the-journey-continues.html"><a href="the-journey-continues.html#binomial-sightings."><i class="fa fa-check"></i><b>12.3.2</b> Binomial sightings.</a></li>
+<li class="chapter" data-level="12.3.3" data-path="the-journey-continues.html"><a href="the-journey-continues.html#poisson-raptors."><i class="fa fa-check"></i><b>12.3.3</b> Poisson raptors.</a></li>
+<li class="chapter" data-level="12.3.4" data-path="the-journey-continues.html"><a href="the-journey-continues.html#poisson-expectations."><i class="fa fa-check"></i><b>12.3.4</b> Poisson expectations.</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="the-journey-continues.html"><a href="the-journey-continues.html#managing-relationships"><i class="fa fa-check"></i><b>12.4</b> Managing relationships</a><ul>
+<li class="chapter" data-level="12.4.1" data-path="the-journey-continues.html"><a href="the-journey-continues.html#drawing-the-line"><i class="fa fa-check"></i><b>12.4.1</b> Drawing the line</a></li>
+<li class="chapter" data-level="12.4.2" data-path="the-journey-continues.html"><a href="the-journey-continues.html#does-it-matter"><i class="fa fa-check"></i><b>12.4.2</b> Does it matter?</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Probabilistic Reasoning: from an elementary point of view</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="gausss-robots-again" class="section level1">
+<h1><span class="header-section-number">Chapter 7</span> Gauss’s robots again</h1>
+<div id="an-auspicious-result" class="section level2">
+<h2><span class="header-section-number">7.1</span> An auspicious result</h2>
+<p>The Gaussian (also known as the so-called normal distribution) is famous and important because many natural phenomena are thus distributed. Along with heights and weights, we discussed FTE, compound growth, and asset returns all distributed according to this bell shaped curve. Gaussian robots continue their merry quest to describe. Will they help us explain too? We’ll see.</p>
+<p>But the Gaussian distribution, is important for another reason: the distributions of means are themselves normally distributed. We demonstrated this idea in our introduction to where the Gaussian distribution can possibly come from: there is was in the calculation of Full Time Equivalent workers in an organization. The FTE calculation involved a sum of hours (randomly sampled) divided by a standard work week number of hours, the constant 40 in that case. These are then the means of hours samples.</p>
+<p>The sampling was done with the uniform distribution – nothing very informative at all. In fact we can demonstrate that the population never need be Gaussian distributed for its sampled means to be Gaussian distributed.</p>
+</div>
+<div id="tale-of-two-populations" class="section level2">
+<h2><span class="header-section-number">7.2</span> Tale of two populations</h2>
+<p>Our claim is that we can take any distribution of outcomes, sample repeatedly (with replacement), then sum the samples and divide by the number of sampled outcomes, we will always generate a Gaussian distribution. This claim is known as the Central Limit Theorem. So here’s an acid test. It is the tale of two vastly different populations we splice together. It has two modes, two scales, and two locations. One is skewed, the other is not much so. One has thick tales (do we mean tails?), the other thin.</p>
+<div id="htmlwidget-c20edac7020b01335742" style="width:672px;height:480px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c20edac7020b01335742">{"x":{"data":[{"orientation":"v","width":[4.55603913732103,4.55603913732103,4.55603913732103,4.55603913732103,4.55603913732103,4.55603913732103,4.55603913732103,4.55603913732104,4.55603913732102,4.55603913732104,4.55603913732102,4.55603913732104,4.55603913732102,4.55603913732104,4.55603913732104,4.55603913732102,4.55603913732102,4.55603913732102,4.55603913732102,4.55603913732102,4.55603913732102,4.55603913732102,4.55603913732102,4.55603913732102,4.55603913732102,4.55603913732102,4.55603913732102,4.55603913732102,4.55603913732102,4.55603913732102],"base":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"x":[0,4.55603913732103,9.11207827464206,13.6681174119631,18.2241565492841,22.7801956866051,27.3362348239262,31.8922739612472,36.4483130985682,41.0043522358893,45.5603913732103,50.1164305105313,54.6724696478524,59.2285087851734,63.7845479224944,68.3405870598154,72.8966261971365,77.4526653344575,82.0087044717785,86.5647436090996,91.1207827464206,95.6768218837416,100.232861021063,104.788900158384,109.344939295705,113.900978433026,118.457017570347,123.013056707668,127.569095844989,132.12513498231],"y":[1,1784,9702,6738,1567,192,20,45,234,827,2347,5120,8288,11028,12343,11729,9653,7379,4803,2980,1656,838,404,183,87,35,12,2,1,2],"text":["count:     1<br />pop:   0.0","count:  1784<br />pop:   4.6","count:  9702<br />pop:   9.1","count:  6738<br />pop:  13.7","count:  1567<br />pop:  18.2","count:   192<br />pop:  22.8","count:    20<br />pop:  27.3","count:    45<br />pop:  31.9","count:   234<br />pop:  36.4","count:   827<br />pop:  41.0","count:  2347<br />pop:  45.6","count:  5120<br />pop:  50.1","count:  8288<br />pop:  54.7","count: 11028<br />pop:  59.2","count: 12343<br />pop:  63.8","count: 11729<br />pop:  68.3","count:  9653<br />pop:  72.9","count:  7379<br />pop:  77.5","count:  4803<br />pop:  82.0","count:  2980<br />pop:  86.6","count:  1656<br />pop:  91.1","count:   838<br />pop:  95.7","count:   404<br />pop: 100.2","count:   183<br />pop: 104.8","count:    87<br />pop: 109.3","count:    35<br />pop: 113.9","count:    12<br />pop: 118.5","count:     2<br />pop: 123.0","count:     1<br />pop: 127.6","count:     2<br />pop: 132.1"],"type":"bar","marker":{"autocolorscale":false,"color":"rgba(70,130,180,1)","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"}},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":53.8580323785803,"r":13.2835201328352,"b":38.5222083852221,"l":57.7833125778331},"plot_bgcolor":"transparent","paper_bgcolor":"rgba(213,228,235,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"title":{"text":"<b> Tale of two populations <\/b>","font":{"color":"rgba(0,0,0,1)","family":"","size":21.9178082191781},"x":0,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-9.11207827464206,141.237213256952],"tickmode":"array","ticktext":["0","50","100"],"tickvals":[0,50,100],"categoryorder":"array","categoryarray":["0","50","100"],"nticks":null,"ticks":"outside","tickcolor":"rgba(0,0,0,1)","ticklen":-6.6417600664176,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"tickangle":-0,"showline":true,"linecolor":"rgba(0,0,0,1)","linewidth":0.531340805313408,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"y","title":{"text":"value","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-617.15,12960.15],"tickmode":"array","ticktext":["0","4000","8000","12000"],"tickvals":[0,4000,8000,12000],"categoryorder":"array","categoryarray":["0","4000","8000","12000"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":-6.6417600664176,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(255,255,255,1)","gridwidth":1.16230801162308,"zeroline":false,"anchor":"x","title":{"text":"count","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":false,"legend":{"bgcolor":"transparent","bordercolor":"transparent","borderwidth":1.88976377952756,"font":{"color":"rgba(0,0,0,1)","family":"","size":18.2648401826484}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","showSendToCloud":false},"source":"A","attrs":{"37b06a8e2ae":{"x":{},"type":"bar"}},"cur_data":"37b06a8e2ae","visdat":{"37b06a8e2ae":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<p>As advertised we see a two mode distribution. The population mean and standard deviation are <span class="math inline">\(\mu=55.58\)</span> and <span class="math inline">\(\sigma=24.69\)</span>. If the outcomes are wage rates for two genders, one for each of the two populations, then it appears we see two very different labor markets at work. The CLT will take care of that issue!</p>
+<p>Let’s remember our claim. We need to sample repeatedly from the two mode population we just conjured up. Then we calculate the sampled means, standard deviations, also the skewness and kurtosis. We can also calculate median and other quantiles. We will play with these another time.</p>
+<p>We will also experiment with multiple sample sizes from this very large population of 100,000 outcomes as well as trial runs of the simulation.</p>
+<pre><code>## List of 1
+##  $ strip.text.y:List of 11
+##   ..$ family       : NULL
+##   ..$ face         : NULL
+##   ..$ colour       : NULL
+##   ..$ size         : num 5
+##   ..$ hjust        : NULL
+##   ..$ vjust        : NULL
+##   ..$ angle        : NULL
+##   ..$ lineheight   : NULL
+##   ..$ margin       : NULL
+##   ..$ debug        : NULL
+##   ..$ inherit.blank: logi FALSE
+##   ..- attr(*, &quot;class&quot;)= chr [1:2] &quot;element_text&quot; &quot;element&quot;
+##  - attr(*, &quot;class&quot;)= chr [1:2] &quot;theme&quot; &quot;gg&quot;
+##  - attr(*, &quot;complete&quot;)= logi FALSE
+##  - attr(*, &quot;validate&quot;)= logi TRUE</code></pre>
+<p><img src="book-probability_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<p>What do we see? First, we need sample sizes and only a relatively few number of trials to move the sampled means away from their original distribution into the Gaussian shape. Second, if our data and hypotheses do not allow for large sample sizes and lots of repetitive sampling, then the CLT will not work its asymptotic magic. This second condition is important because very little data and even fewer experimental runs and trials are the norm for most human decision making. They do work fine in the laboratory where controlled conditions can be met and lots of repetition occur to ensure asymptotic results.</p>
+</div>
+<div id="education-is-the-key" class="section level2">
+<h2><span class="header-section-number">7.3</span> Education is the key</h2>
+<p>We ask the question:</p>
+<blockquote>
+<p>Educational attainment levels continue to rise. Will earnings rise too?</p>
+</blockquote>
+<p>To begin to answer this question we sample 120 monthly average years of education along with average USD wages per hour. We then <code>EDA</code> them and <code>boxplot</code> them (two new verbs for us to consider?).</p>
+<pre><code>##       age          gender     earnings    education   
+##  Min.   :29.0   female:4   Min.   : 9   Min.   :12.0  
+##  1st Qu.:29.0   male  :8   1st Qu.:14   1st Qu.:12.0  
+##  Median :29.5              Median :14   Median :13.0  
+##  Mean   :29.5              Mean   :16   Mean   :13.2  
+##  3rd Qu.:30.0              3rd Qu.:17   3rd Qu.:13.0  
+##  Max.   :30.0              Max.   :35   Max.   :18.0</code></pre>
+<div id="htmlwidget-271729ad4a65c3dbad63" style="width:672px;height:480px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-271729ad4a65c3dbad63">{"x":{"data":[{"x":[2,2,2,2,2,2,2,2,1,1,1,1],"y":[13.46153831,14.50288486,19.23077011,14.42307663,14.42307663,8.653845787,16.82692337,34.61538315,22.05555534,8.800000191,13.70192337,13.84615421],"hoverinfo":"y","type":"box","fillcolor":"rgba(255,255,255,1)","marker":{"opacity":null,"outliercolor":"rgba(0,0,0,1)","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"},"size":5.66929133858268},"line":{"color":"rgba(51,51,51,1)","width":1.88976377952756},"showlegend":false,"xaxis":"x","yaxis":"y","frame":null}],"layout":{"margin":{"t":53.8580323785803,"r":13.2835201328352,"b":38.5222083852221,"l":35.8655043586551},"plot_bgcolor":"transparent","paper_bgcolor":"rgba(213,228,235,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"title":{"text":"<b> Exploring wages and education <\/b>","font":{"color":"rgba(0,0,0,1)","family":"","size":21.9178082191781},"x":0,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.4,2.6],"tickmode":"array","ticktext":["female","male"],"tickvals":[1,2],"categoryorder":"array","categoryarray":["female","male"],"nticks":null,"ticks":"outside","tickcolor":"rgba(0,0,0,1)","ticklen":-6.6417600664176,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"tickangle":-0,"showline":true,"linecolor":"rgba(0,0,0,1)","linewidth":0.531340805313408,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"y","title":{"text":"gender","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[7.35576891885,35.91346001815],"tickmode":"array","ticktext":["10","15","20","25","30","35"],"tickvals":[10,15,20,25,30,35],"categoryorder":"array","categoryarray":["10","15","20","25","30","35"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":-6.6417600664176,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(255,255,255,1)","gridwidth":1.16230801162308,"zeroline":false,"anchor":"x","title":{"text":"earnings","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":false,"legend":{"bgcolor":"transparent","bordercolor":"transparent","borderwidth":1.88976377952756,"font":{"color":"rgba(0,0,0,1)","family":"","size":18.2648401826484}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","showSendToCloud":false},"source":"A","attrs":{"37b03c721afe":{"x":{},"y":{},"type":"box"}},"cur_data":"37b03c721afe","visdat":{"37b03c721afe":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<p>We can hover over the boxplots of two groups in the data by gender. The hover reveals minimum, maximum, quartiles and Tukey’s fences. There appear to be no female outliers in this sample of data. There is one male outlier, and it is not a lower fence wage rate.</p>
+<p>We perform the same visual analysis for the years of education.</p>
+<div id="htmlwidget-2737e53bb8f30af97f43" style="width:672px;height:480px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2737e53bb8f30af97f43">{"x":{"data":[{"x":[2,2,2,2,2,2,2,2,1,1,1,1],"y":[12,13,16,13,13,13,12,12,18,12,12,13],"hoverinfo":"y","type":"box","fillcolor":"rgba(255,255,255,1)","marker":{"opacity":null,"outliercolor":"rgba(0,0,0,1)","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"},"size":5.66929133858268},"line":{"color":"rgba(51,51,51,1)","width":1.88976377952756},"showlegend":false,"xaxis":"x","yaxis":"y","frame":null}],"layout":{"margin":{"t":53.8580323785803,"r":13.2835201328352,"b":38.5222083852221,"l":35.8655043586551},"plot_bgcolor":"transparent","paper_bgcolor":"rgba(213,228,235,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"title":{"text":"<b> Exploring wages and education <\/b>","font":{"color":"rgba(0,0,0,1)","family":"","size":21.9178082191781},"x":0,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.4,2.6],"tickmode":"array","ticktext":["female","male"],"tickvals":[1,2],"categoryorder":"array","categoryarray":["female","male"],"nticks":null,"ticks":"outside","tickcolor":"rgba(0,0,0,1)","ticklen":-6.6417600664176,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"tickangle":-0,"showline":true,"linecolor":"rgba(0,0,0,1)","linewidth":0.531340805313408,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"y","title":{"text":"gender","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[11.7,18.3],"tickmode":"array","ticktext":["12","14","16","18"],"tickvals":[12,14,16,18],"categoryorder":"array","categoryarray":["12","14","16","18"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":-6.6417600664176,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(255,255,255,1)","gridwidth":1.16230801162308,"zeroline":false,"anchor":"x","title":{"text":"education","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":false,"legend":{"bgcolor":"transparent","bordercolor":"transparent","borderwidth":1.88976377952756,"font":{"color":"rgba(0,0,0,1)","family":"","size":18.2648401826484}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","showSendToCloud":false},"source":"A","attrs":{"37b051de5561":{"x":{},"y":{},"type":"box"}},"cur_data":"37b051de5561","visdat":{"37b051de5561":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<p>This time we note the limits of years of educational attainment for both of the identified genders. The maximum is 16 years, equivalent to 4 years of post-secondary school education for both genders. Males in this sample have an observation at the 8th grade level.</p>
+<p>To explore one step further we visualize the potential relationship between wage and education here.</p>
+<pre><code>## $title</code></pre>
+<p><img src="book-probability_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+<pre><code>## 
+## $subtitle
+## [1] &quot;Exploring wages and education&quot;
+## 
+## attr(,&quot;class&quot;)
+## [1] &quot;labels&quot;</code></pre>
+<p>Both wages and education are highly skewed with wages to the right and education somewhat to the left. A scatter plot in the lower left hand quadrant shows us some relationship. The correlation calculation is small, but positive.</p>
+<p>Here is a calculation table for correlation.</p>
+<p><img src="images/08/wage-educ-sample-corr.jpg" /></p>
+<p>These are the descriptive calculations for mean, standard deviation, and a new measure we will call <strong>correlation</strong>. The standard deviations are the, get ready, the square root of the average sum of squared deviations of an observation about its arithmetic mean.</p>
+<p>The arithmetic sampled mean <span class="math inline">\(\overline{w}\)</span> for a sample size of <span class="math inline">\(n=12\)</span> of <span class="math inline">\(w_i\)</span>, for <span class="math inline">\(i=1 \cdots 12\)</span> observations, sampled from a population is</p>
+<p><span class="math display">\[
+\begin{align}
+\overline{w} &amp;= \frac{\Sigma_{i=1}^n w_i}{n} \\
+      &amp;= \frac{192.43}{12} \\
+      &amp;= 16.04
+\end{align}
+\]</span>
+We pronounce <span class="math inline">\(\overline{w}\)</span> as <code>wbar</code>. And so we have the standard deviation as</p>
+<p>$$
+<span class="math display">\[\begin{align}
+s_{w} &amp;= \sqrt{ \frac{\Sigma_{i=1}^n (w_i - \overline{w} )^2 }{n-1} } \\
+&amp;= \sqrt{ \frac{650.28}{12-1} } \\
+      &amp;= 7.69
+      
+\end{align}\]</span>
+$$</p>
+<p>The sampled standard deviation is <span class="math inline">\(s_w=7.69\)</span> for this wage, <span class="math inline">\(w\)</span>, sample. Similarly we gather mean, <span class="math inline">\(\overline{e}=13.67\)</span>, and standard deviation <span class="math inline">\(s_e=2.67\)</span> for education observations <span class="math inline">\(e\)</span>. The standard deviations are arranged as the diagonals of a matrix.</p>
+<p>Then there are the diagonals of this matrix which record the relationship, maybe better, association between wage and education, and exactly the same, education and wage. The correlation <span class="math inline">\(r_{we}\)</span> is a number between -1 and 1 with the interpretation that a perfect, straight-line relationship can be completely negative, -1, or completely positive, +1. There is zero in the middle which registers no relationship at all.</p>
+<p>Here is the formula,</p>
+<p><span class="math display">\[
+\begin{align}
+r_{we} &amp;=  \frac{\Sigma_{i=1}^n (w_i - \overline{w} )(e_i - \overline{e} ) / (n-1) }{s_w \, s_e} \\
+      &amp;= \frac{5.529}{7.89 \times 2.67} \\
+      &amp;= 0.27
+\end{align}
+\]</span></p>
+<p>Again we have results as previously advertised and in the pairs scatterplot from above.</p>
+</div>
+<div id="sample-until-we-drop" class="section level2">
+<h2><span class="header-section-number">7.4</span> Sample until we drop</h2>
+<p>Let’s run 10,000 samples each of size 12 from the population of potential wage and education observations. Then let’s calculate the sampled mean, standard deviation of each sample and correlation between education and wage.</p>
+<p>The first thing we do is build a simple sampler using Excel’s <code>=RANDBETWEEN()</code> applied to the entire population of wages, education levels, age, and gender.</p>
+<p><img src="images/08/wage-educ-sim.jpg" /></p>
+<p>The maximum and minimum indices of the population data set are used (as named ranges) in the <code>=RANDBETWEEN()</code> function. Visual Basic for Applications (VBA code) directs the drawing of samples, the calculation of sampled means, standard deviations for wage and correlations between wage and education.</p>
+<p><img src="images/08/wage-educ-cmdMonteCarlo-VBA.jpg" /></p>
+<p>The button is a form control found ine Developer ribbon under Insert. The button references the <code>cmdMonteCarlo_click()</code> subroutine. This routine effectively just automates our recalculation of the spreadsheet. Each time we recalculate, say, by pressing function key F9, we deaw a new sample, calculated sampled statistics and record the result. When we click the button, the subroutine takes over function key F9 and produces 10,000 simulation runs by sampling the population 10,000 times 12 observations at a time.</p>
+</div>
+<div id="results-results-we-want-results" class="section level2">
+<h2><span class="header-section-number">7.5</span> Results, results, we want results!</h2>
+<p>In a separate <code>eda</code> worksheet, we can view our handiwork in tables.</p>
+<p><img src="images/08/wage-educ-eda.jpg" /></p>
+<p>Here we have summary statistics and a grid that feeds a table of intervals, midpoints, frequencies, relative frequencies, and cumulative relative frequencies. We may, under some strictures, view the relative frequencies as conditional probabilities of conjectured midpoints, here illustrated with simulated correlations, given the population of data we sampled repeatedly. For emphasis we add a Gaussian interpretation of the conjectured midpoint correlations using the simulated mean and standard deviation from the summary table.</p>
+<p>A separate worksheet sets up the plot of the frequency table.</p>
+<p><img src="images/08/wage-educ-plot-setup.jpg" />
+We will use an <code>abline</code> to visually indicate the simulated unobserved parameter with the maximum relative frequency as the <span class="math inline">\(Pr(h \mid d)\)</span>, that is, the probability of conjectured, hypothesized, simulated parameter midpoint given the sampled population of data.</p>
+<p>At last here is the correlation plot.</p>
+<p><img src="images/08/wage-educ-plot.jpg" /></p>
+<p>We see something of a bell-shaped body in blue dots. The ogive overshoots but otherwise tracks the simulated cumulative relative frequency. There is an odd bit of a kink around zero simulated correlation. We may need to investigate this further.</p>
+<p>Finally, the story of the simulated sampled means unfolds here.</p>
+<p><img src="images/08/wage-educ-clt-mean.jpg" />
+This plot and accompanying table appear in a separate results worksheet. The consumer of all of this intelligence product can choose a variable from the following list.</p>
+<p><img src="images/08/wage-educ-list.jpg" /></p>
+<p>Again the simulated sampled means tracks the Gaussian ogive, but does over shoot it. Sampling error we might say? Perhaps. But repeated runs will find that the sampled means will most consistently aggregrate about the mean of the population. The mean is not biased. Standard deviations and correlations will be another story for another day.</p>
+</div>
+<div id="yet-another-rocky-road-we-have-traveled" class="section level2">
+<h2><span class="header-section-number">7.6</span> Yet another rocky road we have traveled</h2>
+<p>We have worked hard and hope, nay, expect that some of this made some modicum of sense. Can we use these ideas to build on our models of data consistency with hypotheses? Yes, we can, and will. We will continue to plumb the depths of the ultimate geocentric model, the Gaussian distribution. Everything we have done here is combletely consistent with a Gaussian observational model.</p>
+<p>One of the many reasons this is so mathematically is that the Gaussian model, with its robotic programming, is a quadratic polynomial by nature. Such mathematics describes well any phenomenon and behavior whose deviations from the trend are symmetric and concentrate in that quadratic peak we just glimpsed around the dashed lines in the plot.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="part-three-rubber-meets-the-road.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="gausss-robots-go-rogue.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["book-probability.pdf", "book-probability.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

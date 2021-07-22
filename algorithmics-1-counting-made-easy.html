@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 Algorithmics 1: counting made easy | Probabilistic Reasoning: from an elementary point of view</title>
+  <meta name="description" content="Learning is inference." />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 Algorithmics 1: counting made easy | Probabilistic Reasoning: from an elementary point of view" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Learning is inference." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 Algorithmics 1: counting made easy | Probabilistic Reasoning: from an elementary point of view" />
+  
+  <meta name="twitter:description" content="Learning is inference." />
+  
+
+<meta name="author" content="William G. Foote" />
+
+
+<meta name="date" content="2021-07-16" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="part-two-the-fantastic-four.html"/>
+<link rel="next" href="algorithmics-2-binomial-ups-and-downs.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.9.2.2/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.52.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.52.2/plotly-latest.min.js"></script>
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Probabilistic Reasoning</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Prologomena for a Future Statistics</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#why-this-book"><i class="fa fa-check"></i>Why this book</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#premises"><i class="fa fa-check"></i>Premises</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#so-many-questions-and-too-little-time"><i class="fa fa-check"></i>So many questions and too little time</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#dont-we-know-everything-we-need-to-know"><i class="fa fa-check"></i>Don’t we know everything we need to know?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-we-desire"><i class="fa fa-check"></i>What we desire</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#frequentist-or-probabilistic"><i class="fa fa-check"></i>Frequentist or probabilistic?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#a-work-in-progress"><i class="fa fa-check"></i>A work in progress</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="part-one-the-basics.html"><a href="part-one-the-basics.html"><i class="fa fa-check"></i>Part One – The Basics</a></li>
+<li class="chapter" data-level="1" data-path="counting-the-ways.html"><a href="counting-the-ways.html"><i class="fa fa-check"></i><b>1</b> Counting the Ways</a><ul>
+<li class="chapter" data-level="1.1" data-path="counting-the-ways.html"><a href="counting-the-ways.html#plausibility-probability-and-information"><i class="fa fa-check"></i><b>1.1</b> Plausibility, probability and information</a></li>
+<li class="chapter" data-level="1.2" data-path="counting-the-ways.html"><a href="counting-the-ways.html#some-surprise"><i class="fa fa-check"></i><b>1.2</b> Some Surprise</a></li>
+<li class="chapter" data-level="1.3" data-path="counting-the-ways.html"><a href="counting-the-ways.html#how-many-ways"><i class="fa fa-check"></i><b>1.3</b> How many ways?</a></li>
+<li class="chapter" data-level="1.4" data-path="counting-the-ways.html"><a href="counting-the-ways.html#back-to-data"><i class="fa fa-check"></i><b>1.4</b> Back to data</a></li>
+<li class="chapter" data-level="1.5" data-path="counting-the-ways.html"><a href="counting-the-ways.html#checking-our-grip-on-reality"><i class="fa fa-check"></i><b>1.5</b> Checking our grip on reality</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="probability-for-real-people.html"><a href="probability-for-real-people.html"><i class="fa fa-check"></i><b>2</b> Probability for Real People</a><ul>
+<li class="chapter" data-level="2.1" data-path="probability-for-real-people.html"><a href="probability-for-real-people.html#can-we-rationally-reason"><i class="fa fa-check"></i><b>2.1</b> Can we rationally reason?</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="probability-for-real-people.html"><a href="probability-for-real-people.html#priors-what-we-think-might-happen"><i class="fa fa-check"></i><b>2.1.1</b> Priors: what we think might happen</a></li>
+<li class="chapter" data-level="2.1.2" data-path="probability-for-real-people.html"><a href="probability-for-real-people.html#likelihoods-thinking-about-the-data"><i class="fa fa-check"></i><b>2.1.2</b> Likelihoods: thinking about the data</a></li>
+<li class="chapter" data-level="2.1.3" data-path="probability-for-real-people.html"><a href="probability-for-real-people.html#altogether-now"><i class="fa fa-check"></i><b>2.1.3</b> Altogether now</a></li>
+<li class="chapter" data-level="2.1.4" data-path="probability-for-real-people.html"><a href="probability-for-real-people.html#updating-beliefs"><i class="fa fa-check"></i><b>2.1.4</b> Updating beliefs</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="probability-for-real-people.html"><a href="probability-for-real-people.html#whats-next"><i class="fa fa-check"></i><b>2.2</b> What’s next?</a></li>
+<li class="chapter" data-level="2.3" data-path="probability-for-real-people.html"><a href="probability-for-real-people.html#try-this-out-if-this-is-reasonable"><i class="fa fa-check"></i><b>2.3</b> Try this out, if this is reasonable</a></li>
+<li class="chapter" data-level="2.4" data-path="probability-for-real-people.html"><a href="probability-for-real-people.html#endnotes"><i class="fa fa-check"></i><b>2.4</b> Endnotes</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="part-two-the-fantastic-four.html"><a href="part-two-the-fantastic-four.html"><i class="fa fa-check"></i>Part Two – The Fantastic Four</a></li>
+<li class="chapter" data-level="3" data-path="algorithmics-1-counting-made-easy.html"><a href="algorithmics-1-counting-made-easy.html"><i class="fa fa-check"></i><b>3</b> Algorithmics 1: counting made easy</a><ul>
+<li class="chapter" data-level="3.1" data-path="algorithmics-1-counting-made-easy.html"><a href="algorithmics-1-counting-made-easy.html#whats-an-algorithm"><i class="fa fa-check"></i><b>3.1</b> What’s an algorithm?</a></li>
+<li class="chapter" data-level="3.2" data-path="algorithmics-1-counting-made-easy.html"><a href="algorithmics-1-counting-made-easy.html#our-first-job-unobserved-hypotheses"><i class="fa fa-check"></i><b>3.2</b> Our first job: unobserved hypotheses</a></li>
+<li class="chapter" data-level="3.3" data-path="algorithmics-1-counting-made-easy.html"><a href="algorithmics-1-counting-made-easy.html#possibilities-abound"><i class="fa fa-check"></i><b>3.3</b> Possibilities abound</a></li>
+<li class="chapter" data-level="3.4" data-path="algorithmics-1-counting-made-easy.html"><a href="algorithmics-1-counting-made-easy.html#observed-data"><i class="fa fa-check"></i><b>3.4</b> Observed data</a></li>
+<li class="chapter" data-level="3.5" data-path="algorithmics-1-counting-made-easy.html"><a href="algorithmics-1-counting-made-easy.html#is-anything-really-plausible"><i class="fa fa-check"></i><b>3.5</b> Is anything really plausible?</a></li>
+<li class="chapter" data-level="3.6" data-path="algorithmics-1-counting-made-easy.html"><a href="algorithmics-1-counting-made-easy.html#interpretation"><i class="fa fa-check"></i><b>3.6</b> Interpretation</a></li>
+<li class="chapter" data-level="3.7" data-path="algorithmics-1-counting-made-easy.html"><a href="algorithmics-1-counting-made-easy.html#locales"><i class="fa fa-check"></i><b>3.7</b> 10 locales?</a></li>
+<li class="chapter" data-level="3.8" data-path="algorithmics-1-counting-made-easy.html"><a href="algorithmics-1-counting-made-easy.html#next"><i class="fa fa-check"></i><b>3.8</b> Next</a></li>
+<li class="chapter" data-level="3.9" data-path="algorithmics-1-counting-made-easy.html"><a href="algorithmics-1-counting-made-easy.html#references-and-endnotes"><i class="fa fa-check"></i><b>3.9</b> References and endnotes</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="algorithmics-2-binomial-ups-and-downs.html"><a href="algorithmics-2-binomial-ups-and-downs.html"><i class="fa fa-check"></i><b>4</b> Algorithmics 2: binomial ups and downs</a><ul>
+<li class="chapter" data-level="4.1" data-path="algorithmics-2-binomial-ups-and-downs.html"><a href="algorithmics-2-binomial-ups-and-downs.html#anatomy-of-an-algorithm"><i class="fa fa-check"></i><b>4.1</b> Anatomy of an algorithm</a></li>
+<li class="chapter" data-level="4.2" data-path="algorithmics-2-binomial-ups-and-downs.html"><a href="algorithmics-2-binomial-ups-and-downs.html#ups-and-downs"><i class="fa fa-check"></i><b>4.2</b> Ups and downs</a></li>
+<li class="chapter" data-level="4.3" data-path="algorithmics-2-binomial-ups-and-downs.html"><a href="algorithmics-2-binomial-ups-and-downs.html#dispensing-with-the-bag-of-beans"><i class="fa fa-check"></i><b>4.3</b> Dispensing with the bag of beans</a></li>
+<li class="chapter" data-level="4.4" data-path="algorithmics-2-binomial-ups-and-downs.html"><a href="algorithmics-2-binomial-ups-and-downs.html#great-expectations"><i class="fa fa-check"></i><b>4.4</b> Great expectations</a></li>
+<li class="chapter" data-level="4.5" data-path="algorithmics-2-binomial-ups-and-downs.html"><a href="algorithmics-2-binomial-ups-and-downs.html#then-there-were-eleven"><i class="fa fa-check"></i><b>4.5</b> Then there were eleven</a></li>
+<li class="chapter" data-level="4.6" data-path="algorithmics-2-binomial-ups-and-downs.html"><a href="algorithmics-2-binomial-ups-and-downs.html#references-and-endnotes-1"><i class="fa fa-check"></i><b>4.6</b> References and endnotes</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="algorithmics-3-playing-musical-raptors.html"><a href="algorithmics-3-playing-musical-raptors.html"><i class="fa fa-check"></i><b>5</b> Algorithmics 3: playing musical raptors</a><ul>
+<li class="chapter" data-level="5.1" data-path="algorithmics-3-playing-musical-raptors.html"><a href="algorithmics-3-playing-musical-raptors.html#is-there-more-to-life-than-binary"><i class="fa fa-check"></i><b>5.1</b> Is there more to life than binary?</a></li>
+<li class="chapter" data-level="5.2" data-path="algorithmics-3-playing-musical-raptors.html"><a href="algorithmics-3-playing-musical-raptors.html#exploring-what-we-do-know"><i class="fa fa-check"></i><b>5.2</b> Exploring what we do know</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="algorithmics-3-playing-musical-raptors.html"><a href="algorithmics-3-playing-musical-raptors.html#summarize-the-data"><i class="fa fa-check"></i><b>5.2.1</b> Summarize the data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="algorithmics-3-playing-musical-raptors.html"><a href="algorithmics-3-playing-musical-raptors.html#whence-the-binomial-generates-the-poisson"><i class="fa fa-check"></i><b>5.3</b> Whence the binomial generates the Poisson</a></li>
+<li class="chapter" data-level="5.4" data-path="algorithmics-3-playing-musical-raptors.html"><a href="algorithmics-3-playing-musical-raptors.html#approximating-poisson"><i class="fa fa-check"></i><b>5.4</b> Approximating Poisson</a></li>
+<li class="chapter" data-level="5.5" data-path="algorithmics-3-playing-musical-raptors.html"><a href="algorithmics-3-playing-musical-raptors.html#zooming-in-for-a-closer-look"><i class="fa fa-check"></i><b>5.5</b> Zooming in for a closer look</a></li>
+<li class="chapter" data-level="5.6" data-path="algorithmics-3-playing-musical-raptors.html"><a href="algorithmics-3-playing-musical-raptors.html#probability-intervals"><i class="fa fa-check"></i><b>5.6</b> Probability intervals</a></li>
+<li class="chapter" data-level="5.7" data-path="algorithmics-3-playing-musical-raptors.html"><a href="algorithmics-3-playing-musical-raptors.html#references-and-endnotes-2"><i class="fa fa-check"></i><b>5.7</b> References and endnotes</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html"><i class="fa fa-check"></i><b>6</b> Algorithmics 4: Gaussian blues</a><ul>
+<li class="chapter" data-level="6.1" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#while-we-wait-for-the-other-shoe-to-drop"><i class="fa fa-check"></i><b>6.1</b> While we wait for the other shoe to drop</a></li>
+<li class="chapter" data-level="6.2" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#is-there-more-to-life-than-just-counting"><i class="fa fa-check"></i><b>6.2</b> Is there more to life than just counting?</a></li>
+<li class="chapter" data-level="6.3" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#gauss-gauss-where-is-gauss"><i class="fa fa-check"></i><b>6.3</b> Gauss, Gauss, where is Gauss?</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#full-time-equivalent"><i class="fa fa-check"></i><b>6.3.1</b> Full time equivalent</a></li>
+<li class="chapter" data-level="6.3.2" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#compound-growth"><i class="fa fa-check"></i><b>6.3.2</b> Compound growth</a></li>
+<li class="chapter" data-level="6.3.3" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#log-products"><i class="fa fa-check"></i><b>6.3.3</b> Log products</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#assume-and-simplify"><i class="fa fa-check"></i><b>6.4</b> Assume and simplify</a></li>
+<li class="chapter" data-level="6.5" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#how-do-we-get-there"><i class="fa fa-check"></i><b>6.5</b> How do we get there?</a></li>
+<li class="chapter" data-level="6.6" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#grid-lock"><i class="fa fa-check"></i><b>6.6</b> Grid lock</a></li>
+<li class="chapter" data-level="6.7" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#onward-we-march"><i class="fa fa-check"></i><b>6.7</b> Onward we march</a></li>
+<li class="chapter" data-level="6.8" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#what-does-it-all-mean"><i class="fa fa-check"></i><b>6.8</b> What does it all mean?</a></li>
+<li class="chapter" data-level="6.9" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#a-provisional-finding"><i class="fa fa-check"></i><b>6.9</b> A provisional finding</a></li>
+<li class="chapter" data-level="6.10" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#just-one-more-thing"><i class="fa fa-check"></i><b>6.10</b> Just one more thing</a><ul>
+<li class="chapter" data-level="6.10.1" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#one-way"><i class="fa fa-check"></i><b>6.10.1</b> One way</a></li>
+<li class="chapter" data-level="6.10.2" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#or-the-other"><i class="fa fa-check"></i><b>6.10.2</b> Or the other</a></li>
+</ul></li>
+<li class="chapter" data-level="6.11" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#references-and-endnotes-3"><i class="fa fa-check"></i><b>6.11</b> References and endnotes</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="part-three-rubber-meets-the-road.html"><a href="part-three-rubber-meets-the-road.html"><i class="fa fa-check"></i>Part Three – Rubber meets the road</a></li>
+<li class="chapter" data-level="7" data-path="gausss-robots-again.html"><a href="gausss-robots-again.html"><i class="fa fa-check"></i><b>7</b> Gauss’s robots again</a><ul>
+<li class="chapter" data-level="7.1" data-path="gausss-robots-again.html"><a href="gausss-robots-again.html#an-auspicious-result"><i class="fa fa-check"></i><b>7.1</b> An auspicious result</a></li>
+<li class="chapter" data-level="7.2" data-path="gausss-robots-again.html"><a href="gausss-robots-again.html#tale-of-two-populations"><i class="fa fa-check"></i><b>7.2</b> Tale of two populations</a></li>
+<li class="chapter" data-level="7.3" data-path="gausss-robots-again.html"><a href="gausss-robots-again.html#education-is-the-key"><i class="fa fa-check"></i><b>7.3</b> Education is the key</a></li>
+<li class="chapter" data-level="7.4" data-path="gausss-robots-again.html"><a href="gausss-robots-again.html#sample-until-we-drop"><i class="fa fa-check"></i><b>7.4</b> Sample until we drop</a></li>
+<li class="chapter" data-level="7.5" data-path="gausss-robots-again.html"><a href="gausss-robots-again.html#results-results-we-want-results"><i class="fa fa-check"></i><b>7.5</b> Results, results, we want results!</a></li>
+<li class="chapter" data-level="7.6" data-path="gausss-robots-again.html"><a href="gausss-robots-again.html#yet-another-rocky-road-we-have-traveled"><i class="fa fa-check"></i><b>7.6</b> Yet another rocky road we have traveled</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html"><i class="fa fa-check"></i><b>8</b> Gauss’s robots go rogue</a><ul>
+<li class="chapter" data-level="8.1" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#spreadsheets-really"><i class="fa fa-check"></i><b>8.1</b> Spreadsheets? Really?</a></li>
+<li class="chapter" data-level="8.2" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#an-auspicious-result-again"><i class="fa fa-check"></i><b>8.2</b> An auspicious result again?</a></li>
+<li class="chapter" data-level="8.3" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#the-most-uninformative-distribution"><i class="fa fa-check"></i><b>8.3</b> The most uninformative distribution</a></li>
+<li class="chapter" data-level="8.4" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#simulate-until-morale-improves"><i class="fa fa-check"></i><b>8.4</b> Simulate until morale improves!</a></li>
+<li class="chapter" data-level="8.5" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#is-it-true-that-gauss-is-in-the-house-again"><i class="fa fa-check"></i><b>8.5</b> Is it true that Gauss is in the house again?</a></li>
+<li class="chapter" data-level="8.6" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#and-again"><i class="fa fa-check"></i><b>8.6</b> And again?</a></li>
+<li class="chapter" data-level="8.7" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#the-association"><i class="fa fa-check"></i><b>8.7</b> The Association</a></li>
+<li class="chapter" data-level="8.8" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#a-tale-of-coir"><i class="fa fa-check"></i><b>8.8</b> A tale of coir</a><ul>
+<li class="chapter" data-level="8.8.1" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#business-situation"><i class="fa fa-check"></i><b>8.8.1</b> Business Situation</a></li>
+<li class="chapter" data-level="8.8.2" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#business-questions"><i class="fa fa-check"></i><b>8.8.2</b> Business Questions</a></li>
+<li class="chapter" data-level="8.8.3" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#data"><i class="fa fa-check"></i><b>8.8.3</b> Data</a></li>
+<li class="chapter" data-level="8.8.4" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#analysis"><i class="fa fa-check"></i><b>8.8.4</b> Analysis</a></li>
+<li class="chapter" data-level="8.8.5" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#results"><i class="fa fa-check"></i><b>8.8.5</b> Results</a></li>
+</ul></li>
+<li class="chapter" data-level="8.9" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#endnotes-1"><i class="fa fa-check"></i><b>8.9</b> Endnotes</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="credible-interval-training.html"><a href="credible-interval-training.html"><i class="fa fa-check"></i><b>9</b> Credible interval training?</a><ul>
+<li class="chapter" data-level="9.1" data-path="credible-interval-training.html"><a href="credible-interval-training.html#imagine-this"><i class="fa fa-check"></i><b>9.1</b> Imagine this…</a></li>
+<li class="chapter" data-level="9.2" data-path="credible-interval-training.html"><a href="credible-interval-training.html#try-this-on-for-size"><i class="fa fa-check"></i><b>9.2</b> Try this on for size</a></li>
+<li class="chapter" data-level="9.3" data-path="credible-interval-training.html"><a href="credible-interval-training.html#what-about-the-sampled-standard-deviation"><i class="fa fa-check"></i><b>9.3</b> What about the sampled standard deviation?</a><ul>
+<li class="chapter" data-level="9.3.1" data-path="credible-interval-training.html"><a href="credible-interval-training.html#heres-the-promised-derivation"><i class="fa fa-check"></i><b>9.3.1</b> Here’s the promised derivation</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="credible-interval-training.html"><a href="credible-interval-training.html#probability-intervals-1-known-population-standard-deviation"><i class="fa fa-check"></i><b>9.4</b> Probability intervals 1: known population standard deviation</a></li>
+<li class="chapter" data-level="9.5" data-path="credible-interval-training.html"><a href="credible-interval-training.html#our-first-procedure-emerges"><i class="fa fa-check"></i><b>9.5</b> Our first procedure emerges</a></li>
+<li class="chapter" data-level="9.6" data-path="credible-interval-training.html"><a href="credible-interval-training.html#probability-intervals-2-on-to-the-unknown-standard-deviation"><i class="fa fa-check"></i><b>9.6</b> Probability intervals 2: on to the unknown standard deviation</a><ul>
+<li class="chapter" data-level="9.6.1" data-path="credible-interval-training.html"><a href="credible-interval-training.html#by-the-way-who-is-student"><i class="fa fa-check"></i><b>9.6.1</b> By the way, who is Student?</a></li>
+</ul></li>
+<li class="chapter" data-level="9.7" data-path="credible-interval-training.html"><a href="credible-interval-training.html#our-second-procedure"><i class="fa fa-check"></i><b>9.7</b> Our second procedure</a></li>
+<li class="chapter" data-level="9.8" data-path="credible-interval-training.html"><a href="credible-interval-training.html#exercises"><i class="fa fa-check"></i><b>9.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="hypothetically-speaking.html"><a href="hypothetically-speaking.html"><i class="fa fa-check"></i><b>10</b> Hypothetically Speaking</a><ul>
+<li class="chapter" data-level="10.1" data-path="hypothetically-speaking.html"><a href="hypothetically-speaking.html#imagine-this-1"><i class="fa fa-check"></i><b>10.1</b> Imagine this…</a><ul>
+<li class="chapter" data-level="10.1.1" data-path="hypothetically-speaking.html"><a href="hypothetically-speaking.html#for-those-who-really-want-to-or-even-need-to"><i class="fa fa-check"></i><b>10.1.1</b> For those who really want to, or even need to</a></li>
+<li class="chapter" data-level="10.1.2" data-path="hypothetically-speaking.html"><a href="hypothetically-speaking.html#finally-an-excel-screenshot"><i class="fa fa-check"></i><b>10.1.2</b> Finally an excel screenshot</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="hypothetically-speaking.html"><a href="hypothetically-speaking.html#can-we-be-wrong"><i class="fa fa-check"></i><b>10.2</b> Can we be wrong?</a></li>
+<li class="chapter" data-level="10.3" data-path="hypothetically-speaking.html"><a href="hypothetically-speaking.html#yet-another-way"><i class="fa fa-check"></i><b>10.3</b> Yet another way</a><ul>
+<li class="chapter" data-level="10.3.1" data-path="hypothetically-speaking.html"><a href="hypothetically-speaking.html#population-standard-deviation-known"><i class="fa fa-check"></i><b>10.3.1</b> Population standard deviation known</a></li>
+<li class="chapter" data-level="10.3.2" data-path="hypothetically-speaking.html"><a href="hypothetically-speaking.html#control-is-probability"><i class="fa fa-check"></i><b>10.3.2</b> Control is probability</a></li>
+<li class="chapter" data-level="10.3.3" data-path="hypothetically-speaking.html"><a href="hypothetically-speaking.html#on-to-the-unknown"><i class="fa fa-check"></i><b>10.3.3</b> On to the unknown</a></li>
+<li class="chapter" data-level="10.3.4" data-path="hypothetically-speaking.html"><a href="hypothetically-speaking.html#on-with-our-story"><i class="fa fa-check"></i><b>10.3.4</b> On with our story…</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="hypothetically-speaking.html"><a href="hypothetically-speaking.html#exercises-1"><i class="fa fa-check"></i><b>10.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="part-four-the-test-of-a-relationship.html"><a href="part-four-the-test-of-a-relationship.html"><i class="fa fa-check"></i>Part Four – The Test of a Relationship</a></li>
+<li class="chapter" data-level="11" data-path="relationships-put-to-the-test.html"><a href="relationships-put-to-the-test.html"><i class="fa fa-check"></i><b>11</b> Relationships Put to the Test</a><ul>
+<li class="chapter" data-level="11.1" data-path="relationships-put-to-the-test.html"><a href="relationships-put-to-the-test.html#its-not-so-hard-to-imagine-this"><i class="fa fa-check"></i><b>11.1</b> It’s not so hard to imagine this…</a></li>
+<li class="chapter" data-level="11.2" data-path="relationships-put-to-the-test.html"><a href="relationships-put-to-the-test.html#the-maths-the-maths"><i class="fa fa-check"></i><b>11.2</b> The maths! The maths!</a><ul>
+<li class="chapter" data-level="11.2.1" data-path="relationships-put-to-the-test.html"><a href="relationships-put-to-the-test.html#what-did-we-all-expect"><i class="fa fa-check"></i><b>11.2.1</b> What did we all expect?</a></li>
+<li class="chapter" data-level="11.2.2" data-path="relationships-put-to-the-test.html"><a href="relationships-put-to-the-test.html#walking-the-straight-line"><i class="fa fa-check"></i><b>11.2.2</b> Walking the straight line</a></li>
+<li class="chapter" data-level="11.2.3" data-path="relationships-put-to-the-test.html"><a href="relationships-put-to-the-test.html#a-short-variance-diatribe"><i class="fa fa-check"></i><b>11.2.3</b> A short variance diatribe</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="relationships-put-to-the-test.html"><a href="relationships-put-to-the-test.html#does-education-matter"><i class="fa fa-check"></i><b>11.3</b> Does education matter?</a></li>
+<li class="chapter" data-level="11.4" data-path="relationships-put-to-the-test.html"><a href="relationships-put-to-the-test.html#back-to-the-business-at-hand"><i class="fa fa-check"></i><b>11.4</b> Back to the business at hand</a></li>
+<li class="chapter" data-level="11.5" data-path="relationships-put-to-the-test.html"><a href="relationships-put-to-the-test.html#does-it-really-matter"><i class="fa fa-check"></i><b>11.5</b> Does it really matter?</a></li>
+<li class="chapter" data-level="11.6" data-path="relationships-put-to-the-test.html"><a href="relationships-put-to-the-test.html#references-and-endnotes-4"><i class="fa fa-check"></i><b>11.6</b> References and endnotes</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="the-journey-continues.html"><a href="the-journey-continues.html"><i class="fa fa-check"></i><b>12</b> The journey continues</a><ul>
+<li class="chapter" data-level="12.1" data-path="the-journey-continues.html"><a href="the-journey-continues.html#backing-up"><i class="fa fa-check"></i><b>12.1</b> Backing up</a></li>
+<li class="chapter" data-level="12.2" data-path="the-journey-continues.html"><a href="the-journey-continues.html#fences-and-neighbors"><i class="fa fa-check"></i><b>12.2</b> Fences and neighbors</a><ul>
+<li class="chapter" data-level="12.2.1" data-path="the-journey-continues.html"><a href="the-journey-continues.html#tukeys-fences."><i class="fa fa-check"></i><b>12.2.1</b> Tukey’s fences.</a></li>
+<li class="chapter" data-level="12.2.2" data-path="the-journey-continues.html"><a href="the-journey-continues.html#credibility-intervals."><i class="fa fa-check"></i><b>12.2.2</b> Credibility intervals.</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="the-journey-continues.html"><a href="the-journey-continues.html#binomial-raptors."><i class="fa fa-check"></i><b>12.3</b> Binomial raptors.</a><ul>
+<li class="chapter" data-level="12.3.1" data-path="the-journey-continues.html"><a href="the-journey-continues.html#cloudy-or-clear."><i class="fa fa-check"></i><b>12.3.1</b> Cloudy or clear.</a></li>
+<li class="chapter" data-level="12.3.2" data-path="the-journey-continues.html"><a href="the-journey-continues.html#binomial-sightings."><i class="fa fa-check"></i><b>12.3.2</b> Binomial sightings.</a></li>
+<li class="chapter" data-level="12.3.3" data-path="the-journey-continues.html"><a href="the-journey-continues.html#poisson-raptors."><i class="fa fa-check"></i><b>12.3.3</b> Poisson raptors.</a></li>
+<li class="chapter" data-level="12.3.4" data-path="the-journey-continues.html"><a href="the-journey-continues.html#poisson-expectations."><i class="fa fa-check"></i><b>12.3.4</b> Poisson expectations.</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="the-journey-continues.html"><a href="the-journey-continues.html#managing-relationships"><i class="fa fa-check"></i><b>12.4</b> Managing relationships</a><ul>
+<li class="chapter" data-level="12.4.1" data-path="the-journey-continues.html"><a href="the-journey-continues.html#drawing-the-line"><i class="fa fa-check"></i><b>12.4.1</b> Drawing the line</a></li>
+<li class="chapter" data-level="12.4.2" data-path="the-journey-continues.html"><a href="the-journey-continues.html#does-it-matter"><i class="fa fa-check"></i><b>12.4.2</b> Does it matter?</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Probabilistic Reasoning: from an elementary point of view</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="algorithmics-1-counting-made-easy" class="section level1">
+<h1><span class="header-section-number">Chapter 3</span> Algorithmics 1: counting made easy</h1>
+<div id="whats-an-algorithm" class="section level2">
+<h2><span class="header-section-number">3.1</span> What’s an algorithm?</h2>
+<p>An <em>algorithm</em> is a set of rules used to perform ordered tasks to achieve a desired result. It is precise, effective in that it produces what it advertises it will do, and sometimes, also efficient in the number of steps to achieve a desired result. we often contrast the notion of an algorithm with a <em>heuristic</em>.</p>
+<p>A <em>heuristic structure</em> attempts to anticipate that which is unknown. It might use algorithms, rules of thumb, received traditions, all to help get to a solution. In computing parlance and recent practice, this description of a <em>heuristic structure</em> deprecates to a convenient approximation to a solution, even if the result is not optimal.<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a></p>
+<p>We will start by unpeeling the structure of a specific context: a decision making process for a disaster relief organization whose co-workers deliver services in locales known to have disease. We search for the most plausible answer to the question <em>will our co-workers be safe if exposed to pathogens?</em> In the next section We use this working example of our organization which provides disaster relief services on location.</p>
+</div>
+<div id="our-first-job-unobserved-hypotheses" class="section level2">
+<h2><span class="header-section-number">3.2</span> Our first job: unobserved hypotheses</h2>
+<p>We currently deliver aid to victims in four locales. Severe weather compromises water supplies, sewage containment, communications, transportation, healthcare, food and energy. We have obligations to keep co-workers reasonably safe and healthy as they deliver their services. One protocol we follow is frequent testing for pathogens in the blood and respiratory systems of each co-worker. If co-workers test positive for known pathogens in a locale, affected co-workers will be removed to a safe site for appropriate care, and a further decision will be forthcoming for continued deployment to the locale.</p>
+<blockquote>
+<p>We see co-workers who are exposed to known pathogens. Will they test negative for disease and be safe?<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a></p>
+</blockquote>
+<p>In our heuristic process, before we begin to construct an algorithm, we begin thinking about the question first. <em>Will they remain healthy?</em> At this stage we consider only what is <strong>possible</strong> for testing in the four locales. We will consider only a strict positive or negative test forIn considering this question for co-workers across four locales the answer to the question <em>provisionally</em> is binary: yes co-workers in a locale test positive, or, no they do not. We will eventually color code a <strong>positive test with red</strong> and a <strong>negative test with green</strong>.</p>
+</div>
+<div id="possibilities-abound" class="section level2">
+<h2><span class="header-section-number">3.3</span> Possibilities abound</h2>
+<p>In this thought experiment we imagine that all four locales have co-workers that might test positive or they might test negative. We do not expect anything yet, just express hope that all are negative. These are two conjectures, considerations, theories even, we will call <strong>hypotheses</strong>. How many ways can four locales test positive and / or negative?</p>
+<p>A discussion might reveal that is is <strong>possible</strong> that one locale tests positive while the other three are negative. Or again, that two test positive while the other two are negative. And, again, that three test positive, while only one tests negative. At the boundaries of our consideration we have the <strong>possibility</strong> that either none or all of the locales will test positive.</p>
+<p>What have we arrived at? There are 5 hypotheses across 4 locales. We visualize the 5 hypotheses here in an Excel worksheet.</p>
+<p><img src="images/03/4-locales.jpg" /></p>
+<p>We index each hypothesis with integers from 1 to 5. We also notice that with 4 locales we have <span class="math inline">\(4+1=5\)</span> hypotheses. We notice that hypothesis 1 conjectures 0 green tests; hypothesis 2 with 1 green test (3 red), and so on. We can now calculate the number of green and red tests for each conjecture. Start withe 0 green at hypothesis 1. Then the number of reds is <span class="math inline">\(locales - green = 4 - 0 = 0\)</span>. For hypothesis 2 the number of greens is simply increased by 1 so is the hypothesis 1 0 greens plus 1, which is just 1. The reds are still <span class="math inline">\(locales - green = 4 - 1 = 3\)</span>. Simple counting.</p>
+<p>We could even simplify this further by also noticing the number of greens is just <span class="math inline">\(hypothesis - 1\)</span>. Thus for hypothesis 4 we have <span class="math inline">\(hypothesis - 1 = 4 - 1 = 3\)</span> greens. We arrive at a simpler, easier to compute way to get at the number of greens and reds for each hypothesis built of the number of locales plus 1 to get the hypotheses. We then take the hypothesis and reduce by 1 to obtain the number of greens.</p>
+<p>Now that we determined the number of greens and reds for each hypothesis, we can also calculate the proportion of greens, a statistic, a metric, that can also represent the particular hypothesis. That is what the next panel shows.</p>
+<p><img src="images/03/green-red-p.jpg" />
+Excel formula calculations appear below each row. We also notice that the green and red calculations run in opposite directions. We now hypothesize that proportions of observed data in the population of the 4 locales can range from 0.00 to 1.00 in steps of 0.25. This is a grid of hypotheses.</p>
+</div>
+<div id="observed-data" class="section level2">
+<h2><span class="header-section-number">3.4</span> Observed data</h2>
+<p>We spent quite a bit of quality time with hypothesis formation. This is a subject we can and should consider very carefully. First, we framed a question informed by exposures to a pathogen and in the context of a policy. Second, we included all the possible hypotheses. Third, we quantified each and arrived at a measurable metric. We still do not which hypothesis, which proportion, represents the 4 locales. We turn to that task next.</p>
+<p>We start with observed data. We label the hypotheses as unobserved data. Everything is fair game: it’s data. We take three samples from any locale. The samples don’t care what locale they come from. They are samples of tests pure and simple without locality attribution. This is our little world. We observe 2 green tests (negatives) and 1 red test (positive). If we let only the observed data talk, we say that 0.67 of the tests are negative, green. But is this representative of the 4 locales? Not at all necessarily. The observed data has no intrinsic relationship with the fact that there are locales.</p>
+<p>Next we allow the data to interact with each hypothesis. This table details that conversation.</p>
+<p><img src="images/03/data-hypothesis.jpg" />
+We add two columns, K and L. we ask the question of how many ways can a green occur when we consider a hypothesis. Let’s look at the calculation for hypothesis 4. There are 3 green ways in that hypothesis that matter when we observe a green in the sample. But there are 2 greens in the sample. This is a <em>both-and</em> joint arrangement. Both we hypothesize 3 green ways and we observe 2 greens.</p>
+<p>For each observation we have 3 green ways in hypothesis 4. For both observations there are <span class="math inline">\(3 \times 3 = 3^2 = 9\)</span> ways. Both for one observation of a red and only 1 way left in hypothesis 4 reserved for a red there are <span class="math inline">\(1^1 = 1\)</span> way for this observation to be consistent with this hypothesis.</p>
+</div>
+<div id="is-anything-really-plausible" class="section level2">
+<h2><span class="header-section-number">3.5</span> Is anything really plausible?</h2>
+<p>Just asking this question seems to say yes. It is our final algorithmic task to deduce plausibility of the unobserved data of each hypothesis in the face of observed data. This panel reveals the finale.</p>
+<p><img src="images/03/plausibility.jpg" />
+In this last scene, we calculate for each unobserved hypothesis the number of ways it is consistent with the observed data. We already calculated the number of consistent ways for the two greens and one red. Now we strap them together in another <em>both-and</em> logical calculation in column M. We simply multiply columns K and L together.</p>
+<p>Again we lean on hypothesis 4 for help. There are 9 ways that 2 greens are consistent with a hypothesized proportion of 0.75 greens in a population of greens and reds. Both 9 green-consistent ways and 1 red-consistent way yield 9 jointly consistent ways that the sample and the hypothesis are logically compatible with one another.</p>
+<p>We calculate the ways that each unobserved hypothesis are consistent with all of the data sampled. Now we calculate the contribution of the ways obvserved data are consistent with unobserved hypotheses. First we add up all of those ways. There are 20 total consistent ways. We calculate the fraction each hypothesis is consistent out of the total 20 ways.</p>
+</div>
+<div id="interpretation" class="section level2">
+<h2><span class="header-section-number">3.6</span> Interpretation</h2>
+<p>Each of these fractions is between 0 and 1. The fractions add up to 1. They can now also be called probabilities. We have just deduced the probability of an unobserved hypothesis about the proportion of greens <em>given</em> a sample of observed data, <span class="math inline">\(Pr( h \mid d)\)</span>. For example <span class="math inline">\(Pr( h = 3 \,greens, \,\, 1\, red \mid d = 2 \,greens, \,\, 1 \,red ) = 0.75\)</span>, the highest rated hypothesis. We would therefore report that, given this data, hypothesis 4 is the most probably.</p>
+</div>
+<div id="locales" class="section level2">
+<h2><span class="header-section-number">3.7</span> 10 locales?</h2>
+<p>Suppose we needed to sample from 10 locales? Does that mean more hypotheses possible? Here’s the view from the grid.</p>
+<p><img src="images/03/10-locales.jpg" />
+Eventually we run out of rows or columns or, good grief, patience. But the ideas around our algorithm, as inspired as they are by this grid, remain the same. We still have to only count the possible number of greens and reds for each possible, and exhaustive list of unobserved hyptheses. We still have to sample co-workers in locales, as many as we have time and money to do so. We still must determine deductively the hypothesis with the highest plausibility, credibility, consistency with the observed data.</p>
+<p>Now let us sample 12 locales. Here is the grid approximation to the probability of hypotheses given data.</p>
+<p><img src="images/03/11-grid.jpg" /></p>
+<p>We lost the green and red staircase. But look at those numbers of ways! The analysis boils down to a most likely hypothesis 8 (out of 11, one more than the number of locales) with a green proportion of 0.70 in the population of 10 locales.</p>
+<p>The unwieldliness of these large ways numbers will soon outrun our computers’s ability to count. We will need to fix the algorithm very soon. We should notice the use of two named ranges: <em>locales</em> and <em>sum</em>. This begins to represent prevailing recommended practice for the construction of spreadsheet models.</p>
+<p>Added here as well are two important notes about the probability results. The first is the interpretation of the <span class="math inline">\(Pr( h \mid d )\)</span> as a <strong>relative frequency</strong>, that is, the count of ways in column I relative to the sum of ways across all unobserved hypotheses. The second is the addition of column J to store our calculation of the cumulative relative frequency. This calculates the relative frequency increment to the previous accumulation of the relative frequency. It is the area under the relative frequency curve. We interpret this area as the probability of all hypotheses <span class="math inline">\(h\)</span> less than a possible proportion <span class="math inline">\(p\)</span> occurring.</p>
+<p>A plot will help with the tortured description of the concepts.</p>
+<p><img src="images/03/11-grid-plot.jpg" /></p>
+<p>Here is the Excel setup for the plot.</p>
+<p><img src="images/03/11-grid-plot-setup.jpg" /></p>
+<p>Prevailing plotting practices recommend (strongly!) to store plot titles for the main chart and axes in editable cells. We can <a href="images/03/https://support.microsoft.com/en-us/office/link-a-chart-title-label-or-text-box-to-a-worksheet-cell-efc8173a-2a8a-423b-b4e2-b10c62fca6f5">follow these directions to create dynamic chart titles</a> including axis titles for primary and secondary y-axes.</p>
+<p>The <em>abline</em> connects two points in x-y coordinates. The line visualizes the location of the maximum <span class="math inline">\(Pr(h \mid d)\)</span> point on the relative frequency and cumulative relative frequency curves and the identification of the most plausible hypothesis 0.80 derived from 8 of the 10 locales. Cell <strong>O7</strong> uses the excel <strong>=MAX()</strong> function to retrieve the maximum <span class="math inline">\(Pr(h \mid d)\)</span> from vector <strong>J4:J14</strong>. In cell <strong>O8</strong> the <strong>=MATCH()</strong> function locates the row number of the <span class="math inline">\(max \, Pr(h \mid d)\)</span> in the vector <strong>J4:J14</strong>. The <strong>INDEX()</strong> retrieves the value of the cell in the <span class="math inline">\(p\)</span> vector <strong>F4:F14</strong> at the row located with the <strong>=MATCH()</strong> function.</p>
+<p>With 10 locales we must expand the number of unobserved potential hypotheses that the population of locales might occur. With this expansion comes the finer delineation of hypothesized proportions of the population. While the proportions of the population are continuous real numbers, the discrete nature of the hypotheses in terms of 10 distinct locales maps directly to a discrete set of possible proportions.</p>
+</div>
+<div id="next" class="section level2">
+<h2><span class="header-section-number">3.8</span> Next</h2>
+<p><em>Algorithmics 2</em> will expand this model to its rightful place in applied probability (also known as statistics). This place is called the <strong>binomial distribution</strong>. The binomial distribution will serve as our <strong>observational model</strong>. We will reduce the simple counting model of this note to a much more robust distribution.</p>
+</div>
+<div id="references-and-endnotes" class="section level2">
+<h2><span class="header-section-number">3.9</span> References and endnotes</h2>
+
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="7">
+<li id="fn7"><p>We define a heuristic notion as the concept of an as-yet-unknown content or solution, something to be discovered (Gr. heurisko). A heuristic structure is then an “ordered set of heuristic notions,” according to Lonergan (1970, p.392), that is, a method, insofar as structure is some sort of order. As such it is the procedure or method, not the content of the procedure or method. A solution for a heuristic structure can derive from approximations according to a criterion. Algorithms provide a quantification of some heuristics. Algorithms then form a subset of heuristic structures as anticipations of as-yet-not-known solutions or content.<a href="algorithmics-1-counting-made-easy.html#fnref7" class="footnote-back">↩</a></p></li>
+<li id="fn8"><p>This is one of two possible question frames. We could ask the opposite question. <em>Will they test positive, not be safe, and contract disease?</em> When we form hypotheses there is indeed a <a href="images/03/https://en.wikipedia.org/wiki/Framing_effect_(psychology)">framing bias</a> we should be aware of. The frame might bias selections that favor what the question implicitly looks for, here a positive or a negative test. It is the positive or negative connotation that creates this cognitive bias.<a href="algorithmics-1-counting-made-easy.html#fnref8" class="footnote-back">↩</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="part-two-the-fantastic-four.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="algorithmics-2-binomial-ups-and-downs.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["book-probability.pdf", "book-probability.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

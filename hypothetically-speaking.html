@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 10 Hypothetically Speaking | Probabilistic Reasoning: from an elementary point of view</title>
+  <meta name="description" content="Learning is inference." />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 10 Hypothetically Speaking | Probabilistic Reasoning: from an elementary point of view" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Learning is inference." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 10 Hypothetically Speaking | Probabilistic Reasoning: from an elementary point of view" />
+  
+  <meta name="twitter:description" content="Learning is inference." />
+  
+
+<meta name="author" content="William G. Foote" />
+
+
+<meta name="date" content="2021-07-16" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="credible-interval-training.html"/>
+<link rel="next" href="part-four-the-test-of-a-relationship.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.9.2.2/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.52.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.52.2/plotly-latest.min.js"></script>
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Probabilistic Reasoning</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Prologomena for a Future Statistics</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#why-this-book"><i class="fa fa-check"></i>Why this book</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#premises"><i class="fa fa-check"></i>Premises</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#so-many-questions-and-too-little-time"><i class="fa fa-check"></i>So many questions and too little time</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#dont-we-know-everything-we-need-to-know"><i class="fa fa-check"></i>Don’t we know everything we need to know?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-we-desire"><i class="fa fa-check"></i>What we desire</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#frequentist-or-probabilistic"><i class="fa fa-check"></i>Frequentist or probabilistic?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#a-work-in-progress"><i class="fa fa-check"></i>A work in progress</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="part-one-the-basics.html"><a href="part-one-the-basics.html"><i class="fa fa-check"></i>Part One – The Basics</a></li>
+<li class="chapter" data-level="1" data-path="counting-the-ways.html"><a href="counting-the-ways.html"><i class="fa fa-check"></i><b>1</b> Counting the Ways</a><ul>
+<li class="chapter" data-level="1.1" data-path="counting-the-ways.html"><a href="counting-the-ways.html#plausibility-probability-and-information"><i class="fa fa-check"></i><b>1.1</b> Plausibility, probability and information</a></li>
+<li class="chapter" data-level="1.2" data-path="counting-the-ways.html"><a href="counting-the-ways.html#some-surprise"><i class="fa fa-check"></i><b>1.2</b> Some Surprise</a></li>
+<li class="chapter" data-level="1.3" data-path="counting-the-ways.html"><a href="counting-the-ways.html#how-many-ways"><i class="fa fa-check"></i><b>1.3</b> How many ways?</a></li>
+<li class="chapter" data-level="1.4" data-path="counting-the-ways.html"><a href="counting-the-ways.html#back-to-data"><i class="fa fa-check"></i><b>1.4</b> Back to data</a></li>
+<li class="chapter" data-level="1.5" data-path="counting-the-ways.html"><a href="counting-the-ways.html#checking-our-grip-on-reality"><i class="fa fa-check"></i><b>1.5</b> Checking our grip on reality</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="probability-for-real-people.html"><a href="probability-for-real-people.html"><i class="fa fa-check"></i><b>2</b> Probability for Real People</a><ul>
+<li class="chapter" data-level="2.1" data-path="probability-for-real-people.html"><a href="probability-for-real-people.html#can-we-rationally-reason"><i class="fa fa-check"></i><b>2.1</b> Can we rationally reason?</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="probability-for-real-people.html"><a href="probability-for-real-people.html#priors-what-we-think-might-happen"><i class="fa fa-check"></i><b>2.1.1</b> Priors: what we think might happen</a></li>
+<li class="chapter" data-level="2.1.2" data-path="probability-for-real-people.html"><a href="probability-for-real-people.html#likelihoods-thinking-about-the-data"><i class="fa fa-check"></i><b>2.1.2</b> Likelihoods: thinking about the data</a></li>
+<li class="chapter" data-level="2.1.3" data-path="probability-for-real-people.html"><a href="probability-for-real-people.html#altogether-now"><i class="fa fa-check"></i><b>2.1.3</b> Altogether now</a></li>
+<li class="chapter" data-level="2.1.4" data-path="probability-for-real-people.html"><a href="probability-for-real-people.html#updating-beliefs"><i class="fa fa-check"></i><b>2.1.4</b> Updating beliefs</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="probability-for-real-people.html"><a href="probability-for-real-people.html#whats-next"><i class="fa fa-check"></i><b>2.2</b> What’s next?</a></li>
+<li class="chapter" data-level="2.3" data-path="probability-for-real-people.html"><a href="probability-for-real-people.html#try-this-out-if-this-is-reasonable"><i class="fa fa-check"></i><b>2.3</b> Try this out, if this is reasonable</a></li>
+<li class="chapter" data-level="2.4" data-path="probability-for-real-people.html"><a href="probability-for-real-people.html#endnotes"><i class="fa fa-check"></i><b>2.4</b> Endnotes</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="part-two-the-fantastic-four.html"><a href="part-two-the-fantastic-four.html"><i class="fa fa-check"></i>Part Two – The Fantastic Four</a></li>
+<li class="chapter" data-level="3" data-path="algorithmics-1-counting-made-easy.html"><a href="algorithmics-1-counting-made-easy.html"><i class="fa fa-check"></i><b>3</b> Algorithmics 1: counting made easy</a><ul>
+<li class="chapter" data-level="3.1" data-path="algorithmics-1-counting-made-easy.html"><a href="algorithmics-1-counting-made-easy.html#whats-an-algorithm"><i class="fa fa-check"></i><b>3.1</b> What’s an algorithm?</a></li>
+<li class="chapter" data-level="3.2" data-path="algorithmics-1-counting-made-easy.html"><a href="algorithmics-1-counting-made-easy.html#our-first-job-unobserved-hypotheses"><i class="fa fa-check"></i><b>3.2</b> Our first job: unobserved hypotheses</a></li>
+<li class="chapter" data-level="3.3" data-path="algorithmics-1-counting-made-easy.html"><a href="algorithmics-1-counting-made-easy.html#possibilities-abound"><i class="fa fa-check"></i><b>3.3</b> Possibilities abound</a></li>
+<li class="chapter" data-level="3.4" data-path="algorithmics-1-counting-made-easy.html"><a href="algorithmics-1-counting-made-easy.html#observed-data"><i class="fa fa-check"></i><b>3.4</b> Observed data</a></li>
+<li class="chapter" data-level="3.5" data-path="algorithmics-1-counting-made-easy.html"><a href="algorithmics-1-counting-made-easy.html#is-anything-really-plausible"><i class="fa fa-check"></i><b>3.5</b> Is anything really plausible?</a></li>
+<li class="chapter" data-level="3.6" data-path="algorithmics-1-counting-made-easy.html"><a href="algorithmics-1-counting-made-easy.html#interpretation"><i class="fa fa-check"></i><b>3.6</b> Interpretation</a></li>
+<li class="chapter" data-level="3.7" data-path="algorithmics-1-counting-made-easy.html"><a href="algorithmics-1-counting-made-easy.html#locales"><i class="fa fa-check"></i><b>3.7</b> 10 locales?</a></li>
+<li class="chapter" data-level="3.8" data-path="algorithmics-1-counting-made-easy.html"><a href="algorithmics-1-counting-made-easy.html#next"><i class="fa fa-check"></i><b>3.8</b> Next</a></li>
+<li class="chapter" data-level="3.9" data-path="algorithmics-1-counting-made-easy.html"><a href="algorithmics-1-counting-made-easy.html#references-and-endnotes"><i class="fa fa-check"></i><b>3.9</b> References and endnotes</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="algorithmics-2-binomial-ups-and-downs.html"><a href="algorithmics-2-binomial-ups-and-downs.html"><i class="fa fa-check"></i><b>4</b> Algorithmics 2: binomial ups and downs</a><ul>
+<li class="chapter" data-level="4.1" data-path="algorithmics-2-binomial-ups-and-downs.html"><a href="algorithmics-2-binomial-ups-and-downs.html#anatomy-of-an-algorithm"><i class="fa fa-check"></i><b>4.1</b> Anatomy of an algorithm</a></li>
+<li class="chapter" data-level="4.2" data-path="algorithmics-2-binomial-ups-and-downs.html"><a href="algorithmics-2-binomial-ups-and-downs.html#ups-and-downs"><i class="fa fa-check"></i><b>4.2</b> Ups and downs</a></li>
+<li class="chapter" data-level="4.3" data-path="algorithmics-2-binomial-ups-and-downs.html"><a href="algorithmics-2-binomial-ups-and-downs.html#dispensing-with-the-bag-of-beans"><i class="fa fa-check"></i><b>4.3</b> Dispensing with the bag of beans</a></li>
+<li class="chapter" data-level="4.4" data-path="algorithmics-2-binomial-ups-and-downs.html"><a href="algorithmics-2-binomial-ups-and-downs.html#great-expectations"><i class="fa fa-check"></i><b>4.4</b> Great expectations</a></li>
+<li class="chapter" data-level="4.5" data-path="algorithmics-2-binomial-ups-and-downs.html"><a href="algorithmics-2-binomial-ups-and-downs.html#then-there-were-eleven"><i class="fa fa-check"></i><b>4.5</b> Then there were eleven</a></li>
+<li class="chapter" data-level="4.6" data-path="algorithmics-2-binomial-ups-and-downs.html"><a href="algorithmics-2-binomial-ups-and-downs.html#references-and-endnotes-1"><i class="fa fa-check"></i><b>4.6</b> References and endnotes</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="algorithmics-3-playing-musical-raptors.html"><a href="algorithmics-3-playing-musical-raptors.html"><i class="fa fa-check"></i><b>5</b> Algorithmics 3: playing musical raptors</a><ul>
+<li class="chapter" data-level="5.1" data-path="algorithmics-3-playing-musical-raptors.html"><a href="algorithmics-3-playing-musical-raptors.html#is-there-more-to-life-than-binary"><i class="fa fa-check"></i><b>5.1</b> Is there more to life than binary?</a></li>
+<li class="chapter" data-level="5.2" data-path="algorithmics-3-playing-musical-raptors.html"><a href="algorithmics-3-playing-musical-raptors.html#exploring-what-we-do-know"><i class="fa fa-check"></i><b>5.2</b> Exploring what we do know</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="algorithmics-3-playing-musical-raptors.html"><a href="algorithmics-3-playing-musical-raptors.html#summarize-the-data"><i class="fa fa-check"></i><b>5.2.1</b> Summarize the data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="algorithmics-3-playing-musical-raptors.html"><a href="algorithmics-3-playing-musical-raptors.html#whence-the-binomial-generates-the-poisson"><i class="fa fa-check"></i><b>5.3</b> Whence the binomial generates the Poisson</a></li>
+<li class="chapter" data-level="5.4" data-path="algorithmics-3-playing-musical-raptors.html"><a href="algorithmics-3-playing-musical-raptors.html#approximating-poisson"><i class="fa fa-check"></i><b>5.4</b> Approximating Poisson</a></li>
+<li class="chapter" data-level="5.5" data-path="algorithmics-3-playing-musical-raptors.html"><a href="algorithmics-3-playing-musical-raptors.html#zooming-in-for-a-closer-look"><i class="fa fa-check"></i><b>5.5</b> Zooming in for a closer look</a></li>
+<li class="chapter" data-level="5.6" data-path="algorithmics-3-playing-musical-raptors.html"><a href="algorithmics-3-playing-musical-raptors.html#probability-intervals"><i class="fa fa-check"></i><b>5.6</b> Probability intervals</a></li>
+<li class="chapter" data-level="5.7" data-path="algorithmics-3-playing-musical-raptors.html"><a href="algorithmics-3-playing-musical-raptors.html#references-and-endnotes-2"><i class="fa fa-check"></i><b>5.7</b> References and endnotes</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html"><i class="fa fa-check"></i><b>6</b> Algorithmics 4: Gaussian blues</a><ul>
+<li class="chapter" data-level="6.1" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#while-we-wait-for-the-other-shoe-to-drop"><i class="fa fa-check"></i><b>6.1</b> While we wait for the other shoe to drop</a></li>
+<li class="chapter" data-level="6.2" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#is-there-more-to-life-than-just-counting"><i class="fa fa-check"></i><b>6.2</b> Is there more to life than just counting?</a></li>
+<li class="chapter" data-level="6.3" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#gauss-gauss-where-is-gauss"><i class="fa fa-check"></i><b>6.3</b> Gauss, Gauss, where is Gauss?</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#full-time-equivalent"><i class="fa fa-check"></i><b>6.3.1</b> Full time equivalent</a></li>
+<li class="chapter" data-level="6.3.2" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#compound-growth"><i class="fa fa-check"></i><b>6.3.2</b> Compound growth</a></li>
+<li class="chapter" data-level="6.3.3" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#log-products"><i class="fa fa-check"></i><b>6.3.3</b> Log products</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#assume-and-simplify"><i class="fa fa-check"></i><b>6.4</b> Assume and simplify</a></li>
+<li class="chapter" data-level="6.5" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#how-do-we-get-there"><i class="fa fa-check"></i><b>6.5</b> How do we get there?</a></li>
+<li class="chapter" data-level="6.6" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#grid-lock"><i class="fa fa-check"></i><b>6.6</b> Grid lock</a></li>
+<li class="chapter" data-level="6.7" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#onward-we-march"><i class="fa fa-check"></i><b>6.7</b> Onward we march</a></li>
+<li class="chapter" data-level="6.8" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#what-does-it-all-mean"><i class="fa fa-check"></i><b>6.8</b> What does it all mean?</a></li>
+<li class="chapter" data-level="6.9" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#a-provisional-finding"><i class="fa fa-check"></i><b>6.9</b> A provisional finding</a></li>
+<li class="chapter" data-level="6.10" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#just-one-more-thing"><i class="fa fa-check"></i><b>6.10</b> Just one more thing</a><ul>
+<li class="chapter" data-level="6.10.1" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#one-way"><i class="fa fa-check"></i><b>6.10.1</b> One way</a></li>
+<li class="chapter" data-level="6.10.2" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#or-the-other"><i class="fa fa-check"></i><b>6.10.2</b> Or the other</a></li>
+</ul></li>
+<li class="chapter" data-level="6.11" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#references-and-endnotes-3"><i class="fa fa-check"></i><b>6.11</b> References and endnotes</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="part-three-rubber-meets-the-road.html"><a href="part-three-rubber-meets-the-road.html"><i class="fa fa-check"></i>Part Three – Rubber meets the road</a></li>
+<li class="chapter" data-level="7" data-path="gausss-robots-again.html"><a href="gausss-robots-again.html"><i class="fa fa-check"></i><b>7</b> Gauss’s robots again</a><ul>
+<li class="chapter" data-level="7.1" data-path="gausss-robots-again.html"><a href="gausss-robots-again.html#an-auspicious-result"><i class="fa fa-check"></i><b>7.1</b> An auspicious result</a></li>
+<li class="chapter" data-level="7.2" data-path="gausss-robots-again.html"><a href="gausss-robots-again.html#tale-of-two-populations"><i class="fa fa-check"></i><b>7.2</b> Tale of two populations</a></li>
+<li class="chapter" data-level="7.3" data-path="gausss-robots-again.html"><a href="gausss-robots-again.html#education-is-the-key"><i class="fa fa-check"></i><b>7.3</b> Education is the key</a></li>
+<li class="chapter" data-level="7.4" data-path="gausss-robots-again.html"><a href="gausss-robots-again.html#sample-until-we-drop"><i class="fa fa-check"></i><b>7.4</b> Sample until we drop</a></li>
+<li class="chapter" data-level="7.5" data-path="gausss-robots-again.html"><a href="gausss-robots-again.html#results-results-we-want-results"><i class="fa fa-check"></i><b>7.5</b> Results, results, we want results!</a></li>
+<li class="chapter" data-level="7.6" data-path="gausss-robots-again.html"><a href="gausss-robots-again.html#yet-another-rocky-road-we-have-traveled"><i class="fa fa-check"></i><b>7.6</b> Yet another rocky road we have traveled</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html"><i class="fa fa-check"></i><b>8</b> Gauss’s robots go rogue</a><ul>
+<li class="chapter" data-level="8.1" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#spreadsheets-really"><i class="fa fa-check"></i><b>8.1</b> Spreadsheets? Really?</a></li>
+<li class="chapter" data-level="8.2" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#an-auspicious-result-again"><i class="fa fa-check"></i><b>8.2</b> An auspicious result again?</a></li>
+<li class="chapter" data-level="8.3" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#the-most-uninformative-distribution"><i class="fa fa-check"></i><b>8.3</b> The most uninformative distribution</a></li>
+<li class="chapter" data-level="8.4" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#simulate-until-morale-improves"><i class="fa fa-check"></i><b>8.4</b> Simulate until morale improves!</a></li>
+<li class="chapter" data-level="8.5" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#is-it-true-that-gauss-is-in-the-house-again"><i class="fa fa-check"></i><b>8.5</b> Is it true that Gauss is in the house again?</a></li>
+<li class="chapter" data-level="8.6" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#and-again"><i class="fa fa-check"></i><b>8.6</b> And again?</a></li>
+<li class="chapter" data-level="8.7" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#the-association"><i class="fa fa-check"></i><b>8.7</b> The Association</a></li>
+<li class="chapter" data-level="8.8" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#a-tale-of-coir"><i class="fa fa-check"></i><b>8.8</b> A tale of coir</a><ul>
+<li class="chapter" data-level="8.8.1" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#business-situation"><i class="fa fa-check"></i><b>8.8.1</b> Business Situation</a></li>
+<li class="chapter" data-level="8.8.2" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#business-questions"><i class="fa fa-check"></i><b>8.8.2</b> Business Questions</a></li>
+<li class="chapter" data-level="8.8.3" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#data"><i class="fa fa-check"></i><b>8.8.3</b> Data</a></li>
+<li class="chapter" data-level="8.8.4" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#analysis"><i class="fa fa-check"></i><b>8.8.4</b> Analysis</a></li>
+<li class="chapter" data-level="8.8.5" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#results"><i class="fa fa-check"></i><b>8.8.5</b> Results</a></li>
+</ul></li>
+<li class="chapter" data-level="8.9" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#endnotes-1"><i class="fa fa-check"></i><b>8.9</b> Endnotes</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="credible-interval-training.html"><a href="credible-interval-training.html"><i class="fa fa-check"></i><b>9</b> Credible interval training?</a><ul>
+<li class="chapter" data-level="9.1" data-path="credible-interval-training.html"><a href="credible-interval-training.html#imagine-this"><i class="fa fa-check"></i><b>9.1</b> Imagine this…</a></li>
+<li class="chapter" data-level="9.2" data-path="credible-interval-training.html"><a href="credible-interval-training.html#try-this-on-for-size"><i class="fa fa-check"></i><b>9.2</b> Try this on for size</a></li>
+<li class="chapter" data-level="9.3" data-path="credible-interval-training.html"><a href="credible-interval-training.html#what-about-the-sampled-standard-deviation"><i class="fa fa-check"></i><b>9.3</b> What about the sampled standard deviation?</a><ul>
+<li class="chapter" data-level="9.3.1" data-path="credible-interval-training.html"><a href="credible-interval-training.html#heres-the-promised-derivation"><i class="fa fa-check"></i><b>9.3.1</b> Here’s the promised derivation</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="credible-interval-training.html"><a href="credible-interval-training.html#probability-intervals-1-known-population-standard-deviation"><i class="fa fa-check"></i><b>9.4</b> Probability intervals 1: known population standard deviation</a></li>
+<li class="chapter" data-level="9.5" data-path="credible-interval-training.html"><a href="credible-interval-training.html#our-first-procedure-emerges"><i class="fa fa-check"></i><b>9.5</b> Our first procedure emerges</a></li>
+<li class="chapter" data-level="9.6" data-path="credible-interval-training.html"><a href="credible-interval-training.html#probability-intervals-2-on-to-the-unknown-standard-deviation"><i class="fa fa-check"></i><b>9.6</b> Probability intervals 2: on to the unknown standard deviation</a><ul>
+<li class="chapter" data-level="9.6.1" data-path="credible-interval-training.html"><a href="credible-interval-training.html#by-the-way-who-is-student"><i class="fa fa-check"></i><b>9.6.1</b> By the way, who is Student?</a></li>
+</ul></li>
+<li class="chapter" data-level="9.7" data-path="credible-interval-training.html"><a href="credible-interval-training.html#our-second-procedure"><i class="fa fa-check"></i><b>9.7</b> Our second procedure</a></li>
+<li class="chapter" data-level="9.8" data-path="credible-interval-training.html"><a href="credible-interval-training.html#exercises"><i class="fa fa-check"></i><b>9.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="hypothetically-speaking.html"><a href="hypothetically-speaking.html"><i class="fa fa-check"></i><b>10</b> Hypothetically Speaking</a><ul>
+<li class="chapter" data-level="10.1" data-path="hypothetically-speaking.html"><a href="hypothetically-speaking.html#imagine-this-1"><i class="fa fa-check"></i><b>10.1</b> Imagine this…</a><ul>
+<li class="chapter" data-level="10.1.1" data-path="hypothetically-speaking.html"><a href="hypothetically-speaking.html#for-those-who-really-want-to-or-even-need-to"><i class="fa fa-check"></i><b>10.1.1</b> For those who really want to, or even need to</a></li>
+<li class="chapter" data-level="10.1.2" data-path="hypothetically-speaking.html"><a href="hypothetically-speaking.html#finally-an-excel-screenshot"><i class="fa fa-check"></i><b>10.1.2</b> Finally an excel screenshot</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="hypothetically-speaking.html"><a href="hypothetically-speaking.html#can-we-be-wrong"><i class="fa fa-check"></i><b>10.2</b> Can we be wrong?</a></li>
+<li class="chapter" data-level="10.3" data-path="hypothetically-speaking.html"><a href="hypothetically-speaking.html#yet-another-way"><i class="fa fa-check"></i><b>10.3</b> Yet another way</a><ul>
+<li class="chapter" data-level="10.3.1" data-path="hypothetically-speaking.html"><a href="hypothetically-speaking.html#population-standard-deviation-known"><i class="fa fa-check"></i><b>10.3.1</b> Population standard deviation known</a></li>
+<li class="chapter" data-level="10.3.2" data-path="hypothetically-speaking.html"><a href="hypothetically-speaking.html#control-is-probability"><i class="fa fa-check"></i><b>10.3.2</b> Control is probability</a></li>
+<li class="chapter" data-level="10.3.3" data-path="hypothetically-speaking.html"><a href="hypothetically-speaking.html#on-to-the-unknown"><i class="fa fa-check"></i><b>10.3.3</b> On to the unknown</a></li>
+<li class="chapter" data-level="10.3.4" data-path="hypothetically-speaking.html"><a href="hypothetically-speaking.html#on-with-our-story"><i class="fa fa-check"></i><b>10.3.4</b> On with our story…</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="hypothetically-speaking.html"><a href="hypothetically-speaking.html#exercises-1"><i class="fa fa-check"></i><b>10.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="part-four-the-test-of-a-relationship.html"><a href="part-four-the-test-of-a-relationship.html"><i class="fa fa-check"></i>Part Four – The Test of a Relationship</a></li>
+<li class="chapter" data-level="11" data-path="relationships-put-to-the-test.html"><a href="relationships-put-to-the-test.html"><i class="fa fa-check"></i><b>11</b> Relationships Put to the Test</a><ul>
+<li class="chapter" data-level="11.1" data-path="relationships-put-to-the-test.html"><a href="relationships-put-to-the-test.html#its-not-so-hard-to-imagine-this"><i class="fa fa-check"></i><b>11.1</b> It’s not so hard to imagine this…</a></li>
+<li class="chapter" data-level="11.2" data-path="relationships-put-to-the-test.html"><a href="relationships-put-to-the-test.html#the-maths-the-maths"><i class="fa fa-check"></i><b>11.2</b> The maths! The maths!</a><ul>
+<li class="chapter" data-level="11.2.1" data-path="relationships-put-to-the-test.html"><a href="relationships-put-to-the-test.html#what-did-we-all-expect"><i class="fa fa-check"></i><b>11.2.1</b> What did we all expect?</a></li>
+<li class="chapter" data-level="11.2.2" data-path="relationships-put-to-the-test.html"><a href="relationships-put-to-the-test.html#walking-the-straight-line"><i class="fa fa-check"></i><b>11.2.2</b> Walking the straight line</a></li>
+<li class="chapter" data-level="11.2.3" data-path="relationships-put-to-the-test.html"><a href="relationships-put-to-the-test.html#a-short-variance-diatribe"><i class="fa fa-check"></i><b>11.2.3</b> A short variance diatribe</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="relationships-put-to-the-test.html"><a href="relationships-put-to-the-test.html#does-education-matter"><i class="fa fa-check"></i><b>11.3</b> Does education matter?</a></li>
+<li class="chapter" data-level="11.4" data-path="relationships-put-to-the-test.html"><a href="relationships-put-to-the-test.html#back-to-the-business-at-hand"><i class="fa fa-check"></i><b>11.4</b> Back to the business at hand</a></li>
+<li class="chapter" data-level="11.5" data-path="relationships-put-to-the-test.html"><a href="relationships-put-to-the-test.html#does-it-really-matter"><i class="fa fa-check"></i><b>11.5</b> Does it really matter?</a></li>
+<li class="chapter" data-level="11.6" data-path="relationships-put-to-the-test.html"><a href="relationships-put-to-the-test.html#references-and-endnotes-4"><i class="fa fa-check"></i><b>11.6</b> References and endnotes</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="the-journey-continues.html"><a href="the-journey-continues.html"><i class="fa fa-check"></i><b>12</b> The journey continues</a><ul>
+<li class="chapter" data-level="12.1" data-path="the-journey-continues.html"><a href="the-journey-continues.html#backing-up"><i class="fa fa-check"></i><b>12.1</b> Backing up</a></li>
+<li class="chapter" data-level="12.2" data-path="the-journey-continues.html"><a href="the-journey-continues.html#fences-and-neighbors"><i class="fa fa-check"></i><b>12.2</b> Fences and neighbors</a><ul>
+<li class="chapter" data-level="12.2.1" data-path="the-journey-continues.html"><a href="the-journey-continues.html#tukeys-fences."><i class="fa fa-check"></i><b>12.2.1</b> Tukey’s fences.</a></li>
+<li class="chapter" data-level="12.2.2" data-path="the-journey-continues.html"><a href="the-journey-continues.html#credibility-intervals."><i class="fa fa-check"></i><b>12.2.2</b> Credibility intervals.</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="the-journey-continues.html"><a href="the-journey-continues.html#binomial-raptors."><i class="fa fa-check"></i><b>12.3</b> Binomial raptors.</a><ul>
+<li class="chapter" data-level="12.3.1" data-path="the-journey-continues.html"><a href="the-journey-continues.html#cloudy-or-clear."><i class="fa fa-check"></i><b>12.3.1</b> Cloudy or clear.</a></li>
+<li class="chapter" data-level="12.3.2" data-path="the-journey-continues.html"><a href="the-journey-continues.html#binomial-sightings."><i class="fa fa-check"></i><b>12.3.2</b> Binomial sightings.</a></li>
+<li class="chapter" data-level="12.3.3" data-path="the-journey-continues.html"><a href="the-journey-continues.html#poisson-raptors."><i class="fa fa-check"></i><b>12.3.3</b> Poisson raptors.</a></li>
+<li class="chapter" data-level="12.3.4" data-path="the-journey-continues.html"><a href="the-journey-continues.html#poisson-expectations."><i class="fa fa-check"></i><b>12.3.4</b> Poisson expectations.</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="the-journey-continues.html"><a href="the-journey-continues.html#managing-relationships"><i class="fa fa-check"></i><b>12.4</b> Managing relationships</a><ul>
+<li class="chapter" data-level="12.4.1" data-path="the-journey-continues.html"><a href="the-journey-continues.html#drawing-the-line"><i class="fa fa-check"></i><b>12.4.1</b> Drawing the line</a></li>
+<li class="chapter" data-level="12.4.2" data-path="the-journey-continues.html"><a href="the-journey-continues.html#does-it-matter"><i class="fa fa-check"></i><b>12.4.2</b> Does it matter?</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Probabilistic Reasoning: from an elementary point of view</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="hypothetically-speaking" class="section level1">
+<h1><span class="header-section-number">Chapter 10</span> Hypothetically Speaking</h1>
+<script>
+function showText(y) {
+    var x = document.getElementById(y);
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+</script>
+<div id="imagine-this-1" class="section level2">
+<h2><span class="header-section-number">10.1</span> Imagine this…</h2>
+<p>Our team is about to contract for coir. We make activated carbon for filtration systems. We have a bet going on: half the team believes that coir prices are low, the other half high. Both sides have stated what they think is a low versus a high price based on procurement experience and trades in the market for coir, FOB Indonesia.</p>
+<p>We formulate these two hypotheses.</p>
+<p><span class="math display">\[
+\begin{align}
+H_{high}:&amp;\,\, \mu=b=330.\, with \, \operatorname{Pr}(H_{high}) = p \\
+H_{low}:&amp;\,\, \mu=a=230, \, with \, \operatorname{Pr}(H_{low}) = 1-p
+\end{align}
+\]</span></p>
+<p>Each hypothesized mean coir price can occur with the Jakob Bernoulli jump probabilities <span class="math inline">\(p\)</span> and <span class="math inline">\(1-p\)</span>. In previous episodes, all we did was flip the up-down machine a number of times to get at the binomial probability. This time we know the magnitudes of the jump. The standard deviation <span class="math inline">\(\sigma=30\)</span> betrays the riskiness of this market and the size of the jump as well.</p>
+<p>What we are really trying to do? Suppose we observe a price of <span class="math inline">\(y=290\)</span>. We ask is this a high regime price or a low one.</p>
+<p>Under <span class="math inline">\(H_{low}\)</span>, prices average USD 230/mt so that observed prices <span class="math inline">\(y=Y\)</span> will be distributed as <span class="math inline">\(Y \mid H_{low}∼N(230, 30^2)\)</span>. If we believe this then we have this <span class="math inline">\(\operatorname{Pr}(data = y \mid hypothesis = H_{low})\)</span>.</p>
+<p><span class="math display">\[
+\operatorname{Pr}(y \mid H_{low})= \frac{1}{\sigma \sqrt{2\pi}}e^{-\left(\frac{(y-230)^2}{2\sigma^2}\right)}
+\]</span></p>
+<p>Yes, the Gaussian robot is back. We have our two observational models of coir prices. Which one is more plausible? Which one is more consistent with the observation of coir prices, really of one coir price USD 290/mt. Here is the second one model at stake when prices average a high level of $330/mt.</p>
+<p><span class="math display">\[
+\operatorname{Pr}(y \mid H_{high})= \frac{1}{\sigma \sqrt{2\pi}}e^{-\left(\frac{(y-330)^2}{2\sigma^2}\right)}
+\]</span></p>
+<p>For both <span class="math inline">\(\sigma=30\)</span>. Will that <span class="math inline">\(\sqrt{2\pi}\)</span> hang around? We will see soon enough.</p>
+<p>For each hypothesized average coir price and probability of that hypothesis even occurring, it behooves us to pick the hypothesis that is most plausible. We have a both-and statement looming in the mist. We look at how plausible it is that both the event <span class="math inline">\(y=290\)</span> occurs and the belief that <span class="math inline">\(H_{low}\)</span> occur together. We know that this means we must multiply the two probabilities.</p>
+<p>For the joint distribution of data <span class="math inline">\(y\)</span> and <span class="math inline">\(H_{low}\)</span> we have this relation.</p>
+<p><span class="math display">\[
+\begin{align}
+\operatorname{Pr}( (y=290) \wedge (H_{low}:\, \mu=230) ) &amp;= \operatorname{Pr}(y \mid H_{low}) \operatorname{Pr}(H_{low}:\, \mu=230) \\
+                               &amp;= \left(\frac{1}{\sigma\sqrt{2\pi}}e^{-\left(\frac{(y-230)^2}{2\sigma^2}\right)}\right) \times (1-p)
+\end{align}
+\]</span></p>
+<p>Cutting to the chase we calculate this high regime version of the both-and probability.</p>
+<p><span class="math display">\[
+\begin{align}
+\operatorname{Pr}( (y=290) \wedge (H_{high}:\, \mu=330) ) &amp;= \operatorname{Pr}(y \mid H_{high}) \operatorname{Pr}(H_{high}:\, \mu=230) \\
+                               &amp;= \left(\frac{1}{\sigma\sqrt{2\pi}}e^{-\left(\frac{(y-330)^2}{2\sigma^2}\right)}\right) \times p
+\end{align}
+\]</span></p>
+<p>As ominous as all of this looks all we want to find out is if <span class="math inline">\(H_{high}\)</span> is more plausible than <span class="math inline">\(H_{low}\)</span> then this simple relationhip must be true.</p>
+<p><span class="math display">\[
+\begin{align}
+\operatorname{Pr}( (y=290) \wedge (H_{high}:\, \mu=330) ) &amp;\geq \operatorname{Pr}( (y=290) \wedge (H_{low}:\, \mu=230) ) \\
+\left(\frac{1}{\sigma\sqrt{2\pi}}e^{-\left(\frac{(y-330)^2}{2\sigma^2}\right)}\right) \times p &amp;\geq \left(\frac{1}{\sigma\sqrt{2\pi}}e^{-\left(\frac{(y-230)^2}{2\sigma^2}\right)}\right) \times (1-p)
+\end{align}
+\]</span></p>
+<p>As bestly as the formulas look, we do know how to calculate then! In Excel each term in the large parenthesis is just NORM.DIST(y, <span class="math inline">\(\mu\)</span>, <span class="math inline">\(\sigma^2\)</span>, FALSE ), where FALSE calculates the probability mass. We get this result after a short bit of time inside Excel.</p>
+<ul>
+<li><p><strong><span class="math inline">\(H_{high}\)</span>:</strong>The left-hand side is <code>NORM.DIST(290, 330, $30^2$, FALSE )*0.5 = 0.0055    * 0.5000 =  0.0027</code>.</p></li>
+<li><p><strong><span class="math inline">\(H_{low}\)</span>:</strong> The right-hand side is <code>NORM.DIST(290, 230, $30^2$, FALSE )*0.5 = 0.0018 * 0.5000 = 0.0009</code></p></li>
+</ul>
+<p>The high:low odds ratio is 0.0027:0009 = 3:1 in favor of the high price regime for coir prices observed at a level of $290/mt.</p>
+<p>What is the breakeven, that is even odds of 1:1, threshold price? It turns out to be in this simple case of agnostic, indifference to one or the other hypothesis, that it is the simple average of the two hypothesized means, <span class="math inline">\((330+230)/2=280\)</span>. Any observed price above this threshold favors a high price regime, and otherwise classifies the observed price as a low price.</p>
+<p>In the next section we take our algebraic life into our hands and deduce, using our armory of albegraic tools and vast experience, to verify our results here. After that we implement the model into an Excel worksheet and continue our quest for more knowledge.</p>
+<div id="for-those-who-really-want-to-or-even-need-to" class="section level3">
+<h3><span class="header-section-number">10.1.1</span> For those who really want to, or even need to</h3>
+<p>We can bow to the formulae and balance and reduce to a, perhaps, surprisingly simple result, algebraicly. We will also do all of this with a low price mean of <span class="math inline">\(a\)</span> and a high price mean of <span class="math inline">\(b\)</span>. In this way we will have a general formula for any binary decision with Gaussian noise in it.</p>
+<p>We start with the question we posed in the last section. What threshold favors a high price regime? The answer we propose is the hypothesis whose odds ratio is greater than 1, alternatively whose joint probability of observed data and hypothesis is the greater. We start right off with the big beasts of burden Gaussian inequalities.</p>
+<p><span class="math display">\[
+\begin{align}
+\left(\frac{1}{\sigma\sqrt{2\pi}}e^{-\left(\frac{(y-b)^2}{2\sigma^2}\right)}\right) \times p &amp;\geq \left(\frac{1}{\sigma\sqrt{2\pi}}e^{-\left(\frac{(y-a)^2}{2\sigma^2}\right)}\right) \times (1-p) \\
+exp{\left[-\left(\frac{(y-b)^2}{2\sigma^2}\right)\right]} &amp;\geq exp{\left[-\left(\frac{(y-a)^2}{2\sigma^2}\right)\right]} \times \left(\frac{1-p}{p}\right) \\
+exp{\left[-\left(\frac{(y-b)^2}{2\sigma^2}\right) + \left(\frac{(y-a)^2}{2\sigma^2}\right)\right]} &amp;\geq \left(\frac{1-p}{p}\right) \\
+\frac{(y-a)^2 - (y-b)^2}{2\sigma^2} &amp;\geq log\left(\frac{1-p}{p}\right) 
+\end{align}
+\]</span></p>
+<p>As is the story with anything Gaussian we end up with a quadratic term. We used these algebraic moves to get the last inequality. We also save some notional angst with <span class="math inline">\(log_e() = log()\)</span> throughout, sometimes <span class="math inline">\(ln()\)</span> is used as well.</p>
+<ul>
+<li><p>Multiply both sides by <span class="math inline">\(\sigma\sqrt{2\pi}\)</span> and anything multiplied by 1 is itself.</p></li>
+<li><p>For base <span class="math inline">\(e\)</span>, or any base for that matter, <span class="math inline">\(e^{-x}/e^{-y}=e^{-x}e^{y}=e^{-x+y}\)</span> and the fact that <span class="math inline">\(1/e^{z}= e^{-z}\)</span>.</p></li>
+<li><p>Again for base <span class="math inline">\(log_e (e^x) = x\)</span> and whatever we do to one side of the inequality we must do to the other (if there are no negative multiplications or divisions involved).</p></li>
+</ul>
+<p>Let’s stop there! On the right is the logarithm of the odds in favor of <span class="math inline">\(H_{low}:\, \mu = a\)</span> versus <span class="math inline">\(H_{high}:\, \mu = b\)</span> flipping the ratio on the left-hand side. Let’s not be too misled by the use of the <span class="math inline">\(log()\)</span> function. After all logs are the same function (although to base 10) that we measure decibels and wonder how loud the music can go before we lose our hearing! We have seen odds ratios before. Here again to overdo the point we use the logarithm to the base <span class="math inline">\(e=2.712\ldots\)</span>. The <span class="math inline">\(log()\)</span> function just scores the ratios.</p>
+<p>On the left-hand side we need to reduce the numerator to this polynomial.</p>
+<p><span class="math display">\[
+\begin{align}
+\frac{(y-a)^2 - (y-b)^2}{2\sigma^2} &amp;= \frac{(y^2 - 2ay + a^2) - (y^2 - 2by + b^2)}{2\sigma^2} \\
+                      &amp;= \frac{(2b-2a)y + (a^2 - b^2)}{2\sigma^2} \\
+                      &amp;= \frac{2(b-a)y + (a-b)(a+b)}{2\sigma^2} \\
+                      &amp;= \frac{2(b-a)y - (b-a)(a+b)}{2\sigma^2} \\
+                      &amp;= \frac{2(b-a)\left(y - \frac{a+b}{2}\right)}{2\sigma^2} \\
+                      &amp;= \left(\frac{b-a}{\sigma^2}\right)\left(y - \frac{a+b}{2}\right)
+\end{align}
+\]</span></p>
+<p>The algebraic insight here was to realize that <span class="math inline">\((a^2-b^2)=(a-b)(a+b)=-(b-a)(a+b)\)</span> a trick in much use by quadratic afficionados. The <span class="math inline">\(b-a\)</span> term is just the range between the low and high hypothesized means. The <span class="math inline">\((a+b)/2\)</span> term is the arithmetic average of the two hypothesized means. Doesn’t this look suspiciously like some sort of uniform distribution magic? No, not magic, but the interplay of Gaussian, and the other distributions, with the uniform distribution building block. It’s really like Legos(tm).</p>
+<p>We drop this result into the seeming quagmire of our derivation next where We then multiply both sides by <span class="math inline">\(\frac{\sigma^2}{b-a}\)</span> and add <span class="math inline">\(\frac{a+b}{2}\)</span> to get much simpler result, almost a gem.</p>
+<p><span class="math display">\[
+\begin{align}
+\left(\frac{b-a}{\sigma^2}\right)\left(y - \frac{a+b}{2}\right) &amp;\geq log\left(\frac{1-p}{p}\right) \\
+\left(y - \frac{a+b}{2}\right) &amp;\geq \left(\frac{\sigma^2}{b-a}\right) log\left(\frac{1-p}{p}\right) \\
+y &amp;\geq \frac{a+b}{2} + \left(\frac{\sigma^2}{b-a}\right) log\left(\frac{1-p}{p}\right)
+\end{align}
+\]</span></p>
+<p>There’s that arithmetic average at the head of the line. It is followed by an important correction for the strength of our convictions about one or the other price regime. If we favor the high price regime then we subtract from the breakeven. This has the effect of curtailing the range of the low price regime while expanding the primacy of the high price regime. We illustrate this here.</p>
+<p><img src="images/12/coir-thresholds-log-odds.jpg" /></p>
+<p>The table of varying <span class="math inline">\(\operatorname{Pr}(H_{high}=p)\)</span> yields the log odds ratio <span class="math inline">\(log((1-p/p))\)</span> to the measured on the secondary y-axis to the right. As we assign greater plausibility to the high regime hypothesis, we also reduce the odds of the low regime hypotheses. When we reduce the low regime hypothesis below the break even <span class="math inline">\(p=0.5\)</span> level, we begin to subtract from the breakeven threshold, <span class="math inline">\(\theta=280\)</span>. The opposite happens when we assign greater credibility to the high regime hypothesis.</p>
+<p>To belabor the point further, here are some numbers we shouold into the threshold formula! We know that <span class="math inline">\(b=330\)</span>, <span class="math inline">\(a=230\)</span>, <span class="math inline">\(\sigma=30\)</span> and <span class="math inline">\(p=0.5\)</span>. That the <span class="math inline">\(\operatorname{Pr}(H_{high})=\operatorname{Pr}(H_{low})\)</span> eliminates that potentially nasty looking, but very helpful we will see, <span class="math inline">\(log((1-p)/p) = log(0.5/0.5) = log(1) = 0\)</span> term. All we are left with, in the equal <span class="math inline">\(sigma\)</span> case we have here is this very simple decision rule.</p>
+<p><span class="math display">\[
+\begin{align}
+y &amp;\geq \frac{a+b}{2} \\
+  &amp;\geq \frac{230+330}{2} \\ 
+  &amp;\geq 280
+\end{align}
+\]</span></p>
+<p>We did it and it probably did not take too many years off our lives as well. What does this inequality say to us? We choose the low price regime whenever an observed price, or an average of observed prices falls below USD 280/mt net of a correction for the dispersion of prices, <span class="math inline">\(\sigma\)</span>, and taking into account experience with the occurrence of low versus high price regimes, <span class="math inline">\(p\)</span>.</p>
+<p>In fact, if we are agnostic, ignorant, or just do not care about whether one or the other hypothesis has ever existed in the field, then we would set <span class="math inline">\(p=0.5\)</span>. The logarithm of the ratio of <span class="math inline">\(1-p\)</span> to <span class="math inline">\(p\)</span> is then conveniently zero. We are left with <span class="math inline">\(y \leq 280\)</span>. Any price greater than 280 is consistent with the high price regime centered at USD b/mt.</p>
+<p>We have thus derived our first statistical decision rule. We will therefore statistically <strong>classify</strong> any observed coir price as a <strong>high price</strong> if we observe that the price is greater than (or equal to) USD280/mt. Otherwise we classify the observed price as a <strong>low price</strong>. Done!</p>
+<p>This is our first foray into a machine learning model, the binary classification model. Yes, to learn is to infer. Here we inferred with an abundance of probability. We now venture into the deeper end of the pool by considering a numerical implementation of this model in Excel. We will ask questions like what would happen if the <span class="math inline">\(\sigma\)</span>s are different between the two classes of prices? What happens to the threshold if we vary the probabilities that the hypotheses are reasonable in the first place? What would happen if we used the Poisson or binomial or Student’s t distributions instead, and why? More to come with a graph or two and certainly a bunch of tables to ponder.</p>
+</div>
+<div id="finally-an-excel-screenshot" class="section level3">
+<h3><span class="header-section-number">10.1.2</span> Finally an excel screenshot</h3>
+<p>We can build a simple two model (two means, two standard deviation) selection criterion. Yes, you read it right, two standard deviations. In our exhausting reliving of elementary algebra memories we only used one standard deviation. We can rederive the result algebraicly for two or more means and standard deviations should we desire to. It is indeed a good exercise like solving the London Times cross-word puzzle, in ink. Here is our one standard for two models example.</p>
+<p><img src="images/12/coir-hypo-test-gauss.jpg" />
+We first notice that the plausibility split lands on the <span class="math inline">\(H_low\)</span> hypothesis, even when both hypotheses are equally plausible. In this case the observed price <span class="math inline">\(y=270\)</span> is below the decision threshold <span class="math inline">\(280 - (30^2/100)log(0.5/0.5)=280\)</span> so that some common sense reigns. If we were to observe <span class="math inline">\(y=290\)</span> exactly the opposite occurs and we land squarely in the high price regime.</p>
+<p><img src="images/12/coir-hypo-test-high.jpg" /></p>
+<p>The odds clearly no longer favor the low price regime.</p>
+<p>When we set the observed price to <span class="math inline">\(y=280\)</span> we see this result.</p>
+<p><img src="images/12/coir-hypo-test-indifferent.jpg" /></p>
+<p>The odds are even. The decision maker would, statistically only speaking, be indifferent to high or low regimes. We discover an insight here: even odds (1:1) mean both regimes are equally plausible so that the decision threshold is the one value that makes the odds even.</p>
+<p>Our next experiment is to set the low price <span class="math inline">\(\sigma_{low}=0.15\)</span>, a phenomenon often observed in commodity markets. Not much activity happens at low price levels due sometimes to a relative lack of arbitrage bid-ask price widths. We use our insight about even odds to find the decision threshold in this practical situation.</p>
+<p>We can use Data &gt; what if &gt; Goal Seek to find the price we would have to observe to be the decision threshold.</p>
+<p><img src="images/12/coir-hypo-test-goal-seek.jpg" /></p>
+<p>Mathematically what is happening here is a one variable optimization.</p>
+<p><span class="math display">\[
+min_{y} |OR - 1.00| \\
+such\,\,that \\
+p = 0.5
+\]</span></p>
+<p>We choose <span class="math inline">\(y\)</span> to minimize the absolute value of difference between the odds ratio <span class="math inline">\(OR\)</span> and 1.00. There are several implicit constraints embedded in the odds ratio, not the least of which is the calculation of the numerator and denominator of the odds ratio. We focus on the important <span class="math inline">\(p=0.5\)</span>, the so-called uninformative indifference to the two hypotheses. By pressing OK we find this not so surprising result.</p>
+<p><img src="images/12/coir-hypo-test-low-sigma-table.jpg" /></p>
+<p>The decision threshold is lower than the equal <span class="math inline">\(\sigma\)</span> case by over $13. It makes sense since the high price regime is spread out more than the low price regime.</p>
+<p>One more thought experiment presents itself. This time we use the low <span class="math inline">\(\sigma\)</span> threshold of <span class="math inline">\(y=266.38\)</span> with equal <span class="math inline">\(\sigma=30\)</span> for each regime. This allows us to find the probability <span class="math inline">\(p\)</span> of ever observing the low price regime. We minimizes the absolute difference between the odds ratio and 1.00 under the constraint that the decision threshold is 266.38. So many words that collapse into this mathematical expression.</p>
+<p><span class="math display">\[
+min_{p} |OR - 1.00| \\
+such\,\,that \\
+y = 266.38
+\]</span></p>
+<p><img src="images/12/coir-hypo-test-low-p.jpg" /></p>
+<p>In this model we discover complementary roles for <span class="math inline">\(\sigma\)</span> and <span class="math inline">\(p\)</span>. A low value of <span class="math inline">\(\sigma_{low}=15\)</span> carries the same level of information about the low price regime hypothesis that a low value of <span class="math inline">\(p = \operatorname{Pr}(H_{low})=0.18\)</span> carries. They are equivalent measures.</p>
+<p>In this model the claim that the low price regime is less risky, less variable, less noisy than the high price regime is that same thing as saying that we find the low price regime less credible than the high price regime in general. We are indeed biased to the high price regime in our decison making. We would, on average and in expectation, even prefer the high price regime to the low price regime if <span class="math inline">\(\operatorname{Pr}(H)\)</span> has any meaning at all. Decision preferences are right at the edge of what we can expect this model to do for us.</p>
+</div>
+</div>
+<div id="can-we-be-wrong" class="section level2">
+<h2><span class="header-section-number">10.2</span> Can we be wrong?</h2>
+<p>One more concern. We might want to know what is the probability that the low regime price hypothesis is true even though we chose the high regime, for example if we observe a price, say of 290. this is the statement <span class="math inline">\(y \mid H_{low} &gt; 266.38\)</span> for the mixed standard deviation / high price preference data. This table and graph zooms into the critical intersection of the high and low price regime distributions.</p>
+<p><img src="images/12/coir-hypo-test-low-sigma.jpg" /></p>
+<p>The tail we are concerned with is the blue-hatched nearly triangular shaped area to the right of the dotted line and below the blue low regime normal density curve. We should also note that the low and high regime densities cross each other at the threshold and where the odds ratio is exactly 1. This tail is also the probability of the high regime price given a low regime decision. It is the probability we might be wrong about choosing low versus high. Other have called this a sort of <strong>p-value</strong>, but its not quite that.</p>
+<p>We can calculate the tail’s cumulative probability as the area under the low price regime probability density curve in the tail beyond the threshold 266.38. This expression will compute the amount for us: 1 - NORM.DIST( 266.38, 230, 30, TRUE ) = 0.0074, where TRUE means we are to compute the cumulative probability up to 266.38.</p>
+<p>There is only a less than 1% probability that the low regime is consistent with the observation of prices above the threshold. We will probably use this threshold in our decision making. We will also use the idea that if we observe a price below the threshold that price is indeed low, with about 99% probability.</p>
+<p>The opposite red-hatched triangular tail is the area to the left of the dotted threshold line at 266.38 and, this time, underneath the high price distribution. We can calculate, and interpret this area too as the cumulative probability of seeing a price below 266.38 given a high price regime point of view: `NORM.DIST( 266.38, 330, 30, TRUE ) = 0.014, This may or may not be too high for the risk intolerant among the analysts and decision makers. Or, they may take this information into consideration in making a contract for high priced coir.</p>
+</div>
+<div id="yet-another-way" class="section level2">
+<h2><span class="header-section-number">10.3</span> Yet another way</h2>
+<p>Conventional hypothesis testing reaches back about 100 years. The goal then was to supply researchers with relatively easy to compute and apply tests to what has been called <em>significance</em> of a finding. There is a whole theory of knowledge, cognitional operations, logic, epistemology, and methodology behind this approach, and just a little bit of controversy over the past decade as well.</p>
+<p>Up to this point we have used what we might call a superset of techniques a subset of which is the conventional hypothesis testing, and confidence (really – plausibility) interval estimations embedded in the methodology. Both techniques are are the same when the probability of any one hypothesis is the same as any other hypothesis. The results may be interpreted differently, but in the end our supposition is that decision makers hanker for some measure of the plausiblity of a claim, a conjecture, a hypothesis. We have done this the entire course of our investigation into probabilistic reasoning.</p>
+<p>Here are the mechanics of a binary hypothesis testing method using conventional techniques without regard to explicit measure of the probability of a hypothesis.</p>
+<div id="population-standard-deviation-known" class="section level3">
+<h3><span class="header-section-number">10.3.1</span> Population standard deviation known</h3>
+<p>As with confidence and credibility intervals, we sample repeatedly in our experiments from a population. We calculate sampled means and we know these are Gaussian, normally, distribution is a mean of the sampled means equal to the population mean and a standard deviation equal to the population standard deviation divided by the square root of the sample size.</p>
+<p>Hypotheses face off with data. There are two hypotheses in the 1928 approach by Neyman and Pearson. First there is noise only. It might be Gaussian, or Poisson generated, but it is the status quo. This is called the <strong>null hypothesis</strong> <span class="math inline">\(H_0\)</span>, which we believe is true. Against this hypothesis is the speculative, <strong>alternative hypothesis</strong> <span class="math inline">\(H_A\)</span> or <span class="math inline">\(H_1\)</span>, which we are trying to refute, since it is speculative after all. The benefit of the doubt is given to the null hypothesis in this approach.</p>
+<p>Two errors are possible. Here we build more into the tails of the overlapping distributions we experienced before.</p>
+<ul>
+<li><p><strong>Type I error</strong>, also known as a <em>false positive</em> is when we reject a null hypothesis when it is actually true. This is the error of accepting an alternative hypothesis (the real hypothesis of interest) when the results can be attributed to chance. We think we are observing a difference in the two hypothesis when in truth there is none, probably so.</p></li>
+<li><p>Type II error, also known as a <em>false negative</em> occurs when the error of not rejecting a null hypothesis when the alternative hypothesis is the true state of nature. We fail to accept an alternative hypothesis when we don’t have adequate power. We are fail to observe a difference when in truth there is one.</p></li>
+</ul>
+<table class="table table-striped table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+Null is true
+</th>
+<th style="text-align:left;">
+Null is not true
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Reject Null
+</td>
+<td style="text-align:left;">
+OK
+</td>
+<td style="text-align:left;">
+False Negative
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Keep Null
+</td>
+<td style="text-align:left;">
+False Positive
+</td>
+<td style="text-align:left;">
+OK
+</td>
+</tr>
+</tbody>
+</table>
+<ol style="list-style-type: decimal">
+<li><p><strong>Type I Error</strong>: the False Negative means the researcher did not retrieve relevant information.</p></li>
+<li><p><strong>Type II Error</strong>: the False Positive means that the research retrieved irrelevant information.</p></li>
+</ol>
+<p>How can the company control for error? Let’s be more specific. How can the company ensure that the processed coconut price is as accurate as possible?</p>
+</div>
+<div id="control-is-probability" class="section level3">
+<h3><span class="header-section-number">10.3.2</span> Control is probability</h3>
+<p>Here is what the company does:</p>
+<ol style="list-style-type: decimal">
+<li>Management makes an assumption and forms a hypothesis about the average price of processed coconuts found in searches of contracts and other market documents. This is a precise statement about a specific metric. Here the metric is the average price of processed coconut per metric ton, <span class="math inline">\(\mu\)</span>, Suppose this target level is USD 1000/mt.</li>
+</ol>
+<ul>
+<li><p>The <em>null hypothesis</em> (<span class="math inline">\(H_0\)</span>) is that the population metric equals a target value <span class="math inline">\(\mu_0\)</span> or <span class="math inline">\(H_0: \mu = \mu_0\)</span>. Suppose that <span class="math inline">\(H_0: \mu = 1000\)</span>. This is business as usual. Those who favor this hypothesis would hope that the only difference is prices is random.</p></li>
+<li><p>The <em>alternative hypothesis</em> (<span class="math inline">\(H_1\)</span>) is that the population metric does not equal (or is just greater or less than) the target value. Thus we would have <span class="math inline">\(H_1: \mu \neq 1000\)</span>. These speculators think that prices will rise or possibly fall. Their detractors scowl at the thought.</p></li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>Corporate policy sets a degree of confidence in accepting as true the assumption or hypothesis about the metric. The company determines that 95% of the time <span class="math inline">\(\mu = 1000\)</span>. This means there is an <span class="math inline">\(\alpha =\)</span> 5% significance that the company would be willing to be wrong about rejecting that <span class="math inline">\(H_0: \mu = 1000\)</span> is true.</li>
+</ol>
+<ul>
+<li><p>Under the null hypothesis it is probable that above or below a mean value of 1000 there is an error of <span class="math inline">\(\alpha = 0.05\)</span> in total, or <span class="math inline">\(\alpha / 2 = 0.025\)</span> above and <span class="math inline">\(\alpha / 2 = 0.025\)</span> below the mean. This practically means that management is willing to have only a 1 in 20 chance of being wrong about their view of the business, that is about the null hypothesis.</p></li>
+<li><p>Because management expresses the alternative hypothesis, <span class="math inline">\(H_1: \mu \neq 1000\)</span>, as “not equal” then this translates into a two-tailed test of the null hypothesis.</p></li>
+</ul>
+<p><strong>What if management expressed the alternative hypothesis as <span class="math inline">\(H_1 &gt; 1000\)</span>?</strong></p>
+<button onclick="showText(&#39;myDIV1&#39;)">
+show / hide
+</button>
+<div id="myDIV1" style="display:none;">
+<p></br></p>
+<p>If <span class="math inline">\(H_1: \mu &gt; 1000\)</span>, then management in effect specifies a <strong>one-tailed</strong> test.</p>
+<p>This means that management believes that under the null hypotheses <span class="math inline">\(H_0:\, \mu = 0\)</span>, that the distribution of documents per day for which the null hypothesis is probably true extends from the current price all the way up to the 95%tile of occurrences of the level of prices.</p>
+<p>The region of the distribution beyond the 95%tile is 5% of the time and represents the highest range of prices.</p>
+<p>Similarly for the <span class="math inline">\(H_1:\,\mu&lt;1000\)</span> case.</p>
+</div>
+</div>
+<div id="on-to-the-unknown" class="section level3">
+<h3><span class="header-section-number">10.3.3</span> On to the unknown</h3>
+<p>Let’s suppose we <em>do not know</em> the population standard deviation. Now the sampled standard deviation is also a random variable, like the sampled mean. In practice this is nearly always the case. What do we do now?</p>
+<ul>
+<li><p>Use the Student’s t distribution to correct for small sample errors as well as the idea that sampled standard deviations are random processes themselves, just like the sampled means used to compute the sampled standard deviations. Quite a web we are weaving!</p></li>
+<li><p>Here’s a plot (again) of the Student’s t overlaid with the normal distribution.</p></li>
+</ul>
+<p><img src="book-probability_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
+<p>What do we notice?</p>
+<ul>
+<li><p>Normal is more pinched in than t (kurtosis? right!)</p></li>
+<li><p>t has thicker tails than normal</p></li>
+<li><p>Let’s check that: in Excel use <code>=T.INV(2.5%,3)</code> which returns <code>-3.18</code>, and where the degrees of freedom <span class="math inline">\(df\)</span> of our 4 sample prices from our work in confidence intervals is <span class="math inline">\(df = n - k = 4 - 1 = 3\)</span>. Here <span class="math inline">\(n\)</span> is the sample size of 4 randomly sampled prices and <span class="math inline">\(k\)</span> is the number of estimators we are building, just one in this case <span class="math inline">\(\mu\)</span>.</p></li>
+<li><p>Thus for the t distribution it takes 3.18 standard deviations below the mean to hit the 2.5% level of cumulative probability. It would only take 1.96 standard deviations on the normal distribution.</p></li>
+<li><p>There are <span class="math inline">\(k=3\)</span> degrees of freedom because it only takes 3 out of the 4 sampled prices to get the fourth sampled price (we do this by using 1 estimator, the mean we calculated).</p></li>
+<li><p>That it took fewer standard deviations for the normal than for the t distribution to hit the 2.5% level of cumulative probability means that the t distribution is thicker tailed than the normal.</p></li>
+</ul>
+<p><img src="book-probability_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p>
+</div>
+<div id="on-with-our-story" class="section level3">
+<h3><span class="header-section-number">10.3.4</span> On with our story…</h3>
+<p>When management does not know the population standard deviation, the analyst must use the Student’s t distribution to correct for small sample sizes. As this is almost always the case for hypothesis testing, management has decreed that the Student-t distribution will be used for hypothesis testing.</p>
+<ol start="2" style="list-style-type: decimal">
+<li>CONTINUED — management decides on regions of the distribution for acceptance that the null hypothesis is probably true and for rejection of the null hypothesis as well. This picture tells those and about 900+ more words.</li>
+</ol>
+<p><img src="book-probability_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
+<ol start="3" style="list-style-type: decimal">
+<li><p>Suppose management can take a random sample of <span class="math inline">\(n = 100\)</span> prices. An analyst then computes the sample average <span class="math inline">\(\overline{X} = 980\)</span> of prices (USD/mt, that is) with a standard deviation of <span class="math inline">\(s = 80\)</span>, meant to represent the very unknown population <span class="math inline">\(\sigma\)</span>.</p></li>
+<li><p>They then compute the <span class="math inline">\(t\)</span> score, just like the z-score for the normal distribution:</p></li>
+</ol>
+<p><span class="math display">\[
+t = \frac{\overline{X} - \mu_0}{s / \sqrt{n}} = \frac{980 - 1000}{80 / \sqrt{100}} = -2.5
+\]</span></p>
+<p>and compare this value with the the acceptance region of the null hypotheses <span class="math inline">\(H_0\)</span>. So, what is this value?</p>
+<ol start="5" style="list-style-type: decimal">
+<li>For a sample size of <span class="math inline">\(n = 100\)</span> and <span class="math inline">\(k = 1\)</span> estimator (<span class="math inline">\(\overline{X}\)</span>), the degrees of freedom <span class="math inline">\(df = n - k = 100 - 1\)</span>. Under a Student’s t distribution with 99 <span class="math inline">\(df\)</span>, and using Excel’s <code>=T.INV(0.025, 99)</code>, the region is bounded by t scores between <span class="math inline">\(-1.98\)</span> and <span class="math inline">\(+1.98\)</span>.</li>
+</ol>
+<ul>
+<li><p>The computed t score is -2.5 and falls in the rejection region of the null hypothesis.</p></li>
+<li><p>The analyst can report that it is 95% plausible that the data rejects the null hypothesis that the market is holding steady at USD 1000/mt.</p></li>
+<li><p>Another way of reporting this might be that there is a 5% probability that the data is compatible with the null hypothesis.</p></li>
+</ul>
+</div>
+</div>
+<div id="exercises-1" class="section level2">
+<h2><span class="header-section-number">10.4</span> Exercises</h2>
+<ol style="list-style-type: decimal">
+<li>An electric car manufacturer buys aluminum alloy sheets of 0.05 of an inch in thickness. Thick sheets are too heavy and thin sheets imbalance the axle loads on icy and rainy road surfaces. The purchasing officer along with a manufacturing engineer samples 100 sheets of a shipment before accepting it and calculates an average of 0.048 inches in thickness with a standard deviation of 0.01 of an inch.</li>
+</ol>
+<ul>
+<li><p>At a 5% level of being wrong, or in error, should the purchasing officer accept the shipment?</p></li>
+<li><p>What is the probability that the purchasing officer is wrong about rejecting the null hypothesis?</p></li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>A real estate developer is comparing construction wages in two markets. In New York, using a random sample of 150 workers, the average daily wage is $1,800 with a standard deviation of $500 per day. In Los Angeles, for the same skills and experience, a random sample of 125 workers yields a daily wage average of $1,700 per day with a standard deviation of $450 per day.</li>
+</ol>
+<ul>
+<li><p>Is there a significant difference in wage levels between the two cities at the 5% level? This is the same thing as asking if there are two distinct sub-markets at work.</p></li>
+<li><p>What is the probability of being wrong about rejecting the null hypothesis if we were to use this approach?</p></li>
+</ul>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="credible-interval-training.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="part-four-the-test-of-a-relationship.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["book-probability.pdf", "book-probability.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
