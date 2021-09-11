@@ -24,7 +24,7 @@
 <meta name="author" content="William G. Foote" />
 
 
-<meta name="date" content="2021-07-16" />
+<meta name="date" content="2021-09-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -330,7 +330,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="header">
 <h1 class="title">Probabilistic Reasoning: from an elementary point of view</h1>
 <p class="author"><em>William G. Foote</em></p>
-<p class="date" style="margin-top: 1.5em;"><em>2021-07-16</em></p>
+<p class="date" style="margin-top: 1.5em;"><em>2021-09-10</em></p>
 </div>
 <div id="prologomena-for-a-future-statistics" class="section level1 unnumbered">
 <h1>Prologomena for a Future Statistics</h1>
@@ -367,7 +367,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Pan through the closed board room door outside to the waiting room and watch Bill, wiping the sweat from his brow, prepare the invoice on his laptop. A watchful administrative assistant nods his approval.</p>
 <div id="why-this-book" class="section level2 unnumbered">
 <h2>Why this book</h2>
-<p>This book is an analytical palimpsest which attempts to recast and reimagine the Bayesian Stan-based analytics presented by Richard <span class="citation">(<span class="citeproc-not-found" data-reference-id="McElreath_2020"><strong>???</strong></span>)</span> for the data analytics that help business managers and executives make decisions. Richard McElreath’s vision and examples, though reworked, are nearly immediately evident throughout. But again this work is a palimpset with its own quirks, examples, but surely built on McElreath’s analytical architecture.</p>
+<p>This book is an analytical palimpsest which attempts to recast and reimagine the Bayesian Stan-based analytics presented by Richard <span class="citation">McElreath (<a href="#ref-McElreath_2020" role="doc-biblioref">2020</a>)</span> for the data analytics which help business managers and executives make decisions. Richard McElreath’s vision and examples, though reworked, are nearly immediately evident throughout. But again this work is a palimpset with its own quirks, examples, but surely built on McElreath’s analytical architecture.</p>
 <p>We wrangle the data and build the models through spreadsheets. Let’s state this again: we will recast introductory portions of <a href="https://xcelab.net/rm/statistical-rethinking/">Richard McElreath’s text</a> with the aid of purely Microsoft Excel workbooks, aided in small part by calls to some Visual Basic for Applications (VBA) to automate simulations. On rare occasion we will use the Solver add-in, packaged with the Excel installation. The concepts, even the zeitgeist of a <a href="https://djnavarro.net/">Danielle Navarro</a> might be evident along with examples from her work on learning and reasoning in the behavioral sciences. And if there was ever a pool of behavior to dip into it is in the business domain.</p>
 </div>
 <div id="premises" class="section level2 unnumbered">
@@ -386,8 +386,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p><em><strong>Doubt</strong></em> suspends assent when evidence is lacking or just too week.</p></li>
 <li><p><em><strong>Learning</strong></em> can only occur with <em>doubt</em> or <em>ignorance</em> or even <em>opinion</em>; learning generates new knowledge.</p></li>
 </ul>
-<p>While the book is vividly, and outspokenly in this regard, Bayesian, I prefer the nomer <em>probabalistic</em> as evinced by <span class="citation">Edwin T. Jaynes (<a href="#ref-Jaynes_2004" role="doc-biblioref">2004</a>)</span>, and <span class="citation">(<span class="citeproc-not-found" data-reference-id="Keynes_1923"><strong>???</strong></span>)</span>, <span class="citation">(<span class="citeproc-not-found" data-reference-id="Jeffreys1937"><strong>???</strong></span>)</span>, and <span class="citation">(<span class="citeproc-not-found" data-reference-id="Fox1946"><strong>???</strong></span>)</span>, before him, reaching back into the <em>inverse probability</em> tradition at least back to <span class="citation">(<span class="citeproc-not-found" data-reference-id="DeMoivre1756"><strong>???</strong></span>)</span>. We will not get into a debate about <em>subjective</em> versus <em>objective</em> yet: let’s hold that (those) thought(s). There is a very strong and cogent reason for this tradition and it is the underlying heuristic structure of human knowing itself. Yes, philosophical principles provide guideposts for the operations, authenticity, products and methodology of probabilistic reasoning and the <em>techne</em> in this book and the works which ground this book.</p>
-<p><span class="citation">(<span class="citeproc-not-found" data-reference-id="Lonergan_1957"><strong>???</strong></span>)</span> explicates the heuristic structure of human knowing through three successive movements from experience, through understanding, onto to reflection about what is and is not (plausibly of course!), The terms of each movement wind their way into the methodology of any excursus that implements human knowing about anything, including the knower, whom we often tag the <em>analyst</em> or <em>decision maker</em>. The knower observes and experiences, yes, with a bias.</p>
+<p>While the book is vividly, and outspokenly in this regard, Bayesian, I prefer the nomer <em>probabalistic</em> as evinced by <span class="citation">Edwin T. Jaynes (<a href="#ref-Jaynes_2004" role="doc-biblioref">2004</a>)</span>, and <span class="citation">Keynes (<a href="#ref-Keynes_1923" role="doc-biblioref">1921</a>)</span>, <span class="citation">Jeffreys (<a href="#ref-Jeffreys1937" role="doc-biblioref">1948</a>)</span>, and <span class="citation">Cox (<a href="#ref-Cox1946" role="doc-biblioref">1946</a>)</span>, before him, reaching back into the <em>inverse probability</em> tradition at least back to <span class="citation">DeMoivre (<a href="#ref-DeMoivre1756" role="doc-biblioref">1756</a>)</span>. We will not get into a debate about <em>subjective</em> versus <em>objective</em> yet: let’s hold that (those) thought(s). There is a very strong and cogent reason for this tradition and it is the underlying heuristic structure of human knowing itself. Yes, philosophical principles provide guideposts for the operations, authenticity, products and methodology of probabilistic reasoning and the <em>techne</em> in this book and the works which ground this book.</p>
+<p><span class="citation">Lonergan (<a href="#ref-Lonergan_1970" role="doc-biblioref">1970</a>)</span> explicates the heuristic structure of human knowing through three successive movements from experience, through understanding, onto to reflection about what is and is not (plausibly of course!), The terms of each movement wind their way into the methodology of any excursus that implements human knowing about anything, including the knower, whom we often tag the <em>analyst</em> or <em>decision maker</em>. The knower observes and experiences, yes, with a bias.</p>
 <p>The course will boil down to the statistics (minimum, maximum, mean, quantiles, deviations, skewness, kurtosis) and the probability that the evidence we have to support any proposition(s) we claim. The evidence is the strength (for example in decibels, base 10) of our hypothesis or claim. The measure of evidence is the measure of surprise and its complement informativeness of the data, current and underlying, inherent in the claim. In the interests of putting the <em>bottom line up front</em> , here is the formula for our measure of evidence <span class="math inline">\(e\)</span> of a hypothesis <span class="math inline">\(H\)</span> comes from <span class="citation">Edwin T. Jaynes (<a href="#ref-Jaynes_2004" role="doc-biblioref">2004</a>)</span>.</p>
 <p><span class="math display">\[
 e(H|DX) = e(H|X) + 10\,\,log_{10}\left[\frac{P(D|HX)}{P({D|\overline{H}X})} \right]
@@ -413,7 +413,6 @@ Let’s dissect this. First <span class="math inline">\(H\)</span> is the claim,
 <div id="dont-we-know-everything-we-need-to-know" class="section level2 unnumbered">
 <h2>Don’t we know everything we need to know?</h2>
 <p>We don’t seem to know everything all of the time, although we certainly have many doubts and opinions. These hurdles are often managed through the collection of data against hypotheses, explanations, theories, and ideas. This syllogism and its sibling will guide us through a lot of the dark places we might travel in this book.</p>
-<pre><code>## Warning: package &#39;kableExtra&#39; was built under R version 4.0.3</code></pre>
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
 <span id="tab:unnamed-chunk-2">Table 0.1: </span>modus ponens plausibility
@@ -489,7 +488,7 @@ therefore, B becomes less plausible
 <li><p>Measure the impact of data on hypotheses using a measure of plausibility.</p></li>
 </ol>
 <p>Herein we presents plausibility as the compound of a menagerie of conditional probabilities. A conditional probability is just a number between 0 and 1, that makes some sort of sense, given the truth of some ensemble of propositions. For example, we might observe lots of people in running gear running across a parking lot. We know, from experience that people running together in running gear often run in a race. The probability that the people we see in the parking lot, <em>given</em> they are running together in running gear, are running in a race is fairly plausible. It makes some sort of common sense. We might compute a probability of 0.25 as well. We just made a statement of <em>conditional probability</em>. Insofar as this is sensible, we might also say it is rational.</p>
-<p>What we will call rational will be the consistency, the compatibility, of data with hypotheses measured by plausibility, often labeled posterior probability. The data are runners in running gear. The hypothesis is they are running in a race.</p>
+<p>What we will call rational will be the consistency, the compatibility, of data with hypotheses measured by plausibility, often labeled posterior probability. The data are runners in running gear. The hypothesis is they are running in a race. This is a necessary, but hardly a sufficient condition. It is not at all a statement about causality, but only about association. The models here are deductive in nature. The logic is quantified through indices of probability.</p>
 <p>The data of beliefs, of maximum leakage of information, will be contained in what many call prior probability. We might find reasonable the hypothesis that people are running a race. We might also, for objectivity’s sake, and to play the dialectical advocate, they are not. The two hypotheses are mutually exclusive logically. We might find them to be equally plausible, at least for the moment. The data of beliefs include our assumptions about the distribution of hypotheses.</p>
 <p>The conditioning of hypotheses with data is another conditional probability, what many will call likelihood. Ultimately what we call uncertainty will be the range and plausibility of the impact of data on hypotheses. What we will solve for is the most plausible explanation given data and belief.</p>
 </div>
@@ -502,14 +501,35 @@ Both frequentist and probabilistic reasoning intersect when prior knowledge is a
 </div>
 <div id="a-work-in-progress" class="section level2 unnumbered">
 <h2>A work in progress</h2>
-<p>This book will expand and contract over the days ahead. <a href="wfoote01@manhattan.edu">Email me</a> will comments, errors, omissions, etc. The book’s content is rendered using <a href="https://bookdown.org">Yihui’s</a> <code>bookdown</code> package (thank you!), <a href="https://wgfoote.github.io/book-probabilistic-reasoning">served on GitHub pages</a> with <a href="https://github.com/wgfoote/book-probabilistic-reasoning">source code</a>. When I figure out how to build an issues facility in Github that will be the font of all wisdom from readers and syndics.</p>
+<p>This book will expand and contract over the days ahead. <a href="wfoote01@manhattan.edu">Email me</a> will comments, errors, omissions, etc. The book’s content is rendered using <a href="https://bookdown.org">Yihui’s</a> <code>bookdown</code> package (thank you!), <a href="https://wgfoote.github.io/book-probabilistic-reasoning">served on GitHub pages</a> with <a href="https://github.com/wgfoote/book-stats-one">source code</a>. Please lodge your complaints, issues, desires, notice of typographical and grammatical errors, semantic confusion at the <a href="https://github.com/wgfoote/book-stats-one/issues">GitHub issue site for this book. Thanks.</a></p>
 
 </div>
 </div>
 <h3>References</h3>
 <div id="refs" class="references">
+<div id="ref-Cox1946">
+<p>Cox, R. T. 1946. “Probability, Frequency and Reasonable Expectation.” <em>American Journal of Physics</em> 14 (1). <a href="https://wwwusers.ts.infn.it/~milotti/Didattica/Bayes/Cox_1946.pdf">https://wwwusers.ts.infn.it/~milotti/Didattica/Bayes/Cox_1946.pdf</a>.</p>
+</div>
+<div id="ref-DeMoivre1756">
+<p>DeMoivre, Abraham. 1756. <em>The Doctrine of Chances: Or, a Method of Calculating the Probability of Events in Play</em>. <a href="https://books.google.com/books?id=3EPac6QpbuMC&amp;printsec=frontcover&amp;source=gbs_ge_summary_r&amp;cad=0#v=onepage&amp;q&amp;f=false">https://books.google.com/books?id=3EPac6QpbuMC&amp;printsec=frontcover&amp;source=gbs_ge_summary_r&amp;cad=0#v=onepage&amp;q&amp;f=false</a>.</p>
+</div>
 <div id="ref-Jaynes_2004">
 <p>Edwin T. Jaynes, ed. G. Larry Bretthorst. 2004. <em>Probability Theory: Logic of Science</em>. Cambridge, U.K.: Cambridge University Press.</p>
+</div>
+<div id="ref-Jeffreys1937">
+<p>Jeffreys, Harold. 1948. <em>Theory of Probability</em>. Oxford: The Clarendon Press.</p>
+</div>
+<div id="ref-Keynes_1923">
+<p>Keynes, John Maynard. 1921. <em>Treatise on Probability</em>. London: MacMillan. <a href="https://archive.org/details/treatiseonprobab007528mbp/page/n9/mode/2up?view=theater">https://archive.org/details/treatiseonprobab007528mbp/page/n9/mode/2up?view=theater</a>.</p>
+</div>
+<div id="ref-Lonergan_1970">
+<p>Lonergan, Bernard J. F. 1970. <em>Insight: A Study of Human Understanding</em>. Philosophical Library.</p>
+</div>
+<div id="ref-McElreath_2020">
+<p>McElreath, Richard. 2020. <em>Statistical Rethinking: A Bayesian Course with Examples in R and Stan</em>. Second edition. CRC Press. <a href="https://xcelab.net/rm/statistical-rethinking/">https://xcelab.net/rm/statistical-rethinking/</a>.</p>
+</div>
+<div id="ref-Peirce1884">
+<p>Peirce, C. S., and Joseph Jastrow. 1884. “On Small Differences in Sensation.” <em>Memoirs of the National Academy of Sciences</em> 3: 75–83.</p>
 </div>
 <div id="ref-Potter_1994">
 <p>Potter, Vincent G. 1994. <em>On Understanding Understanding – 2nd Ed.</em> Fordham University Press. <a href="https://www.fordhampress.com/9780823214860/on-understanding-understanding/">https://www.fordhampress.com/9780823214860/on-understanding-understanding/</a>.</p>
@@ -518,7 +538,7 @@ Both frequentist and probabilistic reasoning intersect when prior knowledge is a
 <div class="footnotes">
 <hr />
 <ol start="1">
-<li id="fn1"><p>Charles Sanders Pierce (<span class="citation">(<span class="citeproc-not-found" data-reference-id="Peirce1884"><strong>???</strong></span>)</span>) is perhaps the first objective-frequentist to insert so-called subjective priors into a rigorous psychological experience on the difference in pressure sensations. In fact, he and his co-author Jastrow seem to have simply, and analytically correctly, embedded their assumptions about their experiements into the understanding of their results.<a href="index.html#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn1"><p>Charles Sanders Pierce (<span class="citation">Peirce and Jastrow (<a href="#ref-Peirce1884" role="doc-biblioref">1884</a>)</span>) is perhaps the first objective-frequentist to insert so-called subjective priors into a rigorous psychological experience on the difference in pressure sensations. In fact, he and his co-author Jastrow seem to have simply, and analytically correctly, embedded their assumptions about their experiments into the understanding of their results.<a href="index.html#fnref1" class="footnote-back">↩</a></p></li>
 </ol>
 </div>
             </section>
