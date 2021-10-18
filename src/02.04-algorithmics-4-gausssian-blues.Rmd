@@ -31,7 +31,7 @@ write_csv(test_time, "week5-tests-1.csv")
 
 ## While we wait for the other shoe to drop
 
-Before we wade into yet another model and probability distribution to collide with data we will wander into a short aside, but definitely not a tangent. @CollinPinch1998 deploy the parable of the [Golem](https://en.wikipedia.org/wiki/Golem) from Jewish folklore to talk about the mindless, though very animated and very useful role of models in science. Another theorist, @Jaynes2004 uses the Josef Čapek's native Czech word [_roboti_](https://en.wikipedia.org/wiki/R.U.R.) to describe organic machines that end up annihilating humankind in his brother Karel's play _R.U.R (Rossum's Universal Machines)_ in 1921. I like this depiction since the word and the play intersect with R. @FisherMethods1934 and his influential frequentist hijacking in 1925 of the _inverse probability_ approach known to Gauss, Poisson, and even Bernoulli. So are we building **robotic golems**?
+Before we wade into yet another model and probability distribution to collide with data we will wander into a short aside, but definitely not a tangent. @CollinsPinch1998 deploy the parable of the [Golem](https://en.wikipedia.org/wiki/Golem) from Jewish folklore to talk about the mindless, though very animated and very useful role of models in science. Another theorist, @Jaynes2004 uses the Josef Čapek's native Czech word [_roboti_](https://en.wikipedia.org/wiki/R.U.R.) to describe organic machines that end up annihilating humankind in his brother Karel's play _R.U.R (Rossum's Universal Machines)_ in 1921. I like this depiction since the word and the play intersect with @Fisher1925 and his influential frequentist commandeering in 1925 of the _inverse probability_ approach known to Gauss, Poisson, and even Bernoulli. So are we building **robotic golems**?
 
 After all we are just building machines, some toy, some production, all not thinking, but sometimes acting like they are in our reverie that fantasizes a [reification](https://en.wikipedia.org/wiki/Reification_fallacy).  Whatever the golem or robot does it is because we tell it to do so, and it will inexoribly and logically. Bernoulli's binomial distribution, Poisson's integer count distribution, and Gauss's so-called normal, bell-shaped, distribution are such robots. They will do what we tell them to, even if we do not realize what it is exactly what we instructed them to do. But often we will interpret a robot's abstractions as a real thing, which it emphatically is not. Thus it is with deep learning and AI, context-free grammars, digital journalism, algorithmic stock trading, driver-less cars, advertisments just for us.
 
@@ -258,13 +258,13 @@ That sort of heading is almost an example of a **outlier**.  We ran across two i
 
 ### One way 
 
-One heuristic, a rule of thumb (due to @TukeyEDA1977), for finding outliers uses quartiles of the data: 
+One heuristic, a rule of thumb, due to @Tukey1977, for finding outliers uses quartiles of the data: 
 
-- The first quartile $Q1$ is a data point which is $\geq 1/4$ of the data starting from the first data point.
+- The first quartile $Q1$ is a data point which is $\leq 1/4$ of the data starting from the first data point.
 
-- The second quartile $Q2$ or the median data point which is $\geq 1/2$ of the data. 
+- The second quartile $Q2$ or the median data point which is $\leq 1/2$ of the data. 
 
-- The third quartile $Q3$ is a data point which is $\geq 3/4$ of the data starting from the first data point. 
+- The third quartile $Q3$ is a data point which is $\leq 3/4$ of the data starting from the first data point. 
 
 From the first and third quartile we compute a measure of the scale, or width, of the data called the interquartile range (IQR), $Q3 − Q1$. Tukey’s rule states that outliers are values more than 1.5 times the interquartile range from the quartiles
 
