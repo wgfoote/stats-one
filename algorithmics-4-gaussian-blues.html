@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 6 Algorithmics 4: Gaussian blues | Probabilistic Reasoning: from an elementary point of view</title>
   <meta name="description" content="Learning is inference." />
-  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 6 Algorithmics 4: Gaussian blues | Probabilistic Reasoning: from an elementary point of view" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="William G. Foote" />
 
 
-<meta name="date" content="2021-07-16" />
+<meta name="date" content="2021-10-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,9 @@
   
 <link rel="prev" href="algorithmics-3-playing-musical-raptors.html"/>
 <link rel="next" href="part-three-rubber-meets-the-road.html"/>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/header-attrs-2.10/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -49,40 +51,41 @@
 
 
 
-
 <link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
-<script src="libs/plotly-binding-4.9.2.2/plotly.js"></script>
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.9.4.1/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
-<link href="libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
-<link href="libs/plotly-htmlwidgets-css-1.52.2/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotly-main-1.52.2/plotly-latest.min.js"></script>
+<link href="libs/crosstalk-1.1.1/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.1.1/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.57.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.57.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -91,9 +94,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -126,6 +129,28 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -143,7 +168,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">Probabilistic Reasoning</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Prologomena for a Future Statistics</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Prologomena for a Future Statistics</a>
+<ul>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#why-this-book"><i class="fa fa-check"></i>Why this book</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#premises"><i class="fa fa-check"></i>Premises</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#so-many-questions-and-too-little-time"><i class="fa fa-check"></i>So many questions and too little time</a></li>
@@ -153,15 +179,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#a-work-in-progress"><i class="fa fa-check"></i>A work in progress</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="part-one-the-basics.html"><a href="part-one-the-basics.html"><i class="fa fa-check"></i>Part One – The Basics</a></li>
-<li class="chapter" data-level="1" data-path="counting-the-ways.html"><a href="counting-the-ways.html"><i class="fa fa-check"></i><b>1</b> Counting the Ways</a><ul>
+<li class="chapter" data-level="1" data-path="counting-the-ways.html"><a href="counting-the-ways.html"><i class="fa fa-check"></i><b>1</b> Counting the Ways</a>
+<ul>
 <li class="chapter" data-level="1.1" data-path="counting-the-ways.html"><a href="counting-the-ways.html#plausibility-probability-and-information"><i class="fa fa-check"></i><b>1.1</b> Plausibility, probability and information</a></li>
 <li class="chapter" data-level="1.2" data-path="counting-the-ways.html"><a href="counting-the-ways.html#some-surprise"><i class="fa fa-check"></i><b>1.2</b> Some Surprise</a></li>
 <li class="chapter" data-level="1.3" data-path="counting-the-ways.html"><a href="counting-the-ways.html#how-many-ways"><i class="fa fa-check"></i><b>1.3</b> How many ways?</a></li>
 <li class="chapter" data-level="1.4" data-path="counting-the-ways.html"><a href="counting-the-ways.html#back-to-data"><i class="fa fa-check"></i><b>1.4</b> Back to data</a></li>
 <li class="chapter" data-level="1.5" data-path="counting-the-ways.html"><a href="counting-the-ways.html#checking-our-grip-on-reality"><i class="fa fa-check"></i><b>1.5</b> Checking our grip on reality</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="probability-for-real-people.html"><a href="probability-for-real-people.html"><i class="fa fa-check"></i><b>2</b> Probability for Real People</a><ul>
-<li class="chapter" data-level="2.1" data-path="probability-for-real-people.html"><a href="probability-for-real-people.html#can-we-rationally-reason"><i class="fa fa-check"></i><b>2.1</b> Can we rationally reason?</a><ul>
+<li class="chapter" data-level="2" data-path="probability-for-real-people.html"><a href="probability-for-real-people.html"><i class="fa fa-check"></i><b>2</b> Probability for Real People</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="probability-for-real-people.html"><a href="probability-for-real-people.html#can-we-rationally-reason"><i class="fa fa-check"></i><b>2.1</b> Can we rationally reason?</a>
+<ul>
 <li class="chapter" data-level="2.1.1" data-path="probability-for-real-people.html"><a href="probability-for-real-people.html#priors-what-we-think-might-happen"><i class="fa fa-check"></i><b>2.1.1</b> Priors: what we think might happen</a></li>
 <li class="chapter" data-level="2.1.2" data-path="probability-for-real-people.html"><a href="probability-for-real-people.html#likelihoods-thinking-about-the-data"><i class="fa fa-check"></i><b>2.1.2</b> Likelihoods: thinking about the data</a></li>
 <li class="chapter" data-level="2.1.3" data-path="probability-for-real-people.html"><a href="probability-for-real-people.html#altogether-now"><i class="fa fa-check"></i><b>2.1.3</b> Altogether now</a></li>
@@ -172,7 +201,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.4" data-path="probability-for-real-people.html"><a href="probability-for-real-people.html#endnotes"><i class="fa fa-check"></i><b>2.4</b> Endnotes</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="part-two-the-fantastic-four.html"><a href="part-two-the-fantastic-four.html"><i class="fa fa-check"></i>Part Two – The Fantastic Four</a></li>
-<li class="chapter" data-level="3" data-path="algorithmics-1-counting-made-easy.html"><a href="algorithmics-1-counting-made-easy.html"><i class="fa fa-check"></i><b>3</b> Algorithmics 1: counting made easy</a><ul>
+<li class="chapter" data-level="3" data-path="algorithmics-1-counting-made-easy.html"><a href="algorithmics-1-counting-made-easy.html"><i class="fa fa-check"></i><b>3</b> Algorithmics 1: counting made easy</a>
+<ul>
 <li class="chapter" data-level="3.1" data-path="algorithmics-1-counting-made-easy.html"><a href="algorithmics-1-counting-made-easy.html#whats-an-algorithm"><i class="fa fa-check"></i><b>3.1</b> What’s an algorithm?</a></li>
 <li class="chapter" data-level="3.2" data-path="algorithmics-1-counting-made-easy.html"><a href="algorithmics-1-counting-made-easy.html#our-first-job-unobserved-hypotheses"><i class="fa fa-check"></i><b>3.2</b> Our first job: unobserved hypotheses</a></li>
 <li class="chapter" data-level="3.3" data-path="algorithmics-1-counting-made-easy.html"><a href="algorithmics-1-counting-made-easy.html#possibilities-abound"><i class="fa fa-check"></i><b>3.3</b> Possibilities abound</a></li>
@@ -183,7 +213,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.8" data-path="algorithmics-1-counting-made-easy.html"><a href="algorithmics-1-counting-made-easy.html#next"><i class="fa fa-check"></i><b>3.8</b> Next</a></li>
 <li class="chapter" data-level="3.9" data-path="algorithmics-1-counting-made-easy.html"><a href="algorithmics-1-counting-made-easy.html#references-and-endnotes"><i class="fa fa-check"></i><b>3.9</b> References and endnotes</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="algorithmics-2-binomial-ups-and-downs.html"><a href="algorithmics-2-binomial-ups-and-downs.html"><i class="fa fa-check"></i><b>4</b> Algorithmics 2: binomial ups and downs</a><ul>
+<li class="chapter" data-level="4" data-path="algorithmics-2-binomial-ups-and-downs.html"><a href="algorithmics-2-binomial-ups-and-downs.html"><i class="fa fa-check"></i><b>4</b> Algorithmics 2: binomial ups and downs</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="algorithmics-2-binomial-ups-and-downs.html"><a href="algorithmics-2-binomial-ups-and-downs.html#anatomy-of-an-algorithm"><i class="fa fa-check"></i><b>4.1</b> Anatomy of an algorithm</a></li>
 <li class="chapter" data-level="4.2" data-path="algorithmics-2-binomial-ups-and-downs.html"><a href="algorithmics-2-binomial-ups-and-downs.html#ups-and-downs"><i class="fa fa-check"></i><b>4.2</b> Ups and downs</a></li>
 <li class="chapter" data-level="4.3" data-path="algorithmics-2-binomial-ups-and-downs.html"><a href="algorithmics-2-binomial-ups-and-downs.html#dispensing-with-the-bag-of-beans"><i class="fa fa-check"></i><b>4.3</b> Dispensing with the bag of beans</a></li>
@@ -191,9 +222,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.5" data-path="algorithmics-2-binomial-ups-and-downs.html"><a href="algorithmics-2-binomial-ups-and-downs.html#then-there-were-eleven"><i class="fa fa-check"></i><b>4.5</b> Then there were eleven</a></li>
 <li class="chapter" data-level="4.6" data-path="algorithmics-2-binomial-ups-and-downs.html"><a href="algorithmics-2-binomial-ups-and-downs.html#references-and-endnotes-1"><i class="fa fa-check"></i><b>4.6</b> References and endnotes</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="algorithmics-3-playing-musical-raptors.html"><a href="algorithmics-3-playing-musical-raptors.html"><i class="fa fa-check"></i><b>5</b> Algorithmics 3: playing musical raptors</a><ul>
+<li class="chapter" data-level="5" data-path="algorithmics-3-playing-musical-raptors.html"><a href="algorithmics-3-playing-musical-raptors.html"><i class="fa fa-check"></i><b>5</b> Algorithmics 3: playing musical raptors</a>
+<ul>
 <li class="chapter" data-level="5.1" data-path="algorithmics-3-playing-musical-raptors.html"><a href="algorithmics-3-playing-musical-raptors.html#is-there-more-to-life-than-binary"><i class="fa fa-check"></i><b>5.1</b> Is there more to life than binary?</a></li>
-<li class="chapter" data-level="5.2" data-path="algorithmics-3-playing-musical-raptors.html"><a href="algorithmics-3-playing-musical-raptors.html#exploring-what-we-do-know"><i class="fa fa-check"></i><b>5.2</b> Exploring what we do know</a><ul>
+<li class="chapter" data-level="5.2" data-path="algorithmics-3-playing-musical-raptors.html"><a href="algorithmics-3-playing-musical-raptors.html#exploring-what-we-do-know"><i class="fa fa-check"></i><b>5.2</b> Exploring what we do know</a>
+<ul>
 <li class="chapter" data-level="5.2.1" data-path="algorithmics-3-playing-musical-raptors.html"><a href="algorithmics-3-playing-musical-raptors.html#summarize-the-data"><i class="fa fa-check"></i><b>5.2.1</b> Summarize the data</a></li>
 </ul></li>
 <li class="chapter" data-level="5.3" data-path="algorithmics-3-playing-musical-raptors.html"><a href="algorithmics-3-playing-musical-raptors.html#whence-the-binomial-generates-the-poisson"><i class="fa fa-check"></i><b>5.3</b> Whence the binomial generates the Poisson</a></li>
@@ -202,10 +235,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.6" data-path="algorithmics-3-playing-musical-raptors.html"><a href="algorithmics-3-playing-musical-raptors.html#probability-intervals"><i class="fa fa-check"></i><b>5.6</b> Probability intervals</a></li>
 <li class="chapter" data-level="5.7" data-path="algorithmics-3-playing-musical-raptors.html"><a href="algorithmics-3-playing-musical-raptors.html#references-and-endnotes-2"><i class="fa fa-check"></i><b>5.7</b> References and endnotes</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html"><i class="fa fa-check"></i><b>6</b> Algorithmics 4: Gaussian blues</a><ul>
+<li class="chapter" data-level="6" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html"><i class="fa fa-check"></i><b>6</b> Algorithmics 4: Gaussian blues</a>
+<ul>
 <li class="chapter" data-level="6.1" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#while-we-wait-for-the-other-shoe-to-drop"><i class="fa fa-check"></i><b>6.1</b> While we wait for the other shoe to drop</a></li>
 <li class="chapter" data-level="6.2" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#is-there-more-to-life-than-just-counting"><i class="fa fa-check"></i><b>6.2</b> Is there more to life than just counting?</a></li>
-<li class="chapter" data-level="6.3" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#gauss-gauss-where-is-gauss"><i class="fa fa-check"></i><b>6.3</b> Gauss, Gauss, where is Gauss?</a><ul>
+<li class="chapter" data-level="6.3" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#gauss-gauss-where-is-gauss"><i class="fa fa-check"></i><b>6.3</b> Gauss, Gauss, where is Gauss?</a>
+<ul>
 <li class="chapter" data-level="6.3.1" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#full-time-equivalent"><i class="fa fa-check"></i><b>6.3.1</b> Full time equivalent</a></li>
 <li class="chapter" data-level="6.3.2" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#compound-growth"><i class="fa fa-check"></i><b>6.3.2</b> Compound growth</a></li>
 <li class="chapter" data-level="6.3.3" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#log-products"><i class="fa fa-check"></i><b>6.3.3</b> Log products</a></li>
@@ -216,14 +251,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.7" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#onward-we-march"><i class="fa fa-check"></i><b>6.7</b> Onward we march</a></li>
 <li class="chapter" data-level="6.8" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#what-does-it-all-mean"><i class="fa fa-check"></i><b>6.8</b> What does it all mean?</a></li>
 <li class="chapter" data-level="6.9" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#a-provisional-finding"><i class="fa fa-check"></i><b>6.9</b> A provisional finding</a></li>
-<li class="chapter" data-level="6.10" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#just-one-more-thing"><i class="fa fa-check"></i><b>6.10</b> Just one more thing</a><ul>
+<li class="chapter" data-level="6.10" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#just-one-more-thing"><i class="fa fa-check"></i><b>6.10</b> Just one more thing</a>
+<ul>
 <li class="chapter" data-level="6.10.1" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#one-way"><i class="fa fa-check"></i><b>6.10.1</b> One way</a></li>
 <li class="chapter" data-level="6.10.2" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#or-the-other"><i class="fa fa-check"></i><b>6.10.2</b> Or the other</a></li>
 </ul></li>
 <li class="chapter" data-level="6.11" data-path="algorithmics-4-gaussian-blues.html"><a href="algorithmics-4-gaussian-blues.html#references-and-endnotes-3"><i class="fa fa-check"></i><b>6.11</b> References and endnotes</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="part-three-rubber-meets-the-road.html"><a href="part-three-rubber-meets-the-road.html"><i class="fa fa-check"></i>Part Three – Rubber meets the road</a></li>
-<li class="chapter" data-level="7" data-path="gausss-robots-again.html"><a href="gausss-robots-again.html"><i class="fa fa-check"></i><b>7</b> Gauss’s robots again</a><ul>
+<li class="chapter" data-level="7" data-path="gausss-robots-again.html"><a href="gausss-robots-again.html"><i class="fa fa-check"></i><b>7</b> Gauss’s robots again</a>
+<ul>
 <li class="chapter" data-level="7.1" data-path="gausss-robots-again.html"><a href="gausss-robots-again.html#an-auspicious-result"><i class="fa fa-check"></i><b>7.1</b> An auspicious result</a></li>
 <li class="chapter" data-level="7.2" data-path="gausss-robots-again.html"><a href="gausss-robots-again.html#tale-of-two-populations"><i class="fa fa-check"></i><b>7.2</b> Tale of two populations</a></li>
 <li class="chapter" data-level="7.3" data-path="gausss-robots-again.html"><a href="gausss-robots-again.html#education-is-the-key"><i class="fa fa-check"></i><b>7.3</b> Education is the key</a></li>
@@ -231,7 +268,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.5" data-path="gausss-robots-again.html"><a href="gausss-robots-again.html#results-results-we-want-results"><i class="fa fa-check"></i><b>7.5</b> Results, results, we want results!</a></li>
 <li class="chapter" data-level="7.6" data-path="gausss-robots-again.html"><a href="gausss-robots-again.html#yet-another-rocky-road-we-have-traveled"><i class="fa fa-check"></i><b>7.6</b> Yet another rocky road we have traveled</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html"><i class="fa fa-check"></i><b>8</b> Gauss’s robots go rogue</a><ul>
+<li class="chapter" data-level="8" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html"><i class="fa fa-check"></i><b>8</b> Gauss’s robots go rogue</a>
+<ul>
 <li class="chapter" data-level="8.1" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#spreadsheets-really"><i class="fa fa-check"></i><b>8.1</b> Spreadsheets? Really?</a></li>
 <li class="chapter" data-level="8.2" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#an-auspicious-result-again"><i class="fa fa-check"></i><b>8.2</b> An auspicious result again?</a></li>
 <li class="chapter" data-level="8.3" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#the-most-uninformative-distribution"><i class="fa fa-check"></i><b>8.3</b> The most uninformative distribution</a></li>
@@ -239,7 +277,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.5" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#is-it-true-that-gauss-is-in-the-house-again"><i class="fa fa-check"></i><b>8.5</b> Is it true that Gauss is in the house again?</a></li>
 <li class="chapter" data-level="8.6" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#and-again"><i class="fa fa-check"></i><b>8.6</b> And again?</a></li>
 <li class="chapter" data-level="8.7" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#the-association"><i class="fa fa-check"></i><b>8.7</b> The Association</a></li>
-<li class="chapter" data-level="8.8" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#a-tale-of-coir"><i class="fa fa-check"></i><b>8.8</b> A tale of coir</a><ul>
+<li class="chapter" data-level="8.8" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#a-tale-of-coir"><i class="fa fa-check"></i><b>8.8</b> A tale of coir</a>
+<ul>
 <li class="chapter" data-level="8.8.1" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#business-situation"><i class="fa fa-check"></i><b>8.8.1</b> Business Situation</a></li>
 <li class="chapter" data-level="8.8.2" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#business-questions"><i class="fa fa-check"></i><b>8.8.2</b> Business Questions</a></li>
 <li class="chapter" data-level="8.8.3" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#data"><i class="fa fa-check"></i><b>8.8.3</b> Data</a></li>
@@ -248,27 +287,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="8.9" data-path="gausss-robots-go-rogue.html"><a href="gausss-robots-go-rogue.html#endnotes-1"><i class="fa fa-check"></i><b>8.9</b> Endnotes</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="credible-interval-training.html"><a href="credible-interval-training.html"><i class="fa fa-check"></i><b>9</b> Credible interval training?</a><ul>
+<li class="chapter" data-level="9" data-path="credible-interval-training.html"><a href="credible-interval-training.html"><i class="fa fa-check"></i><b>9</b> Credible interval training?</a>
+<ul>
 <li class="chapter" data-level="9.1" data-path="credible-interval-training.html"><a href="credible-interval-training.html#imagine-this"><i class="fa fa-check"></i><b>9.1</b> Imagine this…</a></li>
 <li class="chapter" data-level="9.2" data-path="credible-interval-training.html"><a href="credible-interval-training.html#try-this-on-for-size"><i class="fa fa-check"></i><b>9.2</b> Try this on for size</a></li>
-<li class="chapter" data-level="9.3" data-path="credible-interval-training.html"><a href="credible-interval-training.html#what-about-the-sampled-standard-deviation"><i class="fa fa-check"></i><b>9.3</b> What about the sampled standard deviation?</a><ul>
+<li class="chapter" data-level="9.3" data-path="credible-interval-training.html"><a href="credible-interval-training.html#what-about-the-sampled-standard-deviation"><i class="fa fa-check"></i><b>9.3</b> What about the sampled standard deviation?</a>
+<ul>
 <li class="chapter" data-level="9.3.1" data-path="credible-interval-training.html"><a href="credible-interval-training.html#heres-the-promised-derivation"><i class="fa fa-check"></i><b>9.3.1</b> Here’s the promised derivation</a></li>
 </ul></li>
 <li class="chapter" data-level="9.4" data-path="credible-interval-training.html"><a href="credible-interval-training.html#probability-intervals-1-known-population-standard-deviation"><i class="fa fa-check"></i><b>9.4</b> Probability intervals 1: known population standard deviation</a></li>
 <li class="chapter" data-level="9.5" data-path="credible-interval-training.html"><a href="credible-interval-training.html#our-first-procedure-emerges"><i class="fa fa-check"></i><b>9.5</b> Our first procedure emerges</a></li>
-<li class="chapter" data-level="9.6" data-path="credible-interval-training.html"><a href="credible-interval-training.html#probability-intervals-2-on-to-the-unknown-standard-deviation"><i class="fa fa-check"></i><b>9.6</b> Probability intervals 2: on to the unknown standard deviation</a><ul>
+<li class="chapter" data-level="9.6" data-path="credible-interval-training.html"><a href="credible-interval-training.html#probability-intervals-2-on-to-the-unknown-standard-deviation"><i class="fa fa-check"></i><b>9.6</b> Probability intervals 2: on to the unknown standard deviation</a>
+<ul>
 <li class="chapter" data-level="9.6.1" data-path="credible-interval-training.html"><a href="credible-interval-training.html#by-the-way-who-is-student"><i class="fa fa-check"></i><b>9.6.1</b> By the way, who is Student?</a></li>
 </ul></li>
 <li class="chapter" data-level="9.7" data-path="credible-interval-training.html"><a href="credible-interval-training.html#our-second-procedure"><i class="fa fa-check"></i><b>9.7</b> Our second procedure</a></li>
 <li class="chapter" data-level="9.8" data-path="credible-interval-training.html"><a href="credible-interval-training.html#exercises"><i class="fa fa-check"></i><b>9.8</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="hypothetically-speaking.html"><a href="hypothetically-speaking.html"><i class="fa fa-check"></i><b>10</b> Hypothetically Speaking</a><ul>
-<li class="chapter" data-level="10.1" data-path="hypothetically-speaking.html"><a href="hypothetically-speaking.html#imagine-this-1"><i class="fa fa-check"></i><b>10.1</b> Imagine this…</a><ul>
+<li class="chapter" data-level="10" data-path="hypothetically-speaking.html"><a href="hypothetically-speaking.html"><i class="fa fa-check"></i><b>10</b> Hypothetically Speaking</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="hypothetically-speaking.html"><a href="hypothetically-speaking.html#imagine-this-1"><i class="fa fa-check"></i><b>10.1</b> Imagine this…</a>
+<ul>
 <li class="chapter" data-level="10.1.1" data-path="hypothetically-speaking.html"><a href="hypothetically-speaking.html#for-those-who-really-want-to-or-even-need-to"><i class="fa fa-check"></i><b>10.1.1</b> For those who really want to, or even need to</a></li>
 <li class="chapter" data-level="10.1.2" data-path="hypothetically-speaking.html"><a href="hypothetically-speaking.html#finally-an-excel-screenshot"><i class="fa fa-check"></i><b>10.1.2</b> Finally an excel screenshot</a></li>
 </ul></li>
 <li class="chapter" data-level="10.2" data-path="hypothetically-speaking.html"><a href="hypothetically-speaking.html#can-we-be-wrong"><i class="fa fa-check"></i><b>10.2</b> Can we be wrong?</a></li>
-<li class="chapter" data-level="10.3" data-path="hypothetically-speaking.html"><a href="hypothetically-speaking.html#yet-another-way"><i class="fa fa-check"></i><b>10.3</b> Yet another way</a><ul>
+<li class="chapter" data-level="10.3" data-path="hypothetically-speaking.html"><a href="hypothetically-speaking.html#yet-another-way"><i class="fa fa-check"></i><b>10.3</b> Yet another way</a>
+<ul>
 <li class="chapter" data-level="10.3.1" data-path="hypothetically-speaking.html"><a href="hypothetically-speaking.html#population-standard-deviation-known"><i class="fa fa-check"></i><b>10.3.1</b> Population standard deviation known</a></li>
 <li class="chapter" data-level="10.3.2" data-path="hypothetically-speaking.html"><a href="hypothetically-speaking.html#control-is-probability"><i class="fa fa-check"></i><b>10.3.2</b> Control is probability</a></li>
 <li class="chapter" data-level="10.3.3" data-path="hypothetically-speaking.html"><a href="hypothetically-speaking.html#on-to-the-unknown"><i class="fa fa-check"></i><b>10.3.3</b> On to the unknown</a></li>
@@ -277,9 +322,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10.4" data-path="hypothetically-speaking.html"><a href="hypothetically-speaking.html#exercises-1"><i class="fa fa-check"></i><b>10.4</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="part-four-the-test-of-a-relationship.html"><a href="part-four-the-test-of-a-relationship.html"><i class="fa fa-check"></i>Part Four – The Test of a Relationship</a></li>
-<li class="chapter" data-level="11" data-path="relationships-put-to-the-test.html"><a href="relationships-put-to-the-test.html"><i class="fa fa-check"></i><b>11</b> Relationships Put to the Test</a><ul>
+<li class="chapter" data-level="11" data-path="relationships-put-to-the-test.html"><a href="relationships-put-to-the-test.html"><i class="fa fa-check"></i><b>11</b> Relationships Put to the Test</a>
+<ul>
 <li class="chapter" data-level="11.1" data-path="relationships-put-to-the-test.html"><a href="relationships-put-to-the-test.html#its-not-so-hard-to-imagine-this"><i class="fa fa-check"></i><b>11.1</b> It’s not so hard to imagine this…</a></li>
-<li class="chapter" data-level="11.2" data-path="relationships-put-to-the-test.html"><a href="relationships-put-to-the-test.html#the-maths-the-maths"><i class="fa fa-check"></i><b>11.2</b> The maths! The maths!</a><ul>
+<li class="chapter" data-level="11.2" data-path="relationships-put-to-the-test.html"><a href="relationships-put-to-the-test.html#the-maths-the-maths"><i class="fa fa-check"></i><b>11.2</b> The maths! The maths!</a>
+<ul>
 <li class="chapter" data-level="11.2.1" data-path="relationships-put-to-the-test.html"><a href="relationships-put-to-the-test.html#what-did-we-all-expect"><i class="fa fa-check"></i><b>11.2.1</b> What did we all expect?</a></li>
 <li class="chapter" data-level="11.2.2" data-path="relationships-put-to-the-test.html"><a href="relationships-put-to-the-test.html#walking-the-straight-line"><i class="fa fa-check"></i><b>11.2.2</b> Walking the straight line</a></li>
 <li class="chapter" data-level="11.2.3" data-path="relationships-put-to-the-test.html"><a href="relationships-put-to-the-test.html#a-short-variance-diatribe"><i class="fa fa-check"></i><b>11.2.3</b> A short variance diatribe</a></li>
@@ -289,19 +336,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="11.5" data-path="relationships-put-to-the-test.html"><a href="relationships-put-to-the-test.html#does-it-really-matter"><i class="fa fa-check"></i><b>11.5</b> Does it really matter?</a></li>
 <li class="chapter" data-level="11.6" data-path="relationships-put-to-the-test.html"><a href="relationships-put-to-the-test.html#references-and-endnotes-4"><i class="fa fa-check"></i><b>11.6</b> References and endnotes</a></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="the-journey-continues.html"><a href="the-journey-continues.html"><i class="fa fa-check"></i><b>12</b> The journey continues</a><ul>
+<li class="chapter" data-level="12" data-path="the-journey-continues.html"><a href="the-journey-continues.html"><i class="fa fa-check"></i><b>12</b> The journey continues</a>
+<ul>
 <li class="chapter" data-level="12.1" data-path="the-journey-continues.html"><a href="the-journey-continues.html#backing-up"><i class="fa fa-check"></i><b>12.1</b> Backing up</a></li>
-<li class="chapter" data-level="12.2" data-path="the-journey-continues.html"><a href="the-journey-continues.html#fences-and-neighbors"><i class="fa fa-check"></i><b>12.2</b> Fences and neighbors</a><ul>
+<li class="chapter" data-level="12.2" data-path="the-journey-continues.html"><a href="the-journey-continues.html#fences-and-neighbors"><i class="fa fa-check"></i><b>12.2</b> Fences and neighbors</a>
+<ul>
 <li class="chapter" data-level="12.2.1" data-path="the-journey-continues.html"><a href="the-journey-continues.html#tukeys-fences."><i class="fa fa-check"></i><b>12.2.1</b> Tukey’s fences.</a></li>
 <li class="chapter" data-level="12.2.2" data-path="the-journey-continues.html"><a href="the-journey-continues.html#credibility-intervals."><i class="fa fa-check"></i><b>12.2.2</b> Credibility intervals.</a></li>
 </ul></li>
-<li class="chapter" data-level="12.3" data-path="the-journey-continues.html"><a href="the-journey-continues.html#binomial-raptors."><i class="fa fa-check"></i><b>12.3</b> Binomial raptors.</a><ul>
+<li class="chapter" data-level="12.3" data-path="the-journey-continues.html"><a href="the-journey-continues.html#binomial-raptors."><i class="fa fa-check"></i><b>12.3</b> Binomial raptors.</a>
+<ul>
 <li class="chapter" data-level="12.3.1" data-path="the-journey-continues.html"><a href="the-journey-continues.html#cloudy-or-clear."><i class="fa fa-check"></i><b>12.3.1</b> Cloudy or clear.</a></li>
 <li class="chapter" data-level="12.3.2" data-path="the-journey-continues.html"><a href="the-journey-continues.html#binomial-sightings."><i class="fa fa-check"></i><b>12.3.2</b> Binomial sightings.</a></li>
 <li class="chapter" data-level="12.3.3" data-path="the-journey-continues.html"><a href="the-journey-continues.html#poisson-raptors."><i class="fa fa-check"></i><b>12.3.3</b> Poisson raptors.</a></li>
 <li class="chapter" data-level="12.3.4" data-path="the-journey-continues.html"><a href="the-journey-continues.html#poisson-expectations."><i class="fa fa-check"></i><b>12.3.4</b> Poisson expectations.</a></li>
 </ul></li>
-<li class="chapter" data-level="12.4" data-path="the-journey-continues.html"><a href="the-journey-continues.html#managing-relationships"><i class="fa fa-check"></i><b>12.4</b> Managing relationships</a><ul>
+<li class="chapter" data-level="12.4" data-path="the-journey-continues.html"><a href="the-journey-continues.html#managing-relationships"><i class="fa fa-check"></i><b>12.4</b> Managing relationships</a>
+<ul>
 <li class="chapter" data-level="12.4.1" data-path="the-journey-continues.html"><a href="the-journey-continues.html#drawing-the-line"><i class="fa fa-check"></i><b>12.4.1</b> Drawing the line</a></li>
 <li class="chapter" data-level="12.4.2" data-path="the-journey-continues.html"><a href="the-journey-continues.html#does-it-matter"><i class="fa fa-check"></i><b>12.4.2</b> Does it matter?</a></li>
 </ul></li>
@@ -327,14 +378,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="algorithmics-4-gaussian-blues" class="section level1">
+<div id="algorithmics-4-gaussian-blues" class="section level1" number="6">
 <h1><span class="header-section-number">Chapter 6</span> Algorithmics 4: Gaussian blues</h1>
-<div id="while-we-wait-for-the-other-shoe-to-drop" class="section level2">
+<div id="while-we-wait-for-the-other-shoe-to-drop" class="section level2" number="6.1">
 <h2><span class="header-section-number">6.1</span> While we wait for the other shoe to drop</h2>
-<p>Before we wade into yet another model and probability distribution to collide with data we will wander into a short aside, but definitely not a tangent. <span class="citation">(<span class="citeproc-not-found" data-reference-id="CollinPinch1998"><strong>???</strong></span>)</span> deploy the parable of the <a href="https://en.wikipedia.org/wiki/Golem">Golem</a> from Jewish folklore to talk about the mindless, though very animated and very useful role of models in science. Another theorist, <span class="citation">(<span class="citeproc-not-found" data-reference-id="Jaynes2004"><strong>???</strong></span>)</span> uses the Josef Čapek’s native Czech word <a href="https://en.wikipedia.org/wiki/R.U.R."><em>roboti</em></a> to describe organic machines that end up annihilating humankind in his brother Karel’s play <em>R.U.R (Rossum’s Universal Machines)</em> in 1921. I like this depiction since the word and the play intersect with R. <span class="citation">(<span class="citeproc-not-found" data-reference-id="FisherMethods1934"><strong>???</strong></span>)</span> and his influential frequentist hijacking in 1925 of the <em>inverse probability</em> approach known to Gauss, Poisson, and even Bernoulli. So are we building <strong>robotic golems</strong>?</p>
+<p>Before we wade into yet another model and probability distribution to collide with data we will wander into a short aside, but definitely not a tangent. <span class="citation"><a href="#ref-CollinsPinch1998" role="doc-biblioref">Collins and Pinch</a> (<a href="#ref-CollinsPinch1998" role="doc-biblioref">1998</a>)</span> deploy the parable of the <a href="https://en.wikipedia.org/wiki/Golem">Golem</a> from Jewish folklore to talk about the mindless, though very animated and very useful role of models in science. Another theorist, <span class="citation"><a href="#ref-Jaynes2004" role="doc-biblioref">Edwin T. Jaynes</a> (<a href="#ref-Jaynes2004" role="doc-biblioref">2004</a>)</span> uses the Josef Čapek’s native Czech word <a href="https://en.wikipedia.org/wiki/R.U.R."><em>roboti</em></a> to describe organic machines that end up annihilating humankind in his brother Karel’s play <em>R.U.R (Rossum’s Universal Machines)</em> in 1921. I like this depiction since the word and the play intersect with <span class="citation"><a href="#ref-Fisher1925" role="doc-biblioref">Fisher</a> (<a href="#ref-Fisher1925" role="doc-biblioref">1925</a>)</span> and his influential frequentist commandeering in 1925 of the <em>inverse probability</em> approach known to Gauss, Poisson, and even Bernoulli. So are we building <strong>robotic golems</strong>?</p>
 <p>After all we are just building machines, some toy, some production, all not thinking, but sometimes acting like they are in our reverie that fantasizes a <a href="https://en.wikipedia.org/wiki/Reification_fallacy">reification</a>. Whatever the golem or robot does it is because we tell it to do so, and it will inexoribly and logically. Bernoulli’s binomial distribution, Poisson’s integer count distribution, and Gauss’s so-called normal, bell-shaped, distribution are such robots. They will do what we tell them to, even if we do not realize what it is exactly what we instructed them to do. But often we will interpret a robot’s abstractions as a real thing, which it emphatically is not. Thus it is with deep learning and AI, context-free grammars, digital journalism, algorithmic stock trading, driver-less cars, advertisments just for us.</p>
 </div>
-<div id="is-there-more-to-life-than-just-counting" class="section level2">
+<div id="is-there-more-to-life-than-just-counting" class="section level2" number="6.2">
 <h2><span class="header-section-number">6.2</span> Is there more to life than just counting?</h2>
 <p>Yes indeed there is! In factor if we sub-divide integer counts of rocket launches, raptor sitings, hydro-dam failures into those murky areas of what’s between 1 and 2 or 32 and 33, we arrive at continuous data. Is there an observational model we can deploy to guide our thinking about the plausibility of seeing a datum?</p>
 <p>Let’s recall why we discuss any of these issues at all. Suppose we are trying to make wage policies, or perhaps, write a contract with employees in wages, among other issues. It is a known-unknown. We conduct a discussion with a few of our closest franalysts (friends who happen to be analysts). Here is the first set of marks we make on a board.</p>
@@ -347,7 +398,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>This rather tidy plot and table summarizes the product of the brain storming session. The friendly, but often boisterous, and sometimes opinionated, analysts realize they need an observational model to help them select which of the five combinations of location (average) and scale (range) is the most plausible. They also realize that the wage data itself is not binary and is not integer valued. The analysts then realize they can’t use the binomial or Poisson observational models. What are they to do?</p>
 <p>Someone, then all of them, had the insight to use all of the data at their disposal. They reasoned there are many possible ways in which location and scale can combine to represent the population whence they drew the samples. They decide to use both the, as yet unknown, mean and standard deviation of wages as their approach to the problem of making as objective a statement they can about the population of wages. They need an observational of the joint probability of observing wages and conjecturing mean and standard deviation of wages.</p>
 </div>
-<div id="gauss-gauss-where-is-gauss" class="section level2">
+<div id="gauss-gauss-where-is-gauss" class="section level2" number="6.3">
 <h2><span class="header-section-number">6.3</span> Gauss, Gauss, where is Gauss?</h2>
 <p>Gauss did not have to really invent the normal distribution. We observe much physical, chemical, biological, psychological, social, economic, even financial behavior that appears on first glance to be Gaussian. Here are three examples from the business domain.</p>
 <ol style="list-style-type: decimal">
@@ -355,31 +406,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Compound revenue growth</p></li>
 <li><p>Continuous stock returns and rates</p></li>
 </ol>
-<div id="full-time-equivalent" class="section level3">
+<div id="full-time-equivalent" class="section level3" number="6.3.1">
 <h3><span class="header-section-number">6.3.1</span> Full time equivalent</h3>
 <p>The <strong>Full time equivalent</strong> (FTE) measure helps us understand intensity of staffing against salary and benefits, among other issues. The calculation can be as simple as adding up all the employees, whether full or part-time, say a head count of 5 people, and the hours worked in a week by the 5 people, say 120 hours. If we assume a 40 hour week, then the full time equivalent number of employees per week in a 40 hour week would be 120 hours divided by a 40 hours/full-time work week to equal an FTE of 3. Is this Gaussian?</p>
 <p>Suppose we sum up a week’s worth of hours per day. Each day’s hours is again uniformly distributed, this time from 100 to 200 hours summed over a 5 day period. This is not the same necessarily as multiplying one day’s simulation times 5, or is it?</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">hours &lt;-<span class="st"> </span><span class="kw">replicate</span>( <span class="dv">10000</span>, <span class="kw">sum</span>(<span class="kw">runif</span>(<span class="dv">1</span>, <span class="dv">15</span>, <span class="dv">30</span>) <span class="op">+</span><span class="st"> </span><span class="kw">runif</span>(<span class="dv">1</span>, <span class="dv">15</span>, <span class="dv">30</span>) <span class="op">+</span><span class="st"> </span><span class="kw">runif</span>(<span class="dv">1</span>, <span class="dv">15</span>, <span class="dv">30</span>) <span class="op">+</span><span class="st"> </span><span class="kw">runif</span>(<span class="dv">1</span>, <span class="dv">15</span>, <span class="dv">30</span>) <span class="op">+</span><span class="st"> </span><span class="kw">runif</span>(<span class="dv">1</span>, <span class="dv">15</span>, <span class="dv">30</span>))) </a>
-<a class="sourceLine" id="cb2-2" title="2"></a>
-<a class="sourceLine" id="cb2-3" title="3"><span class="kw">summary</span>(hours)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="algorithmics-4-gaussian-blues.html#cb1-1" aria-hidden="true" tabindex="-1"></a>hours <span class="ot">&lt;-</span> <span class="fu">replicate</span>( <span class="dv">10000</span>, <span class="fu">sum</span>(<span class="fu">runif</span>(<span class="dv">1</span>, <span class="dv">15</span>, <span class="dv">30</span>) <span class="sc">+</span> <span class="fu">runif</span>(<span class="dv">1</span>, <span class="dv">15</span>, <span class="dv">30</span>) <span class="sc">+</span> <span class="fu">runif</span>(<span class="dv">1</span>, <span class="dv">15</span>, <span class="dv">30</span>) <span class="sc">+</span> <span class="fu">runif</span>(<span class="dv">1</span>, <span class="dv">15</span>, <span class="dv">30</span>) <span class="sc">+</span> <span class="fu">runif</span>(<span class="dv">1</span>, <span class="dv">15</span>, <span class="dv">30</span>))) </span>
+<span id="cb1-2"><a href="algorithmics-4-gaussian-blues.html#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="algorithmics-4-gaussian-blues.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(hours)</span></code></pre></div>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##      80     106     112     112     119     145</code></pre>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">fte &lt;-<span class="st"> </span>hours <span class="op">/</span><span class="st"> </span><span class="dv">40</span></a>
-<a class="sourceLine" id="cb4-2" title="2"></a>
-<a class="sourceLine" id="cb4-3" title="3"><span class="kw">dens</span>( fte , <span class="dt">norm.comp=</span><span class="ot">TRUE</span> )</a></code></pre></div>
+##      81     106     112     113     119     147</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="algorithmics-4-gaussian-blues.html#cb3-1" aria-hidden="true" tabindex="-1"></a>fte <span class="ot">&lt;-</span> hours <span class="sc">/</span> <span class="dv">40</span></span>
+<span id="cb3-2"><a href="algorithmics-4-gaussian-blues.html#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="algorithmics-4-gaussian-blues.html#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dens</span>( fte , <span class="at">norm.comp=</span><span class="cn">TRUE</span> )</span></code></pre></div>
 <p><img src="book-probability_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 <p>The average FTE is 2.75 people equivalent in this very symmetrical density. Again, why? Whatever the average value of the source distribution, here 113 hours, each sample from the source will be a deviation from this average. The summary shows a nearly equal quartile and minimum or maximum set of fluctuations from the mean. Adding up the deviations from the mean always equals zero algebraicly if we use the arithmetic mean. The range of the uniformly distributed hours is 75 hours per week while the simulation’s range is smaller at about 65 hours. The deviations are whittled down as they sum up. Where did they go? They began to offset one another. Large deviations offset large negative ones. The more terms the more ways these large movements offset one another one for one or in sums of smaller deviations that add up to the same large movements. The mostly ways to realize sums are those that aggregate around the mean.</p>
 </div>
-<div id="compound-growth" class="section level3">
+<div id="compound-growth" class="section level3" number="6.3.2">
 <h3><span class="header-section-number">6.3.2</span> Compound growth</h3>
 <p>Suppose we have 1 quarter of growth in revenue. The quaterly rate of growth takes a $1 of revenue at the beginning of month 1 of the quarter, which grows at the first month’s rate <span class="math inline">\(g_1\)</span> into <span class="math inline">\(1+g_1\)</span>. This amount grows into <span class="math inline">\((1+g_1) + (1+g_1)g_2 = (1+g_1)(1+g_2)\)</span>. This end of second month accumulated growth becomes <span class="math inline">\((1+g_1)(1+g_2) + (1+g_1)(1+g_2)g_3 = (1+g_1)(1+g_2)(1+g_3)\)</span> by the end of the quarter and month 3. Is this Gaussian?</p>
 <p>Let’s suppose that growth rates are uniformly distributed from -0.1 to 0.1. Then one path for quarterly (1 plus) might be <span class="math inline">\((1+0.08)(1+(-0.02))(1+0.05)=\)</span> 1.11. Simulating growth 10000 times and viewing our work in the density plot shows the approximation to a theoretical normal distribution.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">growth &lt;-<span class="st"> </span><span class="kw">replicate</span>( <span class="dv">10000</span> , <span class="kw">prod</span>( <span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="kw">runif</span>(<span class="dv">12</span>,<span class="op">-</span><span class="fl">0.1</span>,<span class="fl">0.1</span>) ) )</a>
-<a class="sourceLine" id="cb5-2" title="2"><span class="kw">dens</span>( growth , <span class="dt">norm.comp=</span><span class="ot">TRUE</span> )</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="algorithmics-4-gaussian-blues.html#cb4-1" aria-hidden="true" tabindex="-1"></a>growth <span class="ot">&lt;-</span> <span class="fu">replicate</span>( <span class="dv">10000</span> , <span class="fu">prod</span>( <span class="dv">1</span> <span class="sc">+</span> <span class="fu">runif</span>(<span class="dv">12</span>,<span class="sc">-</span><span class="fl">0.1</span>,<span class="fl">0.1</span>) ) )</span>
+<span id="cb4-2"><a href="algorithmics-4-gaussian-blues.html#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dens</span>( growth , <span class="at">norm.comp=</span><span class="cn">TRUE</span> )</span></code></pre></div>
 <p><img src="book-probability_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
 <p>Not bad, but look at those tails! Yes, if we are willing to accept no wild swings on average in growth, then this model might help us understand patterns in revenue growth. Why Gaussian? It appears that growth will progress and decline, sometimes adding a lot or deducting a lot, but the cumulative impact will tail off as the month to month changes may even wipe each other out. As long as growth changes impact each successive month in ever smaller ways relative to the accumulative of previous months, then the impact will be Gaussian distributed. Isn’t multiplication a shill for summation?</p>
 </div>
-<div id="log-products" class="section level3">
+<div id="log-products" class="section level3" number="6.3.3">
 <h3><span class="header-section-number">6.3.3</span> Log products</h3>
 <p>… are 2x4 pine boards. Yes, and no. Our log products again turn into sums. Let’s see how. The logarithm can be defined in terms of growth.</p>
 <p><span class="math display">\[
@@ -398,14 +449,14 @@ g_1+g_2+g_3 = log(e^{g_1+g_2+g_3})=log(e^{g_1} e^{g_2} e^{g_3})
 log[(1+g_1)(1+g_2)(1+g_3)] = log(1+g_1)+log(1+g_2)+log(1+g_3)
 \]</span></p>
 <p>Just another sum and also Gaussian? Let’s see.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">growth &lt;-<span class="st"> </span><span class="kw">replicate</span>( <span class="dv">10000</span> , <span class="kw">log</span>(<span class="kw">prod</span>( <span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="kw">runif</span>(<span class="dv">12</span>,<span class="op">-</span><span class="fl">0.1</span>,<span class="fl">0.1</span>)) ) )</a>
-<a class="sourceLine" id="cb6-2" title="2"><span class="kw">dens</span>( growth , <span class="dt">norm.comp=</span><span class="ot">TRUE</span> )</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="algorithmics-4-gaussian-blues.html#cb5-1" aria-hidden="true" tabindex="-1"></a>growth <span class="ot">&lt;-</span> <span class="fu">replicate</span>( <span class="dv">10000</span> , <span class="fu">log</span>(<span class="fu">prod</span>( <span class="dv">1</span> <span class="sc">+</span> <span class="fu">runif</span>(<span class="dv">12</span>,<span class="sc">-</span><span class="fl">0.1</span>,<span class="fl">0.1</span>)) ) )</span>
+<span id="cb5-2"><a href="algorithmics-4-gaussian-blues.html#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dens</span>( growth , <span class="at">norm.comp=</span><span class="cn">TRUE</span> )</span></code></pre></div>
 <p><img src="book-probability_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
 <p>Again large deviations from the mean of 0 will offset large negative deviations. Sums of small large deviations will offset large negative deviations and vice-versa. What’s left is an accumulation of the rest of the deviations. These become the most likely deviations large negatives with small positives and large positives with small negatives. If our data looks like a process in which large deviations offset small deviations in positive (greater than the mean) and negative (less than the mean), then a Gaussian distribution might be useful to approximate the behavior of the process.</p>
 <p>This model of log growth rates, and discounts, is the mathematical description of the percentage change of continuously compounded stock prices, revenue, cost, any financial statement item.</p>
 </div>
 </div>
-<div id="assume-and-simplify" class="section level2">
+<div id="assume-and-simplify" class="section level2" number="6.4">
 <h2><span class="header-section-number">6.4</span> Assume and simplify</h2>
 <p>We will build our first Gaussian model here and now. Our first simplifying assumption is</p>
 <blockquote>
@@ -430,7 +481,7 @@ log[(1+g_1)(1+g_2)(1+g_3)] = log(1+g_1)+log(1+g_2)+log(1+g_3)
 </blockquote>
 <p>for otherwise we shall have confusion and be confounded. Independent sources and inputs mean clear results, usually. The contrary condition is called multicollinearity. This is another source of obfuscation that often arises in inflammatory oratory where the orator lists ten reasons why we should vote for his or her cause, and they all wind up being just one reason, and often not a good one either, and thus the bluster.</p>
 </div>
-<div id="how-do-we-get-there" class="section level2">
+<div id="how-do-we-get-there" class="section level2" number="6.5">
 <h2><span class="header-section-number">6.5</span> How do we get there?</h2>
 <p>The friendly analysts with the wage problem know of a famous 2-parameter distribution, the Gaussian distribution. It is often referred to as the normal distribution.<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a> After running through the binomial and Poisson distributions, they don’t really think there is anything simply normal about any distribution. They will simply call it the Gaussian in honor of <a href="https://en.wikipedia.org/wiki/Carl_Friedrich_Gauss">Carl Friedrich Gauss</a> who used this observational distribution to compute the time elapsed between observations of a ship’s position with a chronometer, effectively, longitudes and thus the minutes and seconds in a coordinate.</p>
 <p>With number of trials <span class="math inline">\(n\)</span> and <span class="math inline">\(p\)</span> probability of a single up movement in the binomial distribution then, the mean number of occurrences is <span class="math inline">\(\mu = np\)</span> and the standard deviation is <span class="math inline">\(\sqrt{np(1-p)}\)</span>. Suppose we now perform an ever increasing number of trials <span class="math inline">\(n\)</span>, that is we let <span class="math inline">\(n\)</span> get ever larger. In the limit as <span class="math inline">\(n\rightarrow \infty\)</span> there is mathematics to prove that</p>
@@ -445,7 +496,7 @@ Whenever we see <span class="math inline">\(\pi\)</span> there is definitely a c
 <p><img src="images/06/ptolemy.gif" /></p>
 <p>We note well that this model worked extremely well for ancient astronomers who predicted seasons for agriculture and flood events.</p>
 </div>
-<div id="grid-lock" class="section level2">
+<div id="grid-lock" class="section level2" number="6.6">
 <h2><span class="header-section-number">6.6</span> Grid lock</h2>
 <p>The analysts collect 12 average monthly observations of wages from the <a href="https://www.census.gov/programs-surveys/cps.html">Current Population Survey</a> of the U.S. Census Bureau. Since the wage rates (in $/hour) are averages and thus weighted sums, they believe that a reasonable observational model could be the Gaussian (normal) distribution. Here is the panel of data.</p>
 <p><img src="images/06/wages-data.jpg" /></p>
@@ -459,7 +510,7 @@ Whenever we see <span class="math inline">\(\pi\)</span> there is definitely a c
 <p>At the same time, the <code>IF() statement in M5 tests whether or not the</code>sigma_h<code>in D4 is the last</code>sigma_h<code>in the list. If true, then go back to the beginning of the</code>sigma_h<code>, otherwise go to the next</code>sigma_h` in the list.</p>
 <p>With the 25 node grid we then proceed exactly as we did for the Poisson raptors. This time we use a different observational model, one fit for use with finding location, <span class="math inline">\(\mu\)</span> approximated by <code>mu_h</code>, and scale, <span class="math inline">\(\sigma\)</span> approximated by <code>sigma_h</code>.</p>
 </div>
-<div id="onward-we-march" class="section level2">
+<div id="onward-we-march" class="section level2" number="6.7">
 <h2><span class="header-section-number">6.7</span> Onward we march</h2>
 <p>Our next stop on the magical mystery tour is the mashing together of observed data with the unobserved data of hypotheses, all 25 combinations of approximated <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span>. These hypothetical parameters turn up in the Gaussian observational model thusly.</p>
 <p><span class="math display">\[
@@ -474,14 +525,14 @@ Pr( x \mid \mu, \, \sigma) = \frac {1}{\sigma {\sqrt {2\pi }}}e^{-{\frac {1}{2}}
 <p>We calculate the <em>both-and</em> probabilities of observing all of the data given a <span class="math inline">\(\mu, \, \sigma\)</span> hypothesis in column S. We use the <code>PRODUCT()</code> function for this task in column T. Theprobability both of observing data and using the <span class="math inline">\(\mu, \, \sigma\)</span> hypotheses is the multiplication of the column S conditional probabilities times the probability that <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span> might actually represent the population from which we sampled the data.</p>
 <p>The marginal probability that the data is observed is the sum of column T in cell T3. We are not put off by the sometimes incredibly small numbers in these calculations! Because we remember that it is the overall contribution of these both-and probabilities that matters. We calculate the ratio of the probabilities in column T to the sum of probabilities in cell T3 altogether in column U. We have completed our analysis by starting with hypotheses, calculating the joint probabilities of data and hypotheses, and ultimately deducing the probabilities of <span class="math inline">\(\mu\)</span>s and <span class="math inline">\(\sigma\)</span>s given the data.</p>
 </div>
-<div id="what-does-it-all-mean" class="section level2">
+<div id="what-does-it-all-mean" class="section level2" number="6.8">
 <h2><span class="header-section-number">6.8</span> What does it all mean?</h2>
 <p>Does our grid tell us anything useful? On its own it is not in a form easy to interpret. We have the raw <span class="math inline">\(Pr(\mu,\,\sigma \mid wages)\)</span> in column U. We did build a key in column W above. Now is the time to put it to good use. We need to calculate the total probability of any particular <span class="math inline">\(\mu\)</span> or <span class="math inline">\(\sigma\)</span>. Here is the ultimate grid that relates each hypothesized <span class="math inline">\(\mu\)</span> with each hypothesized <span class="math inline">\(\sigma\)</span>. The link between them is the probability both of <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span>, that is, <span class="math inline">\(Pr(\mu,\,\sigma \mid wages)\)</span> in column U.</p>
 <p><img src="images/06/wages-mu-sigma-grid.jpg" /></p>
 <p>The marginal probability of <span class="math inline">\(Pr( \mu = 12.75)\)</span> is the highest density in the I column. We calculate it realizing that this probability must take into account any of the ways in which <span class="math inline">\(\mu=12.75\)</span> interacts jointly with each of the hypothesized <span class="math inline">\(\sigma\)</span>s. The key word in the last sentence is the indefinite pronoun <em>any</em>. This pronoun denotes an <em>either-or</em> proposition: either <span class="math inline">\(\sigma=5\)</span> or 7.5 or, …, 15. Either-or situatons have probabilities that add up and thus the <code>SUM()</code> in cell I5.</p>
 <p>Similarly the marginal probability of <span class="math inline">\(Pr(\sigma = 10 )\)</span> is the highest density for the hypthesized <span class="math inline">\(\sigma\)</span>s. This probability is also the sum of the either-or probabilities of <span class="math inline">\(\sigma = 10\)</span> interacting jointly with any of the hypothesized <span class="math inline">\(\mu\)</span>s. We often refer to this calculation as integrating out, in this case, the <span class="math inline">\(\mu\)</span>s for each <span class="math inline">\(\sigma\)</span>, and <em>vice-versa</em> for integrating out the <span class="math inline">\(\sigma\)</span>s for each <span class="math inline">\(\mu\)</span>.</p>
 </div>
-<div id="a-provisional-finding" class="section level2">
+<div id="a-provisional-finding" class="section level2" number="6.9">
 <h2><span class="header-section-number">6.9</span> A provisional finding</h2>
 <p>Finally, one reasonable answer after all of this work is this.</p>
 <blockquote>
@@ -489,16 +540,16 @@ Pr( x \mid \mu, \, \sigma) = \frac {1}{\sigma {\sqrt {2\pi }}}e^{-{\frac {1}{2}}
 </blockquote>
 <p>We must caveat this finding by noting that we used an extremely coarse grid of only 5 nodes. This underlines the approximation assumptions we deployed throughout this analysis.</p>
 </div>
-<div id="just-one-more-thing" class="section level2">
+<div id="just-one-more-thing" class="section level2" number="6.10">
 <h2><span class="header-section-number">6.10</span> Just one more thing</h2>
 <p>That sort of heading is almost an example of a <strong>outlier</strong>. We ran across two in the raptor-Poisson model. There seems to be one here in the wage data, maybe. How might we detect outliers? Since we take a probabilistic view of everything as humans, seemingly always hedging our bets, we might think about an outlier as far out into the tail of a distribution of data.</p>
-<div id="one-way" class="section level3">
+<div id="one-way" class="section level3" number="6.10.1">
 <h3><span class="header-section-number">6.10.1</span> One way</h3>
-<p>One heuristic, a rule of thumb (due to <span class="citation">(<span class="citeproc-not-found" data-reference-id="TukeyEDA1977"><strong>???</strong></span>)</span>), for finding outliers uses quartiles of the data:</p>
+<p>One heuristic, a rule of thumb, due to <span class="citation"><a href="#ref-Tukey1977" role="doc-biblioref">Tukey</a> (<a href="#ref-Tukey1977" role="doc-biblioref">1977</a>)</span>, for finding outliers uses quartiles of the data:</p>
 <ul>
-<li><p>The first quartile <span class="math inline">\(Q1\)</span> is a data point which is <span class="math inline">\(\geq 1/4\)</span> of the data starting from the first data point.</p></li>
-<li><p>The second quartile <span class="math inline">\(Q2\)</span> or the median data point which is <span class="math inline">\(\geq 1/2\)</span> of the data.</p></li>
-<li><p>The third quartile <span class="math inline">\(Q3\)</span> is a data point which is <span class="math inline">\(\geq 3/4\)</span> of the data starting from the first data point.</p></li>
+<li><p>The first quartile <span class="math inline">\(Q1\)</span> is a data point which is <span class="math inline">\(\leq 1/4\)</span> of the data starting from the first data point.</p></li>
+<li><p>The second quartile <span class="math inline">\(Q2\)</span> or the median data point which is <span class="math inline">\(\leq 1/2\)</span> of the data.</p></li>
+<li><p>The third quartile <span class="math inline">\(Q3\)</span> is a data point which is <span class="math inline">\(\leq 3/4\)</span> of the data starting from the first data point.</p></li>
 </ul>
 <p>From the first and third quartile we compute a measure of the scale, or width, of the data called the interquartile range (IQR), <span class="math inline">\(Q3 − Q1\)</span>. Tukey’s rule states that outliers are values more than 1.5 times the interquartile range from the quartiles</p>
 <ul>
@@ -512,7 +563,7 @@ Pr( x \mid \mu, \, \sigma) = \frac {1}{\sigma {\sqrt {2\pi }}}e^{-{\frac {1}{2}}
 <p>The sample wage distribution exhibits a preponderance of positive deviations of the data from the mean, thus a large positive skew. The high kurtosis indicates high probabilities of rare events. We also know that one of the events is a greater than $45/hour wage.</p>
 <p>We calculate Tukey’s fences with their 1.5 threshold number of IQRs above and below the 75%ile and 25%ile, respectively, in cells B18 and B19. We review the data and find that the $46.96/hour wage rate is well beyond the upper fences. It is a Tukey outlier. There are no lower fence outliers, just as there are no negative wage rates.</p>
 </div>
-<div id="or-the-other" class="section level3">
+<div id="or-the-other" class="section level3" number="6.10.2">
 <h3><span class="header-section-number">6.10.2</span> Or the other</h3>
 <p>Another, probabilistic, approach would ask how plausible is each data point relative to the center of the distribution. This is much the same idea as Tukey who uses the middle 50% IQR as a benchmark. For example we can compute the <span class="math inline">\(Pr( \mu,\,\sigma \mid d = 46.92)\)</span> distribution. This appears in a long format grid as the following.</p>
 <p><img src="images/06/wages-46.jpg" /></p>
@@ -524,15 +575,30 @@ Pr( x \mid \mu, \, \sigma) = \frac {1}{\sigma {\sqrt {2\pi }}}e^{-{\frac {1}{2}}
 <p>Implausible or not, this outpost of a data point imparts information about the population from which it was sampled. It should therefore not be ignored.</p>
 </div>
 </div>
-<div id="references-and-endnotes-3" class="section level2">
+<div id="references-and-endnotes-3" class="section level2" number="6.11">
 <h2><span class="header-section-number">6.11</span> References and endnotes</h2>
 
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-CollinsPinch1998" class="csl-entry">
+Collins, H. M., and T. Pinch. 1998. <em>The Golem: What You Should Know about Science</em>. Cambridge University Press, 2nd edition.
+</div>
+<div id="ref-Jaynes2004" class="csl-entry">
+Edwin T. Jaynes, ed. G. Larry Bretthorst. 2004. <em>Probability Theory: Logic of Science</em>. Cambridge, U.K.: Cambridge University Press.
+</div>
+<div id="ref-Fisher1925" class="csl-entry">
+Fisher, R. A. 1925. <em>Statistical Methods for Research Workers</em>. Oliver; Boyd, Edinburgh.
+</div>
+<div id="ref-Tukey1977" class="csl-entry">
+Tukey, John. 1977. <em>Exploratory Data Analysis</em>. <a href="https://archive.org/details/exploratorydataa0000tuke_7616">https://archive.org/details/exploratorydataa0000tuke_7616</a>.
 </div>
 </div>
 <div class="footnotes">
 <hr />
 <ol start="10">
-<li id="fn10"><p>Renowned and reviled, Karl Pearson started to use the term <em>normal</em> for the Gaussian distribution. He also discussed the existence of <em>anti-matter</em> with Einstein.<a href="algorithmics-4-gaussian-blues.html#fnref10" class="footnote-back">↩</a></p></li>
+<li id="fn10"><p>Renowned and reviled, Karl Pearson started to use the term <em>normal</em> for the Gaussian distribution. He also discussed the existence of <em>anti-matter</em> with Einstein.<a href="algorithmics-4-gaussian-blues.html#fnref10" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>
@@ -545,7 +611,6 @@ Pr( x \mid \mu, \, \sigma) = \frac {1}{\sigma {\sqrt {2\pi }}}e^{-{\frac {1}{2}}
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -585,6 +650,10 @@ gitbook.start({
 "text": null
 },
 "download": ["book-probability.pdf", "book-probability.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }
