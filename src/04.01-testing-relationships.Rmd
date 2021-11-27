@@ -139,7 +139,9 @@ In what follows we use $Y$ as the wage, the metric we want to generate from its 
 
 ### What did we all expect?
 
-We define expectations as aggregations of two kinds of information. One is the information provided by an array of outcomes $Y_i$ for $i=1 \ldots N$, where $i$ indexes $N$ outcomes. The other is the array of probabilities assigned to each outcome $\pi_i = f_i/N$, where $f_i$ is the long-run frequency of occurrence of outcome $i$. The one property that we must enforce is that the probabilities sum to 1. This ensures we have a complete picture of all of the probability contributions, as weights, of each outcome.  
+We define expectations as aggregations of two kinds of information. One is the information provided by an array of outcomes $Y_i$ for $i=1 \ldots N$, where $i$ indexes $N$ outcomes. The other is the array of probabilities assigned to each outcome $\pi_i$. The frequentist will assign $\pi = f_i/N$, where $f_i$ is the long-run frequency of occurrence of outcome $i$. However, we will assign $\pi$ as a normalized index of the logical plausibility of an outcome where all $\pi$s add up to one and each is somewhere between 0 and 1. This allows us to interpret probability as an extension of logic, where probability quantifies the reasonable expectation that everyone (even a _robot_ or _golem_ ) who shares the same knowledge ( experience, understanding, _and_ judgment) should share in accordance with the rules of conditional probability.[^cox-theorem] All of this ensures we have a complete picture of all of the probability contributions, as weights, of each outcome consistent with a systematic, principled way to reason about uncertainty.
+
+[^cox-theorem]: [Cox's theorem](https://en.wikipedia.org/wiki/Cox%27s_theorem) provides a logical underpinning to this statement: the rules of probability theory need not be derived from a definition of probabilities as relative frequencies (frequentist approach). He goes further to show that the properties of probability as logic but also follow from certain properties one might desire of any system of plausible reasoning about uncertainty. [Van Horn](https://reader.elsevier.com/reader/sd/pii/S0888613X03000513?token=7D6FBDB41F8831DD4DE22162DFA2FAA3A8786A9B0CAB6231C759CF725E203785164FE0BAE53EFCB46143DF016439BCD6&originRegion=us-east-1&originCreation=20211123164351) is a tutorial on Cox's approach. Plausible reasoning may be illustrated with this example of the distinction between gradual degrees of possible outcomes, that is, uncertainty, and what is or is not, that is, truth. As an example, one's confidence in the statement _Daniel is well over six feet tall_, after seeing Daniel, legs splayed out, sitting at a desk, is a degree of plausibility. In contrast, the statement _Daniel is tall_ may be somewhat true (if Daniel measures five feet eleven inches and the definition of tall is greater than or equal to six feet) or entirely true (if Daniel measures seven feet one inch).
 
 The aggregation is then this expression for the expectation $E$ of outcomes $Y$.
 
@@ -341,7 +343,7 @@ $$
 
 Very tidy indeed! We might remember that a unique solution exists only if (or is it if and only if?) when the determinant of the matrix $\mathrm{C}$ is not zero. If it is, then the solution $\mathrm{a}=\mathrm{C}^{-1}d$ does not exist and the model is singular. In what we will do below we will compose our coeffients of means, standard deviations and correlations. Some combinations of these aggregations, constants, will prove to yield a zero determinant, and a singular model results.
 
-The determinant $\det{mathrm{C}}$ is
+The determinant $\det{\mathrm{C}}$ is
 
 $$
 \det{\mathrm{C}} = c_{11}c_{22}-c_{12}c_{21}
@@ -432,7 +434,7 @@ $$
 Y &= \alpha + \beta\, X \\
 then \\
 XY &= \alpha\,X + \beta\, XX \\
-   &= &= \alpha\,X + \beta\, X^2 \\
+   &= \alpha\,X + \beta\, X^2 \\
 so\,\,that \\
 \operatorname{E}XY &= \operatorname{E}(\alpha\,X + \beta\, X^2) \\
                 &= \operatorname{E}\alpha\,X + \operatorname{E}\beta\,X^2 \\
@@ -628,7 +630,7 @@ H_{yes}:\,\, \mu_{yes} &= \alpha + \beta (12), \, &&with \, Pr(H_{yes}) = 1-p
 \end{align}
 $$
 
-The $mu_{no}$ and $\mu_{yes}$ are the results of two different ways, two different conjectures, two different models of behavior. We build no and yes into our computational model in the next round. The problem is that in this sample, the intercept $\alpha < 0$.
+The $\mu_{no}$ and $\mu_{yes}$ are the results of two different ways, two different conjectures, two different models of behavior. We build no and yes into our computational model in the next round. The problem is that in this sample, the intercept $\alpha < 0$.
 
 ## References and endnotes
 
