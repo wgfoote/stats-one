@@ -1,0 +1,359 @@
+---
+title: "BUAN 227 -- Business Statistics - Syllabus"
+subtitle: "Foote: Spring 2022"
+header-includes:
+- \usepackage{fancyhdr}
+- \usepackage{tikz}
+- \usepackage{tikz-qtree}
+- \usetikzlibrary{trees}
+- \usepackage{amssymb}
+- \pagestyle{fancy}
+- \fancyhf{}
+- \fancyhead[CO,CE]{Syllabus - BUAN 227 - Spring 2022}
+- \fancyfoot[LO,LE]{Copyright 2022 William G. Foote}
+- \fancyfoot[CE,CO]{\leftmark}
+- \fancyfoot[RE,RO]{\thepage}
+- \renewcommand{\headrulewidth}{1.25pt}
+- \renewcommand{\footrulewidth}{1pt}
+output: 
+  pdf_document:
+    toc: true
+    toc_depth: 5
+---
+
+```{r , include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+\begin{center}
+\fbox{
+\begin{minipage}{20em}
+THE CIS-BUAN PROGRAM @ MC IS A MEMBER OF MICROSOFT’S IMAGINE PREMIUM ACADEMIC INITIATIVE
+\end{minipage}
+}
+\end{center}
+
+## Premise and manifesto
+
+The premise of this course is that _learning is inference_. Learning can be reading, understanding, reflecting whether in our heads or with complex computing environments. We begin with the following chain of reasoning:
+
+- All events, and data collected from events, have a truth value.
+
+- Probability is the strength of plausibility of a truth value.
+
+- Inference is a process of attaining justified true belief, otherwise called knowledge; learning is inference.
+
+- Justification derives from strength of plausibility, that is, the probability distribution of a hypothesis conditional on the data and any background, prior, and assumptive knowledge.
+
+- The amount of surprise, or informativeness, of the probability distribution of data given our experiences, is the criterion for statistical decision making -- it is the divergence between what we known to be true and what we find out to be true.
+
+All statistical analysis, and reasoning within analysis, begins from a disturbance in _business as usual_, the _status quo_. The disturbance is the outlier, the error, the lack of understanding, the inattentiveness to experience, the irrationality of actions that is the inconsistency of knowledge and action based on knowledge.
+
+We are surprised when the divergence between what we used to know and what we come to know is wider than we expected, that is, believed. The analysis of surprise is the core tool of this course. In a state of surprise we achieve insight, the _aha!_ moment of discovery, the _eureka_ of innovation.
+
+The course will boil down to the statistics (minimum, maximum, mean, quantiles, deviations, skewness, kurtosis) and the probability that the evidence we have to support any proposition(s) we claim. 
+
+The evidence is the strength (for example in decibels, base 10) of our hypothesis or claim. The measure of evidence is the measure of surprise and its complement informativeness of the data, current and underlying, inherent in the claim.
+
+## Course Description
+
+Applications of statistical methods of data analysis and decision making. Coverage includes descriptive statistics, statistical measures and estimation, testing of hypothesis, linear regression and correlation analysis. Use of computer software for statistical analysis and business applications. _Pre-requisites:	MATH 153 (or MATH 105), CIS 110, Statistics and Probability from 6th grade to 12th grade._
+
+- **MATH 153 Linear Math Analysis.** 3 Credits. (Formerly Math 105) Survey of business applications. Topics include financial mathematics: simple and compound interest, annuities and amortization of loans; linear optimization: solving systems of linear equations and matrix algebra; probability: elementary counting techniques, odds, and expected value. Prerequisite: A satisfactory score on the mathematics placement exam or a C or better in MATH 111 or an equivalent course is required to enroll in MATH 153.
+
+- **MATH 111 Pre-Calculus for Business Students.** 3 Credits. Review of elementary algebra, introduction to analytic geometry, functions and their graphs, logarithmic and exponential functions, polynomial functions. (Meets four hours per week).
+
+- **Statistics and Probability** from several years of pre-college work (6th grade to 12th grade) as for example according to these [\underline{Common Core State Standards}](http://www.corestandards.org/Math/Content/HSS/introduction/).
+
+### Learning outcomes 
+
+The principal goal of this course is to improve and support decision making through the appropriate application of statistical principles and practices.  With that in mind, we expect that upon completion of this course you will be able to:
+
+1.	Understand and use descriptive statistics, probability distributions, statistical inference, linear regression and correlation, and the analysis of variance
+
+2.	Apply statistical thinking and problem solving to support business decision making
+
+3.	Demonstrate the use of spreadsheets as it applies to statistical data analysis and the content of the course.
+
+4.	Acquire quantitative critical thinking skills through statistical problem solving.
+
+5.	Understand the role of the analyst and the analytics process in the decision-making context of complex organizations and their environments.
+
+6.	Communicate analytical results to consumers of analytical products effectively using tables and graphs.
+
+Learning outcomes from this course are strongly coupled with the programming goals of the School of Business:
+
+1.	Gain experience in analytical decision making
+
+2.	Develop an understanding of leadership
+
+3.	Demonstrate an understanding of ethical issues in business
+
+4.	Demonstrate an understanding of organizations and the competitive environment
+
+This course will support the attainment of these goals through various classroom, group, and individual activities throughout our time together this semester. Assignments and other evidence of your work and performance in this course directly align with these goals.
+
+## Readings, access, preparation
+
+### Readings
+
+The main resources for the course are these books:
+
+1. William G. Foote. 2022. _Probabilistic Reasoning: From an Elementary Point of View_. [\underline{Access here.}](https://wgfoote.github.io/book-stats-one/) This book compiles much of the material needed for the course from other sources and on its own.
+
+2. Dominick Salvatore and Derrick Reagle, 2011. _Statistics and Econometrics, 2nd Edition_ [\underline{Access through this site}](https://www.amazon.com/Schaums-Outline-Statistics-Econometrics-Outlines/dp/0071755470). This inexpensive outline has several solved problems and summaries of basic descriptive statistics as well as frequentist versions of statistical inference.
+
+3. Ken Black, 2013. _Business Statistics for Contemporary Decision Making_ various editions. Copy on reserve in Library.
+
+3. Every one of the millions (estimated) of business practitioners who use the Microsoft Excel spreadsheet platform should have a copy of [\underline{Wayne Winston's handbook}](https://www.amazon.com/Microsoft-Analysis-Business-Modeling-Skills/dp/1509305882). We will refer to it all too frequently.
+
+4. From time to time during the course I will assign articles and presentations to highlight concepts, practices, models, and approaches that have worked well for various organizations.
+
+### Spreadsheet Access
+
+Access Microsoft 365 in two ways:
+
+1. With your sign-on credentials use [\underline{Manhattan College remote desktop (DLS 210, 309 or 314)}](https://guac.manhattan.edu/guacamole/#/) to use Microsoft 365 Excel.
+
+2. [\underline{Access the latest version of Excel at this site}](https://remotely.manhattan.edu/) . You can access other free downloads of software and a connection to remote desktops from the same link.
+
+### How to prepare for success in this course
+
+> “I hear and I forget, I see and I remember, I do and I understand.” - Confucius, circa 551 B.C.E.
+
+This course involves abstract thinking, practical decision making in an organizational context, and significant interaction with technology. You can expect that material, content, process, and deliverables will be challenging and at times frustrating for all of us.  Because the odds of success improve when you are actively engaged[^success], we will employ three distinct strategies to help ensure your success in this course.
+
+[^success]: Educators and cognitive psychologists generally seem to agree that learning in higher education is proportional to the level of student engagement.  Experiments in cognitive psychology have shown that students who are actively engaged with their learning are more likely than passive learners to recall and demonstrate their understanding of a topic. Social learning experiences such as peer teaching have been found to be particularly effective in developing higher-order thinking, leadership, communication, and problem solving skills.  Educational research shows that students who participate in collaborative, problem-focused learning groups often perceive a more meaningful learning experience. Finally, group projects, particularly those that promote group construction of knowledge, allow students to observe their peer’s models of successful learning and encourage them to emulate those approaches. For further enlightenment we can review Heller, P., Keith, R. & Anderson, S. (1992), Teaching problem solving through cooperative grouping. Part 1: Group versus individual problem solving. American Journal of Physics, 60, 627-636, and Heller, P. & Hollabaugh, M. (1992), Teaching problem solving through cooperative grouping. Part 2: Designing problems and structuring groups. American Journal of Physics, 60, 637-644.    
+
+1.	Frequent hands-on assignments and projects related to course modules, to help ensure active learning;
+
+2.	Team-based collaborative learning, to foster the exploration of diverse ideas, views, opinions and feedback and to accelerate learning; and
+
+3.	Individual demonstrations/presentations that explain the set-up and solution of assigned, end-of-Unit problems, intended to create an environment where students share their thinking processes and insights with their classmates (and incidentally practice their presentation skills).
+
+A frequently used peer-learning opportunity in class will employ small breakout groups of 2-3 students. After posing a question (particularly a complex one) based on required assigned reading prior to class, students will have five minutes to think about it, jot down some notes, after which you will partner with your colleagues for a quick discussion about what they think and why. After a few minutes of discussion, each small group will share their insights with the entire class. You and your team can profitably use this technique outside of class too.
+
+When reading the notes, books, and exercises in preparation for class it is essential that you take an active approach. This means that you open the spreadsheets and other materials that are to be discussed in class and work through them as you read. Your hand-written notebook (ever at your side)  will contain the summaries, questions, procedures, drawings, and calculations of your various excursions through the materials.
+
+- When a new method is presented, first repeat the example in that you are reading and then try two or three new examples on your own. 
+
+- In class, we will discuss new applications of the methods presented in the readings. This step assumes that you have read, worked through, and acquired in your notes the material in the reading. 
+
+- You are well prepared when you come to class with questions about how the concepts and methods can be applied and might be applied by you.
+
+- Finally, you should expect to return to the assigned readings, your notes, and the spreadsheets after class or while reviewing, in order to refine and consolidate your knowledge. 
+
+Your required notebook will document your preparation, questions, and successes, as well as dead ends and blind alleys you encounter and work through.
+
+## Assessment of performance
+
+Your grade in this course will depend on your aggregate performance on written homework exercises, discussion boards, examinations, and class participation.  These components are described below. 
+
+### Graded Assignments: 30\% of the final grade. 
+
+All assignments must be completed to achieve up to 30\% of the final grade. Graded assignments are all or nothing grades. Failure to complete all assignments will result in a 0\% grade for this entire category.
+
+Each team will be responsible for completing several weekly assignments (see Weekly Schedule posted in Moodle). These exercises are designed to help you master decision context, data collection, analysis formulation, spreadsheet setup, problem solution and interpretation, and the lucid presentation of your recommendations to a managerial audience. Problems, their solutions and interpretation will appear in mid-term and final exams. 
+
+- **For each assignment, each team member is responsible to upload one Excel workbook, and, on occasion, images of written work, of your assignment solutions by the date posted in Moodle. _Yes, even if you are on a team, you must personally, individually submit your version of the assignment._ Submission of the assignment means that you have, with your team, personally confronted, solved, interpreted, and acquired in your notebooks the materials presented in the assignment.** 
+
+- The first worksheet of the assignment workbook will restate the assignment question, summarize the results of your analysis, and answer the assignment question(s). Subsequent worksheets will include data, analysis, and other supporting work. 
+
+- **The name of the workbook file MUST be formatted EXACTLY in this manner of the following example. Failure to format the workbook in a submission to Moodle will result in a zero (0) grade for the assignment.**
+
+\begin{center}
+`week1-foote-jafar-tomoiaga-2021-01-25.xlsx` 
+\end{center}
+
+- A solution that approaches asymptotically a 100\% grade will provide a well-organized, clearly written, and well-supported answer for each question. All questions must be answered. Complete sentences must be used. You will use specific techniques developed in the course to answer the questions.
+
+- Solutions will be discussed in class on the due date.  I will assess your submissions and return them to you within one week. I reserve the right to incentivize you to respond to comments and answer questions I pose to you to complete your assignments.
+
+**Note:**  on occasion, illness or a personal emergency may preclude you from turning in an assignment on time.  In cases of extenuating circumstances, please work directly with me to manage the situation. However, grading of assignments submitted after the due date becomes problematic because you will have access to published homework solutions that would unfairly penalize those students who handed in assignments timely.  A late assignment is one that is past the due date recorded in Moodle, except for circumstances beyond your control and for which you and I have agreed upon a way to appropriately make up the work.  To help avoid such penalties, you are encouraged to develop a support group, or team, of up to three students. You are responsible to submit your own work on Moodle on time and in full.
+
+### Participation: 10% of the final grade. 
+
+This category is another all or nothing grade. Failure to show up to class, unless excused, participate, possess a timely written notebook, etc., will result in a 0\% participation grade.
+
+There will be several activities that provide evidence of participation including these important clauses.
+
+- You are required to maintain a current (within a day of a session) hand-written notebook of your class-room work, spreadsheet construction, brief reflections on concepts and issues, skill-building exercises, assignment solutions, and other formative activities in each class throughout the semester.
+
+- You are required to participate in weekly discussion boards. Topics will vary from week to week and will delve into logic, inference, ethics, and the production of knowledge in a probabilistic setting.
+
+- There is no practical way to make up for these activities. These frequent activities are also a measure of your active attendance and participation. Showing up is not enough. When called upon, your responsibility is to use the reading material and your solutions to participate in the class discussions. If for reasons beyond your control you cannot attend it is your responsibility to alert me in a timely manner if possible and arrange with me an approach for coverage of the missed class. 
+
+- **If you miss _three or more classes_ without an email excuse, you will forfeit this entire grade of 10\%.** So much happens in class that to miss a single class will put you at serious risk of falling so far behind that you will not be able to make up the work, let alone have the time to reflect and appropriate the material, concepts, and techniques in any meaningful way. Attendance will be taken by your signing into the Moodle site for the class section.
+
+**My expectation is this.** If I am in class or at a scheduled meeting, so will you be. Possible contributions include responding to direct questions, presenting assignment solutions, scribing notes in your notebook, etc.  
+
+**The notebook is not optional, it is required.** Most professionals maintain a hand-written notebook for personal reference and as a way to recall and reflect on content, participants, and outcomes of meetings. The classroom sessions are such meetings. From time to time I will verify that your notebook is current and reflective of the work we are performing together in class. You may use your notebook to scribe information gleaned from classroom discussion, your own reading and reflection outside of class, and discussions with your teammates.
+
+### Exam(s):  In-term 30% of the final grade and Final 30% of the final grade
+
+Throughout the semester you will have the opportunity to improve the in-term exam(s) grade. Up to two in-term examinations will be administered during the semester on Moodle. Their purpose is to assess your mastery of the concepts and techniques explored part-way through the course. The examination questions will be drawn from the live sessions, assigned materials, classroom activities, assigned readings, and weekly assignments. The final exam will be comprehensive, and, truly final.
+
+### BONUS
+
+You may earn a half-grade in addition to your final grade by obtaining on your own a certification relevent to THE Business School and this course's learning goals. For example, you may find a Coursera short (and free) course on any topic in data science, including Excel; you could get a certificate by participating in the online Bloomberg Markets Concepts (BMC) course. Only one half-grade bonus will be allocated to your final grade.
+
+### Grading scale
+
+Thus the numerical grades evolve into letter grades.
+
+\begin{center}
+\begin{tabular}{l | l}
+\hline
+A            & 93\% and above \\
+A-           & 90\% to 92.9\% \\
+B+           & 87\% to 89.9\% \\
+B            & 83\% to 86.9\% \\
+B-           & 80\% to 82.9\% \\
+C+           & 77\% to 79.9\% \\
+C            & 73\% to 76.9\% \\
+C-           & 70\% to 72.9\% \\
+D+           & 65\% to 69.9\% \\
+D            & 60\% to 64.9\% \\
+F            & Below 60\% \\
+\hline
+\end{tabular}
+\end{center}
+
+## Spring 2022 Weekly schedule
+
+\begin{center}
+\begin{tabular}{l | l | l}
+\hline
+Week      &  beginning & topic \\
+\hline
+Week 1    & January 19 & Introduction: Logic, Data, Counting \\
+Week 2    & January 26 & Basic probability with Bayes Theorem \\
+Week 3    & February 2 & Binomial distribution with spreadsheet charts and graphs \\
+Week 4    & February 9 & Poisson distribution with descriptive measures \\
+Week 5    & February 16 & Gaussian (normal) distribution \\
+Week 6    & February 23 & Mid-term review \\
+Week 7    & March 2  & Mid-term exam and two more distributions \\
+Week 8    & March 9 & Sampling distributions \\
+Week \O   & March 14 & Sprink Breag \\
+Week 9    & March 23 & Probability intervals \\
+Week 10   & March 30 & Hypothesis testing \\
+Week 11   & April 6 & Hypothesis testing continues\\
+Week 12   & April 13 & Simple linear regression \\
+Week 13   & April 27 & Final review \\
+Week 14   & May 9 & Final exam week \\
+\hline
+\end{tabular}
+\end{center}
+
+In and out of class this will be our normal routine:
+
+\begin{center}
+\begin{tabular}{l | l}
+\hline
+0 & Do these steps $\rightarrow$ \\
+\hline
+1 & Prepare for class through reading, research, practice, and marching through the videos \\
+2 & Work with in-class team and personal solving of posed problems \\
+3 & Review Questions and answers and follow-up for next class \\
+\hline
+4 & Until (days left in the semester == 0) OR (you have not completed your learning of a topic) \\
+\hline
+5 & Else $\rightarrow$ step 1. \\
+\hline
+\end{tabular}
+\end{center}
+
+This schedule is tentative and is subject to change at my discretion. Our job in class is to practice problems using the exercises each week, learn to model and shoot trouble where it pops up, and interpret results for decision makers. For those students who cannot attend in person (with permission from the College), I will host remotely broadcasted classes. Moodle is the be all and end all of information flow, announcements, requirements for the course, attendance tracking, including Zoom participation. 
+
+Enjoy the [\underline{flipped classroom and active learning}](https://bokcenter.harvard.edu/active-learning)! I often refer to this resource for guidance, thoughts on how we can work together, ways to handle the many issues that arise from the development of complex ways of thinking in complex organizations. 
+
+### Attendance, again
+
+Attendance is mandatory whether in class or remotely. **In the wildly improbable instance that you cannot attend, you must inform me by email upon your immediate knowledge that you cannot attend.** We will together make alternative arrangements.
+
+It is mandated by the College and New York State that you attend all sessions scheduled for this course. They occur at the regularly scheduled class time indicated by the Registrar's Office. If you cannot attend the session, I require an email detailing your absence, reasons, and any needs you might have to make up the material you missed.
+
+## Additional matters
+
+### Student accomodation 
+
+If you feel that you are a student who may need academic accommodations due to a disability, then you should immediately register with the Director of the Specialized Resource Center (SRC). The SRC at Manhattan College authorizes special accommodations for students with disabilities. If you have a documented disability and you wish to discuss academic accommodations, please contact the instructor within the first week of class.
+
+### Academic support
+
+The [\underline{Center for Academic Success (CAS)}](https://inside.manhattan.edu/academic-resources/center-for-academic-success/index.php) is committed to providing student-centered programs and initiatives designed to enhance learning and promote success and persistence for all Manhattan College students. Students will work collaboratively with qualified peers and professionals to develop knowledge, skills and strategies needed for success in the classroom and beyond. 
+
+The CAS has two locations; the Learning Commons in Thomas Hall 3.10 and the Leo Learning Center in Leo 117/118. Services include online and in-person individual tutoring, online small group peer tutoring (select courses), student academic success coaching, and online and in-person writing center services. 
+
+All services are free of charge and available to all Manhattan College students. Appointments are preferred but walk-ins are welcome. To make an appointment, students can log into their Jasper Connect account or visit the CAS in Thomas Hall, 3.10. Students can also contact success@manhattan.edu with any questions. For more information about these services please visit the CAS webpage here.
+
+
+The Center for Academic Success (CAS) has two locations — the Learning Commons (Thomas Hall 3.10) & the Leo Learning Center (LEO 117/118). These centers, conveniently spread across campus, provide students with a quiet space to study with a peer tutor, or engage in small group study sessions. 
+
+The services offered, all free of charge, include:
+
+- Individual peer tutoring in most 100-200 level and select 300-600 level courses 
+
+- Individual peer academic coaching
+
+- Writing Center services (in-person and online) include English language instruction. 
+
+- Appointments are strongly recommended but walk-ins are welcome. To make an appointment contact the CAS at 718.862.7414, email `success@manhattan.edu` or visit them in Thomas Hall, 3rd Fl. For more information please visit their website here. 
+
+### Academic Integrity Policy and Analyst Conduct
+
+The Manhattan College Academic Integrity Policy holds students accountable for the integrity of the work they submit. Students should be familiar with the Policy and know that it is their responsibility to learn about instructor and general academic expectations with regard to proper collection, usage, and citation of sources in written work. The policy also governs the integrity of work submitted in exams and assignments as well as the veracity of signatures on attendance sheets and other verifications of participation in class activities. For more information and the complete policy, see the Manhattan College Catalog.
+Here is an example compilation of guidelines for analyst conduct  that follow an analytical cycle of activities we will regularly refer to in the course. 
+
+To the extent possible we will apply these guidelines to our own work together.[^ethics]
+
+[^ethics]: Based on the Ethical Intelligence Cycle in Christopher E. Bailey and Major Susan M. Galich, “Codes of Ethics: The Intelligence Community “ _International Journal of Intelligence Ethics_, Vol. 3, No.2 ( Fall/Winter 2012).
+
+1.	Planning and Direction
+
+a.	Ensure targeting and collection priorities are proportional to the organization’s interests at stake.
+b.	Use organizational guidance considering potential outliers and anomalies.
+c.	Consider the least intrusive methods first. Open source should be your first resource.
+d.	Recommend that resources be used wisely and anticipate potential consequences in allocating collection requirements.
+e.	Be objective in developing collection requirements.
+
+2.	Collection
+
+a.	Provide honest and timely feedback to the collector.
+b.	Act responsibly. Do not collect just to collect, collect within the scope of your mission.
+c.	Take care to describe the source properly-be diligent and objective in the source description.
+d.	Protect sources and methods.
+e.	Appropriately scale collection to the immediacy and severity of the threat or opportunity.
+
+3.	Analysis  
+
+a.	Avoid abuse of access to information.
+b.	Recommend but do not direct.
+c.	Trust but verify-seek the truth, evaluate information, and do your best to corroborate information with other sources; however, do not immediately distrust single-source information.
+d.	Maintain objectivity and avoid politicization.
+e.	Always use alternative analysis and consider the widest possible range of hypotheses.
+f.	Do not misrepresent or overinflate estimates and results in your analysis.
+g.	Do not make policy decisions
+h.	As an analyst, your job includes providing feedback to collectors, accurate and timely results to producers, and support for decision makers
+
+4.	Production
+
+a.	Be cognizant of the weight that analytical products carry; understand that assessments have influence over policy and decisions, allocations of resources, deployment of resources, and strategic choices and tactical implementation and continuous improvement of strategy.
+b.	Coordinate with the widest possible range of experts before disseminating analytical products.
+c.	Strive to find a balance between quality and timeliness in production - an on-time C product is worth far more than an A product that is too late.
+
+5.	Dissemination
+
+a.	Speak truth to power -- give the decision maker accurate information rather than what he or she wants to hear.
+b.	Don't stovepipe -- disseminate to the widest possible audience; when in doubt about sharing or disseminating information, seek guidance.
+c.	Always follow your organization's guidelines for appropriate dissemination and release of information.
+
+### Course credits
+
+The successful completion of this course will earn the student 3 (three) credit-hours.
+
+### In-Class Camera Policy
+
+In order to promote community, it is important that faculty are able to interact and engage with students. Thus, during online class activities, students are required to leave their cameras turned on. Students with extenuating circumstances may request an exemption from this requirement to the professor in writing. 
+(by order of the EAC, 2020-09-25)
+
