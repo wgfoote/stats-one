@@ -1,1 +1,1 @@
-# Probabalistic Reasoning from and Elementary Point of View
+# Probabilistic Reasoning from and Elementary Point of View
